@@ -60,4 +60,4 @@ Vtuberという文化が登場してから7年ほどが経過し、現在では�
 Figma：https://www.figma.com/file/C3glur5TElWMfdBr5OtMs3/%E5%90%84%E7%94%BB%E9%9D%A2%E3%81%AEUI?type=design&node-id=41%3A2573&mode=design&t=GgsmpW7AMXCWkRsW-1
 
 ## ER図
-[![ER図](https://i.gyazo.com/decb7dba6735d7275f3032eb4cc74bd5.png)](https://gyazo.com/decb7dba6735d7275f3032eb4cc74bd5)
+[![ER図](https://i.gyazo.com/3b683c50a0d7af422da0095db7de901c.png)](https://gyazo.com/3b683c50a0d7af422da0095db7de901c)
