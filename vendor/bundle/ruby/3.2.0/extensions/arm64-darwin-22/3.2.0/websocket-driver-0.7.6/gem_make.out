@@ -1,0 +1,19 @@
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+/Users/saku/.rbenv/versions/3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20231217-28926-i2t22o sitelibdir\=./.gem.20231217-28926-i2t22o clean
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20231217-28926-i2t22o sitelibdir\=./.gem.20231217-28926-i2t22o
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20231217-28926-i2t22o sitelibdir\=./.gem.20231217-28926-i2t22o install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20231217-28926-i2t22o
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20231217-28926-i2t22o sitelibdir\=./.gem.20231217-28926-i2t22o clean

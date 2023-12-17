@@ -1,0 +1,16 @@
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+/Users/saku/.rbenv/versions/2.5.1/bin/ruby -I /Users/saku/.rbenv/versions/2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20231216-5631-1nkdvim.rb extconf.rb
+creating Makefile
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make "DESTDIR=" clean
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make "DESTDIR="
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+ld: warning: -multiply_defined is obsolete
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20231216-5631-18dw35b

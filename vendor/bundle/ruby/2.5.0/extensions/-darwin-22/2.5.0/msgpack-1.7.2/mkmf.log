@@ -1,0 +1,261 @@
+have_func: checking for rb_enc_interned_str() in ruby.h... -------------------- no
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+conftest.c:15:57: error: use of undeclared identifier 'rb_enc_interned_str'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+ld: Undefined symbols:
+  _rb_enc_interned_str, referenced from:
+      _t in conftest-fc4cc7.o
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: extern void rb_enc_interned_str();
+16: int t(void) { rb_enc_interned_str(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_hash_new_capa() in ruby.h... -------------------- no
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+conftest.c:15:57: error: use of undeclared identifier 'rb_hash_new_capa'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_new_capa; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_new_capa; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+ld: Undefined symbols:
+  _rb_hash_new_capa, referenced from:
+      _t in conftest-af943c.o
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: extern void rb_hash_new_capa();
+16: int t(void) { rb_hash_new_capa(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_proc_call_with_block() in ruby.h... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_proc_call_with_block; return !p; }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -fvisibility=hidden is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  -fvisibility=hidden -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -I.. is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden  -I.. -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -Wall is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden -I..  -Wall -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -O3 is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden -I.. -Wall  -O3 -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -std=gnu99 is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden -I.. -Wall -O3  -std=gnu99 -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -ggdb3 is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden -I.. -Wall -O3 -std=gnu99  -ggdb3 -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -DHASH_ASET_DEDUPE=0 is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden -I.. -Wall -O3 -std=gnu99 -ggdb3  -DHASH_ASET_DEDUPE=0 -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -DSTR_UMINUS_DEDUPE_FROZEN=0 is accepted as CFLAGS... -------------------- yes
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe -fvisibility=hidden -I.. -Wall -O3 -std=gnu99 -ggdb3 -DHASH_ASET_DEDUPE=0  -DSTR_UMINUS_DEDUPE_FROZEN=0 -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+

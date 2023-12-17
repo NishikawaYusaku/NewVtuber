@@ -1,0 +1,16 @@
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/racc-1.7.3/ext/racc/cparse
+/Users/saku/.rbenv/versions/2.5.1/bin/ruby -I /Users/saku/.rbenv/versions/2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20231216-5631-1uryu7e.rb extconf.rb
+creating Makefile
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/racc-1.7.3/ext/racc/cparse
+make "DESTDIR=" clean
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/racc-1.7.3/ext/racc/cparse
+make "DESTDIR="
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+ld: warning: -multiply_defined is obsolete
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/racc-1.7.3/ext/racc/cparse
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cparse.bundle ./.gem.20231216-5631-1776cm9/racc

@@ -1,0 +1,208 @@
+have_header: checking for unistd.h... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <unistd.h>
+/* end */
+
+--------------------
+
+have_func: checking for rb_io_descriptor()... -------------------- no
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'rb_io_descriptor'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_io_descriptor; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_io_descriptor; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+ld: Undefined symbols:
+  _rb_io_descriptor, referenced from:
+      _t in conftest-fb3071.o
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: extern void rb_io_descriptor();
+14: int t(void) { rb_io_descriptor(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for linux/aio_abi.h... -------------------- no
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'linux/aio_abi.h' file not found
+#include <linux/aio_abi.h>
+         ^~~~~~~~~~~~~~~~~
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <linux/aio_abi.h>
+/* end */
+
+--------------------
+
+have_header: checking for linux/io_uring.h... -------------------- no
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'linux/io_uring.h' file not found
+#include <linux/io_uring.h>
+         ^~~~~~~~~~~~~~~~~~
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <linux/io_uring.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/select.h... -------------------- yes
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/select.h>
+/* end */
+
+--------------------
+
+have_type: checking for port_event_t in poll.h... -------------------- no
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe   -c conftest.c"
+conftest.c:6:9: error: unknown type name 'port_event_t'
+typedef port_event_t conftest_type;
+        ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <poll.h>
+4: 
+5: /*top*/
+6: typedef port_event_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_header: checking for sys/epoll.h... -------------------- no
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'sys/epoll.h' file not found
+#include <sys/epoll.h>
+         ^~~~~~~~~~~~~
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/epoll.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/event.h... -------------------- yes
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/event.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/queue.h... -------------------- yes
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/queue.h>
+/* end */
+
+--------------------
+
+have_type: checking for port_event_t in port.h... -------------------- no
+
+"clang -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe   -c conftest.c"
+conftest.c:3:10: fatal error: 'port.h' file not found
+#include <port.h>
+         ^~~~~~~~
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <port.h>
+4: 
+5: /*top*/
+6: typedef port_event_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_header: checking for sys/resource.h... -------------------- yes
+
+"clang -E -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/resource.h>
+/* end */
+
+--------------------
+

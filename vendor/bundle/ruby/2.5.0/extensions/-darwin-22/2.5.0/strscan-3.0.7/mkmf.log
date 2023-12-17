@@ -1,0 +1,113 @@
+have_func: checking for onig_region_memsize() in ruby.h... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+conftest.c:15:57: error: use of undeclared identifier 'onig_region_memsize'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))onig_region_memsize; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))onig_region_memsize; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: extern void onig_region_memsize();
+16: int t(void) { onig_region_memsize(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_reg_onig_match() in ruby.h... -------------------- no
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+conftest.c:15:57: error: use of undeclared identifier 'rb_reg_onig_match'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_reg_onig_match; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_reg_onig_match; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+ld: Undefined symbols:
+  _rb_reg_onig_match, referenced from:
+      _t in conftest-6b0389.o
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: extern void rb_reg_onig_match();
+16: int t(void) { rb_reg_onig_match(); return 0; }
+/* end */
+
+--------------------
+

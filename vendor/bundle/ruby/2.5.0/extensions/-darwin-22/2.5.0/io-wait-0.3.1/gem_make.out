@@ -1,0 +1,11 @@
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+/Users/saku/.rbenv/versions/2.5.1/bin/ruby -I /Users/saku/.rbenv/versions/2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20231216-5631-zsv17t.rb extconf.rb
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+make "DESTDIR=" clean
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+make "DESTDIR="
+
+current directory: /Users/saku/workspace/runteq/NewVtuber/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.1/ext/io/wait
+make "DESTDIR=" install

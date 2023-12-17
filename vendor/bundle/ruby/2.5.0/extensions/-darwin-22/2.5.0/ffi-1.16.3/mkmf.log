@@ -1,0 +1,277 @@
+"pkg-config --exists libffi"
+| pkg-config --libs libffi
+=> "-lffi\n"
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lruby.2.5.1 -lffi -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+| pkg-config --cflags-only-I libffi
+=> "-I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi\n"
+| pkg-config --cflags-only-other libffi
+=> "\n"
+| pkg-config --libs-only-l libffi
+=> "-lffi\n"
+package configuration for libffi
+cflags: 
+ldflags: 
+libs: -lffi
+
+have_library: checking for ffi_prep_closure_loc() in -lffi... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector      -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+ld: warning: ignoring duplicate libraries: '-lffi'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ffi.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_prep_closure_loc; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for ffi_prep_cif_var()... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'ffi_prep_cif_var'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_prep_cif_var; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_prep_cif_var; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+ld: warning: ignoring duplicate libraries: '-lffi'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: extern void ffi_prep_cif_var();
+14: int t(void) { ffi_prep_cif_var(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ffi_raw_call()... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'ffi_raw_call'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_raw_call; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_raw_call; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+ld: warning: ignoring duplicate libraries: '-lffi'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: extern void ffi_raw_call();
+14: int t(void) { ffi_raw_call(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for ffi_prep_raw_closure()... -------------------- yes
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'ffi_prep_raw_closure'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_prep_raw_closure; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))ffi_prep_raw_closure; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+ld: warning: ignoring duplicate libraries: '-lffi'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: extern void ffi_prep_raw_closure();
+14: int t(void) { ffi_prep_raw_closure(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_gc_mark_movable()... -------------------- no
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'rb_gc_mark_movable'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_gc_mark_movable; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_gc_mark_movable; return !p; }
+/* end */
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -lffi  -lffi -lpthread -ldl -lobjc "
+ld: warning: ignoring duplicate libraries: '-lffi'
+ld: Undefined symbols:
+  _rb_gc_mark_movable, referenced from:
+      _t in conftest-669347.o
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: extern void rb_gc_mark_movable();
+14: int t(void) { rb_gc_mark_movable(); return 0; }
+/* end */
+
+--------------------
+
+block in append_ldflags: checking for whether -pthread is accepted as LDFLAGS... -------------------- no
+
+"clang -o conftest -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/-darwin22 -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0/ruby/backward -I/Users/saku/.rbenv/versions/2.5.1/include/ruby-2.5.0 -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/usr/include/ffi -I/Users/saku/.rbenv/versions/2.5.1/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -DUSE_FFI_CLOSURE_ALLOC -fno-common -pipe  conftest.c  -L. -L/Users/saku/.rbenv/versions/2.5.1/lib -L. -L/Users/saku/.rbenv/versions/2.5.1/lib  -fstack-protector     -lffi  -lffi -lruby.2.5.1 -pthread -lpthread -ldl -lobjc "
+ld: warning: ignoring duplicate libraries: '-lffi'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+--------------------
+
+extconf.h is:
+/* begin */
+1: #ifndef EXTCONF_H
+2: #define EXTCONF_H
+3: #define HAVE_FFI_PREP_CIF_VAR 1
+4: #define HAVE_FFI_RAW_CALL 1
+5: #define HAVE_FFI_PREP_RAW_CLOSURE 1
+6: #define HAVE_RAW_API 1
+7: #define USE_FFI_ALLOC 1
+8: #endif
+/* end */
+
