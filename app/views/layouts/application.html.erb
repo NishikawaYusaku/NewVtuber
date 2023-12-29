@@ -10,6 +10,10 @@
   </head>
 
   <body>
+    <%= render 'shared/before_login_header' %>
+    <!-- <%= render 'shared/after_login_header' %> -->
     <%= yield %>
+    <%= render 'shared/before_login_footer' %>
+    <!-- <%= render 'shared/after_login_footer' %> -->
   </body>
 </html>
