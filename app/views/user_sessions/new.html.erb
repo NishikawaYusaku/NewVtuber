@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-center align-middle form-margin">
+    <%= form_with url: login_path, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :email, "メールアドレス", class: "form-label" %>
+        <%= f.email_field :email, class: "form-control si-form-width" %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :password, "パスワード", class: "form-label" %>
+        <%= f.password_field :password, class: "form-control " %>
+      </div>
+      <div class="text-center">
+        <%= f.submit "ログイン", class: "btn btn-primary si-form-width" %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
