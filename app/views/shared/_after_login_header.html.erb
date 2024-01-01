@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">にゅーぶい！</a>
+      <%= link_to "にゅーぶい！", root_path, class: "navbar-brand" %>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,7 +31,16 @@
         </div>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">ログアウト</a>
+            <%= link_to "作成", logout_path, class: "nav-link", method: :delete %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "通知", logout_path, class: "nav-link", method: :delete %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "マイページ", logout_path, class: "nav-link", method: :delete %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログアウト", logout_path, class: "nav-link", method: :delete %>
           </li>
         </ul>
       </div>
