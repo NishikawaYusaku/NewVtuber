@@ -1,4 +1,4 @@
-# Chaos（サービス名未定）
+# にゅーぶい！
 
 ## サービス概要
 Vtuberはファンの獲得、ファンはまだ知らないVtuberとの出会いが出来ることを目指したサービスです。
@@ -41,7 +41,7 @@ Vtuberという文化が登場してから7年ほどが経過し、現在では�
 * コメント作成機能
 * コメント編集機能
 * コメント削除機能
-* 好みにあった配信者のレコメンド機能
+（* 好みにあった配信者のレコメンド機能）
 
 ### その後の機能
 * マルチ検索
@@ -49,12 +49,12 @@ Vtuberという文化が登場してから7年ほどが経過し、現在では�
 
 ## 使用予定の技術
 * Ruby 3.2.2
-* Ruby on Rails 7.1.1
+* Ruby on Rails 7.1.2
 * JavaScript
-* Bootstrap
-* MySQL
-* recommendify
-* Heroku
+* Bootstrap 5.3.2
+* PostgreSQL
+（* recommendify）
+* fly.io
 
 ## 画面遷移図
 Figma：https://www.figma.com/file/C3glur5TElWMfdBr5OtMs3/%E5%90%84%E7%94%BB%E9%9D%A2%E3%81%AEUI?type=design&node-id=41%3A2573&mode=design&t=GgsmpW7AMXCWkRsW-1
