@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center align-middle form-margin">
-      <%= form_with model: @user, local: true do |f| %>
+      <%= form_with model: @user, url: user_new_path, local: true do |f| %>
         <%= render 'shared/error_message', object: f.object %>
         <div class="mb-3">
           <%= f.label :email, "メールアドレス", class: "form-label" %>
