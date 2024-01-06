@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   get 'user', to: 'users#show'
 
+  get 'user/email', to: 'users#edit_email'
+  patch 'user/email', to: 'users#update_email'
+
   # get 'user/password', to: 'users#edit_password'
   # patch 'user/password', to: 'users#update_password'
   resources :password_resets, only: %i[new create edit update]
