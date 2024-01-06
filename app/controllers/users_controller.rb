@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login
-  before_action :set_user, only: %i[edit_name update_name]
+  skip_before_action :require_login, only: %i[new create]
+  before_action :set_user, only: %i[edit_password update_password edit_name update_name]
 
   def new
     @user = User.new
@@ -18,6 +18,30 @@ class UsersController < ApplicationController
   end
 
   def show; end
+
+=begin
+  def edit_password
+    @user.crypted_password = ""
+  end
+
+  def update_password
+    binding.pry
+    if @user.valid_password?(params[:user][:password_current])
+      if (params[:user][:password] == params[:user][:password_confirmation])
+        # @user.crypted_password = params[:user][:password]
+        @user.update(aaa)
+        redirect_to user_path
+        flash[:success] = "パスワードを変更しました"
+      else
+        flash.now[:danger] = "新しいパスワードが一致しません"
+        render :edit_password
+      end
+    else
+      flash.now[:danger] = "現在のパスワードが間違っています"
+      render :edit_password
+    end
+  end
+=end
 
   def edit_name
     @user.name = ""
@@ -40,7 +64,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :name)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name)
   end
-
 end

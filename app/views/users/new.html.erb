@@ -9,7 +9,11 @@
         </div>
         <div class="mb-3">
           <%= f.label :password, "パスワード", class: "form-label" %>
-          <%= f.password_field :password, class: "form-control " %>
+          <%= f.text_field :password, class: "form-control " %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :password_confirmation, "パスワード（確認用）", class: "form-label" %>
+          <%= f.text_field :password_confirmation, class: "form-control " %>
         </div>
         <div class="mb-3">
           <%= f.label :name, "ユーザー名", class: "form-label" %>

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 border mx-auto">
+      <div class="d-flex mb-5 mt-5">
+        <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
+          <div class="mb-3">
+            <%= f.label :password, "新しいパスワード" %>
+            <%= f.password_field :password, class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :password_confirmation, "新しいパスワード（確認用）" %>
+            <%= f.password_field :password_confirmation, class: 'form-control' %>
+          </div>
+          <div class="text-center">
+          <%= f.submit '更新する', class: 'btn btn-primary si-form-width' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
