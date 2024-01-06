@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 border mx-auto">
+      <div class="d-flex mb-5 mt-5">
+        <%= form_with url: password_resets_path, local: true, method: :post do |f| %>
+          <div class="mb-3">
+            <%= f.label :email, "メールアドレス" %>
+            <% if logged_in? %>
+              <div class="text-left">
+                <%= current_user.email %>
+              </div>
+            <% else %>
+              <%= f.text_field :email, class:"form-control" %>
+            <% end %>
+          </div>
+          <div class="text-center"></div>
+            <%= f.submit '送信', class: "btn btn-primary si-form-width" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
