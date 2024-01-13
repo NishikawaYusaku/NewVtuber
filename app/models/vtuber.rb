@@ -12,6 +12,6 @@ class Vtuber < ApplicationRecord
   has_many :contents, through: :vtuber_contents
 
   validates :name, uniqueness: true, presence: true
-  validates :name_x, uniqueness: true
+  validates :name_x, uniqueness: true, if: -> { new_record? || changes[:name_x] }
 
 end
