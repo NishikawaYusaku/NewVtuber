@@ -5,3 +5,6 @@ ja:
         email: メールアドレス
         password: パスワード
         name: ユーザー名
+      vtuber:
+        name: Vtuberの名前
+        name_x: Xのユーザー

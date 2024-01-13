@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  image: MyString
+  debut_date: 2024-01-08
+  fan_name: MyString
+  hashtag: MyString
+  like: MyString
+  unlike: MyString
+
+two:
+  name: MyString
+  image: MyString
+  debut_date: 2024-01-08
+  fan_name: MyString
+  hashtag: MyString
+  like: MyString
+  unlike: MyString

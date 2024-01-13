@@ -1,0 +1,2 @@
+module VtubersHelper
+end

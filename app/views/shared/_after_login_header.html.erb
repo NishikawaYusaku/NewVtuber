@@ -31,7 +31,30 @@
         </div>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <%= link_to "作成", logout_path, class: "nav-link", method: :delete %>
+            <button type="button" class="m-button nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">設定</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_with url: root_path, local: true do |f| %>
+                        
+                        <div class="mb-3">
+                          <%= f.label :name, "設定するVtuberの名前", class: "form-label" %>
+                          <%= f.text_field :name, class: "form-control" %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                          <%= f.submit "設定する", class: "btn btn-primary" %>
+                        </div>
+                      <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
           <li class="nav-item">
             <%= link_to "通知", logout_path, class: "nav-link", method: :delete %>
