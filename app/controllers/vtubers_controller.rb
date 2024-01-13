@@ -1,8 +1,12 @@
 class VtubersController < ApplicationController
-  before_action :require_login, except: %i[index]
+  before_action :require_login, except: %i[index show]
   
   def index
 
+  end
+
+  def show
+    @vtuber = Vtuber.find(params[:id])
   end
 
   def name_input
@@ -41,6 +45,10 @@ class VtubersController < ApplicationController
     @vtuber = Vtuber.find(params[:id])
     @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
     @vtuber_place = VtuberPlace.find_by(url: params[:vtuber][:url])
+
+    if @vtuber_place
+      @vtuber_place.update(vtuber_id: current_user.id, place_id: params[:vtuber][:place_ids], url: params[:vtuber][:url])
+    end
 
     if @vtuber.update(vtuber_params) && @vtuber_user.save
       redirect_to root_path

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'vtubers#index'
-  # get '/', to: 'vtubers#name_input'
+
+  get 'show/:id', to: 'vtubers#show', as: :show
+
   post '/', to: 'vtubers#name_input'
 
   get 'new', to: 'vtubers#new'
