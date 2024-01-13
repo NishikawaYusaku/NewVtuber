@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  root 'boards#index'
+  root 'vtubers#index'
+  # get '/', to: 'vtubers#name_input'
+  post '/', to: 'vtubers#name_input'
+
+  get 'new', to: 'vtubers#new'
+  post 'new', to: 'vtubers#create'
 
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'

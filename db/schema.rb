@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_130340) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_13_030547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contents", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "frequencies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -29,4 +47,55 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_130340) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  create_table "vtuber_contents", force: :cascade do |t|
+    t.bigint "vtuber_id"
+    t.bigint "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_vtuber_contents_on_content_id"
+    t.index ["vtuber_id"], name: "index_vtuber_contents_on_vtuber_id"
+  end
+
+  create_table "vtuber_places", force: :cascade do |t|
+    t.bigint "vtuber_id"
+    t.bigint "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "url"
+    t.index ["place_id"], name: "index_vtuber_places_on_place_id"
+    t.index ["vtuber_id"], name: "index_vtuber_places_on_vtuber_id"
+  end
+
+  create_table "vtuber_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "vtuber_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_vtuber_users_on_user_id"
+    t.index ["vtuber_id"], name: "index_vtuber_users_on_vtuber_id"
+  end
+
+  create_table "vtubers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "image"
+    t.date "debut_date"
+    t.string "fan_name"
+    t.string "like"
+    t.string "unlike"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "frequency_id"
+    t.string "gender"
+    t.string "name_x"
+    t.index ["frequency_id"], name: "index_vtubers_on_frequency_id"
+    t.index ["name"], name: "index_vtubers_on_name", unique: true
+  end
+
+  add_foreign_key "vtuber_contents", "contents"
+  add_foreign_key "vtuber_contents", "vtubers"
+  add_foreign_key "vtuber_places", "places"
+  add_foreign_key "vtuber_places", "vtubers"
+  add_foreign_key "vtuber_users", "users"
+  add_foreign_key "vtuber_users", "vtubers"
+  add_foreign_key "vtubers", "frequencies"
 end
