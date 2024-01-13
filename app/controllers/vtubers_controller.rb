@@ -9,7 +9,7 @@ class VtubersController < ApplicationController
     @vtuber = Vtuber.find_by(name: params[:name])
 
     if @vtuber
-      
+      redirect_to action: 'edit', id: @vtuber.id
     else
       redirect_to action: 'new', name: params[:name]
     end
@@ -26,10 +26,28 @@ class VtubersController < ApplicationController
 
     if @vtuber.save && @vtuber_user.save && @vtuber_place.save
       redirect_to root_path
-      flash[:success] = "ユーザーを登録しました"
+      flash[:success] = "Vtuberを登録しました"
     else
-      flash.now[:danger] = "ユーザーを登録できませんでした"
+      flash.now[:danger] = "Vtuberを登録できませんでした"
       render :new
+    end
+  end
+
+  def edit
+    @vtuber = Vtuber.find_by(id: params[:id])
+  end
+
+  def update
+    @vtuber = Vtuber.find(params[:id])
+    @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
+    @vtuber_place = VtuberPlace.find_by(url: params[:vtuber][:url])
+
+    if @vtuber.update(vtuber_params) && @vtuber_user.save
+      redirect_to root_path
+      flash[:success] = "Vtuberを更新しました"
+    else
+      flash.now[:danger] = "Vtuberを更新できませんでした"
+      render :edit
     end
   end
 
@@ -39,4 +57,4 @@ class VtubersController < ApplicationController
     params.require(:vtuber).permit( :name, :image, :debut_date, :fan_name, :like, :unlike, :gender, :name_x, content_ids: [] )
   end
 end
-# , place_ids: [], url: [] 
+# if  @vtuber_place.update

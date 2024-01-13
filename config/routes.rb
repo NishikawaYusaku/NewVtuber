@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'new', to: 'vtubers#new'
   post 'new', to: 'vtubers#create'
 
+  get 'edit/:id', to: 'vtubers#edit', as: :edit
+  patch 'edit/:id', to: 'vtubers#update'
+
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'

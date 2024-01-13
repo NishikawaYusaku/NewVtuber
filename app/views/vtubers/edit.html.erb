@@ -1,7 +1,7 @@
 <div class="container ">
   <div class="row">
     <div class="d-flex justify-content-center align-middle form-margin mb-5">
-      <%= form_with model: @vtuber, url: new_path, local: true do |f| %>
+      <%= form_with model: @vtuber, url: edit_path(@vtuber), local: true do |f| %>
         <%= render 'shared/error_message', object: f.object %>
         <div class="mb-5">
           <%= f.label :name, "Vtuberのお名前", class: "form-label" %>
@@ -27,7 +27,7 @@
         <div class="mb-5">
           <%= f.label :place, "配信サイト", class: "form-label" %>
           <div class="input-group">
-            <%= f.collection_select(:place_id, Place.all, :id, :name, {prompt: "選択"}, {class: "btn btn-outline-secondary"} ) %>
+            <%= f.collection_select(:place_ids, Place.all, :id, :name, {prompt: "選択"}, {class: "btn btn-outline-secondary"} ) %>
             <%= f.text_field :url, class: "form-control", placeholder: "選択した配信サイトのURL" %>
           </div>
         </div>
@@ -60,15 +60,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!-- カラム追加 -->
-<!-- 個人or企業 -->
-<!-- ? 誕生日 -->
-<!-- ? 推しマーク -->
-<!-- 身体的特徴（髪色、目色・・・） -->
-
-<!-- カラム削除 -->
-
-<!-- tag追加、frequency追加は後回しにしました -->
