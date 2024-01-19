@@ -29,7 +29,7 @@ class VtubersController < ApplicationController
     @vtuber_place = VtuberPlace.new(vtuber_id: @vtuber.id, place_id: params[:vtuber][:place_ids], url: params[:vtuber][:url])
 
     if @vtuber.save && @vtuber_user.save && @vtuber_place.save
-      redirect_to root_path
+      redirect_to show_path(@vtuber)
       flash[:success] = "Vtuberを登録しました"
     else
       flash.now[:danger] = "Vtuberを登録できませんでした"
@@ -51,7 +51,7 @@ class VtubersController < ApplicationController
     end
 
     if @vtuber.update(vtuber_params) && @vtuber_user.save
-      redirect_to root_path
+      redirect_to show_path(@vtuber)
       flash[:success] = "Vtuberを更新しました"
     else
       flash.now[:danger] = "Vtuberを更新できませんでした"
