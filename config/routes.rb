@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   get 'show/:id', to: 'vtubers#show', as: :show
 
+  post 'show/:id/favorite', to: 'favorites#create', as: :vtuber_favorite
+  delete 'show/:id/favorite', to: 'favorites#destroy'
+
   post '/', to: 'vtubers#name_input'
 
   get 'new', to: 'vtubers#new'

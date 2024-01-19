@@ -5,6 +5,9 @@
         <%= image_tag @vtuber.image.url, class: "rounded-circle border border-dark", size: "300x300" %>
 
         <h1 class="mb-5 mt-3 text-center"><%= @vtuber.name %></h1>
+        <div id="favorite_<%= @vtuber.id %>">
+          <%= render 'favorites/favorite', vtuber: @vtuber %>
+        </div>
 
         <div class="mb-5 mt-5 col-lg-7 mx-auto">
           <div class="d-flex">
