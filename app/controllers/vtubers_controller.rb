@@ -7,6 +7,8 @@ class VtubersController < ApplicationController
 
   def show
     @vtuber = Vtuber.find(params[:id])
+    @comment = Comment.new
+    @comments = @vtuber.comments
   end
 
   def name_input
