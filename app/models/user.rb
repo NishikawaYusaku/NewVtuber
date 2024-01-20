@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_vtubers, through: :favorites, source: :vtuber
 
+  has_many :comments, dependent: :destroy
+
   validates :email, presence: true, uniqueness: true
   validates :password, confirmation: true, presence: true, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }
   # validates :password_current, presence: true, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }

@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_15_080903) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_19_074750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "vtuber_id", null: false
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["vtuber_id"], name: "index_comments_on_vtuber_id"
+  end
 
   create_table "contents", force: :cascade do |t|
     t.string "name"
@@ -101,6 +111,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_080903) do
     t.index ["name"], name: "index_vtubers_on_name", unique: true
   end
 
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "vtubers"
   add_foreign_key "favorites", "users"
   add_foreign_key "favorites", "vtubers"
   add_foreign_key "vtuber_contents", "contents"
