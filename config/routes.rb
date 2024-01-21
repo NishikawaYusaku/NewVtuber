@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete 'show/:id/favorite', to: 'favorites#destroy'
 
   post 'show/:id/comments', to: 'comments#create', as: :vtuber_comment
-  delete 'show/:vtuber_id/comments/:id', to: 'comments#destroy'
+  delete 'comments/:id', to: 'comments#destroy', as: :vtuber_comment_delete
 
   post '/', to: 'vtubers#name_input'
 

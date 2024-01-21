@@ -1,2 +1,3 @@
-$('#comments-index').append("<div class='mb-5 border-top'><p><%= @comment.user.name %>　　<%= l @comment.created_at %></p><p><%= @comment.body %></p></div>");
+$('#comments-index').html("<%= j(render('comments/comments', vtuber: @vtuber)) %>");
+$('#js-comment-count').html("コメント（<%= @vtuber.comments.count %>）");
 $('#js-comment-form')[0].reset();

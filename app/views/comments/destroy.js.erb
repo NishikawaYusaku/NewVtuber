@@ -1,0 +1,2 @@
+$('#comments-index').html("<%= j(render('comments/comments', vtuber: @vtuber)) %>");
+$('#js-comment-count').html("コメント（<%= @vtuber.comments.count %>）");
