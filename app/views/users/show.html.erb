@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-lg-6 border mx-auto">
       <div class="mb-5 mt-5">
         <div class="col-lg-12">
@@ -53,17 +53,42 @@
         </div>
       </div>
       <div class="mb-5 d-flex">
+        <div class="col-lg-8">
+          <div class="text-left">
+            いいね一覧
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="text-center">
+            <%= link_to "見る", root_path, class: "btn btn-info" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5 mt-5">
+    <div class="col-lg-6 border mx-auto">
+      <p class="mt-3">いいねしたVtuber</p>
+      <% @vtubers.each do |vtuber| %>
+        <div class="d-flex border-top">
           <div class="col-lg-8">
-            <div class="text-left">
-              いいね一覧
+            <div class="text-left mt-2 mb-2">
+              <%= image_tag vtuber.image.url, class: "rounded-circle border border-dark", size: "50x50" %>
+              　<%= vtuber.name %>
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="text-center">
-              <%= link_to "見る", root_path, class: "btn btn-info" %>
+            <div class="text-center mt-3 mb-3">
+              　　 <%= link_to "見る", show_path(vtuber.id), class: "btn btn-info" %>
+              <%= link_to vtuber_favorite_path(vtuber.id), method: :delete, remote: true, class: "text-decoration-none link-dark" do %>
+                　<i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+              <% end %>
             </div>
+
           </div>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
