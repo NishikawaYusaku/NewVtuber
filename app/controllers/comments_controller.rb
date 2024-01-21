@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    # <i class="fa-thin fa-trash-can" style="color: #ff0000;"></i>
+    @vtuber = Vtuber.find(params[:id])
+    @comment = Comment.find(params[:format])
+    @comment.destroy
   end
 
   private

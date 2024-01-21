@@ -1,6 +1,13 @@
-<% comments.each do |comment| %>
+<% vtuber.comments.each do |comment| %>
   <div class="mb-5 border-top">
-    <p><%= "#{comment.user.name}　　#{l comment.created_at}" %></p>
+    <p>
+      <%= "#{comment.user.name}　　#{l comment.created_at}" %>
+      <% if comment.user.id == current_user.id %>
+        <%= link_to vtuber_comment_delete_path(vtuber, comment), method: :delete, remote: true, class: "text-decoration-none link-dark" do %>
+        　　<i class="fa-regular fa-trash-can" style="color: #ff0000;"></i>
+        <% end %>
+      <% end %>
+    </p>
     <p><%= comment.body %></p>
   </div>
 <% end %>
