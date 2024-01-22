@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @vtubers = current_user.favorite_vtubers
+    @vtuber = current_user.favorite_vtubers
   end
 
   def edit_email

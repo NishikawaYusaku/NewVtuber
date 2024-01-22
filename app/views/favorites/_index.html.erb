@@ -1,0 +1,18 @@
+<% vtuber.each do |v| %>
+  <div class="d-flex border-top">
+    <div class="col-lg-8">
+      <div class="text-left mt-2 mb-2">
+        <%= image_tag v.image.url, class: "rounded-circle border border-dark", size: "50x50" %>
+        　<%= v.name %>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="text-center mt-3 mb-3">
+        　　 <%= link_to "見る", show_path(v.id), class: "btn btn-info" %>
+        <%= link_to user_favorite_path(v), method: :delete, remote: true, class: "text-decoration-none link-dark" do %>
+          　<i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
