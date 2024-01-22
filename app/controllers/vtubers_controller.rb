@@ -1,9 +1,7 @@
 class VtubersController < ApplicationController
   before_action :require_login, except: %i[index show]
   
-  def index
-    @vtuber = Vtuber.all.order(:id).page(params[:page]).per(20)
-  end
+  def index; end
 
   def show
     @vtuber = Vtuber.find(params[:id])
