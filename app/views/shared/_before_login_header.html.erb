@@ -7,10 +7,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="flex-column ms-auto">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 h-form-width" type="search" placeholder="名前など" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">検索</button>
-          </form>
+          <%= search_form_for @q, url: root_path, class: "d-flex" do |f| %>
+            <%= f.search_field :name_or_gender_or_like_or_unlike_or_places_name_or_contents_name_cont, class: "form-control me-2 h-form-width", placeholder: "名前、性別、配信ジャンルなど" %>
+            <%= f.submit '検索', class: "btn btn-outline-success" %>
+          <% end %>
           <ul class="navbar-nav pr-5">
             <li class="nav-item px-5">
               <a class="nav-link active"href="#">項目1</a>
