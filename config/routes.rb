@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get 'show/:id', to: 'vtubers#show', as: :show
 
   post 'show/:id/favorite', to: 'favorites#create', as: :vtuber_favorite
-  delete 'show/:id/favorite', to: 'favorites#destroy'
+  delete 'show/:id/favorite', to: 'favorites#destroy_vtuber'
+  delete 'user/favorite/:id', to: 'favorites#destroy_user', as: :user_favorite
 
   post 'show/:id/comments', to: 'comments#create', as: :vtuber_comment
   delete 'comments/:id', to: 'comments#destroy', as: :vtuber_comment_delete
