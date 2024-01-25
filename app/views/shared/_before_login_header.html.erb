@@ -11,6 +11,7 @@
             <%= f.search_field :name_or_gender_or_like_or_unlike_or_places_name_or_contents_name_cont, class: "form-control me-2 h-form-width", placeholder: "名前、性別、配信ジャンルなど" %>
             <%= f.submit '検索', class: "btn btn-outline-success" %>
           <% end %>
+<!--
           <ul class="navbar-nav pr-5">
             <li class="nav-item px-5">
               <a class="nav-link active"href="#">項目1</a>
@@ -28,16 +29,17 @@
               <a class="nav-link active"href="#">項目5</a>
             </li>
           </ul>
+-->
         </div>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">にゅーぶい！とは</a>
+            <%= link_to "にゅーぶい！とは", pages_about_path, class: "nav-link active" %>
           </li>
           <li class="nav-item">
-            <%= link_to "新規登録", user_new_path, class: "nav-link" %>
+            <%= link_to "新規登録", user_new_path, class: "nav-link active" %>
           </li>
           <li class="nav-item">
-            <%= link_to "ログイン", login_path, class: "nav-link" %>
+            <%= link_to "ログイン", login_path, class: "nav-link active" %>
           </li>
         </ul>
       </div>
