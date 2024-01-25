@@ -11,6 +11,7 @@
             <%= f.search_field :name_or_gender_or_like_or_unlike_or_places_name_or_contents_name_cont, class: "form-control me-2 h-form-width", placeholder: "名前、性別、配信ジャンルなど" %>
             <%= f.submit '検索', class: "btn btn-outline-success" %>
           <% end %>
+<!--
           <ul class="navbar-nav pr-5">
             <li class="nav-item px-5">
               <a class="nav-link active" href="#">項目1</a>
@@ -28,6 +29,7 @@
               <a class="nav-link active" href="#">項目5</a>
             </li>
           </ul>
+-->
         </div>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -36,7 +38,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                    <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -57,13 +59,14 @@
             </div>
           </li>
           <li class="nav-item">
-            <%= link_to "通知", logout_path, class: "nav-link", method: :delete %>
+            <!-- <%= link_to "通知", pages_about_path, class: "nav-link" %> -->
+            <a href="#", class="nav-link disabled">通知</a>
           </li>
           <li class="nav-item">
-            <%= link_to "マイページ", user_path, class: "nav-link" %>
+            <%= link_to "マイページ", user_path, class: "nav-link active" %>
           </li>
           <li class="nav-item">
-            <%= link_to "ログアウト", logout_path, class: "nav-link", method: :delete %>
+            <%= link_to "ログアウト", logout_path, class: "nav-link active", method: :delete %>
           </li>
         </ul>
       </div>

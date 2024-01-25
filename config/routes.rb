@@ -40,5 +40,7 @@ Rails.application.routes.draw do
   get 'user/name', to: 'users#edit_name'
   patch 'user/name', to: 'users#update_name'
 
+  get 'pages/about', to: 'pages#about'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
