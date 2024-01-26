@@ -10,7 +10,7 @@ class Vtuber < ApplicationRecord
     ["comments", "contents", "places", "vtuber_contents", "vtuber_places"]
   end
   
-  has_many :vtuber_users
+  has_many :vtuber_users, dependent: :destroy
   has_many :users, through: :vtuber_users
 
   has_many :vtuber_places

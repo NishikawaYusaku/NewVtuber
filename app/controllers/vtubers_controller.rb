@@ -25,10 +25,12 @@ class VtubersController < ApplicationController
 
   def create
     @vtuber = current_user.vtubers.new(vtuber_params)
-    @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
-    @vtuber_place = VtuberPlace.new(vtuber_id: @vtuber.id, place_id: params[:vtuber][:place_ids], url: params[:vtuber][:url])
+    # @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
+    # @vtuber_place = VtuberPlace.new(vtuber_id: @vtuber.id, place_id: params[:vtuber][:place_ids], url: params[:vtuber][:url])
 
-    if @vtuber.save && @vtuber_user.save && @vtuber_place.save
+    if @vtuber.save
+      @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
+      @vtuber_user.save
       redirect_to show_path(@vtuber)
       flash[:success] = "Vtuberを登録しました"
     else
@@ -43,14 +45,16 @@ class VtubersController < ApplicationController
 
   def update
     @vtuber = Vtuber.find(params[:id])
-    @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
-    @vtuber_place = VtuberPlace.find_by(url: params[:vtuber][:url])
-
+    # @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
+    # @vtuber_place = VtuberPlace.find_by(url: params[:vtuber][:url])
+=begin
     if @vtuber_place
       @vtuber_place.update(vtuber_id: current_user.id, place_id: params[:vtuber][:place_ids], url: params[:vtuber][:url])
     end
-
-    if @vtuber.update(vtuber_params) && @vtuber_user.save
+=end
+    if @vtuber.update(vtuber_params)
+      @vtuber_user = VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id)
+      @vtuber_user.save
       redirect_to show_path(@vtuber)
       flash[:success] = "Vtuberを更新しました"
     else

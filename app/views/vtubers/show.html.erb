@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        
+<!--
         <div class="mb-5 mt-5 col-lg-7 mx-auto">
           <div class="d-flex">
             <div class="col-lg-6 text-left">
@@ -96,12 +96,14 @@
             </div>
           </div>
         </div>
-<!--  
+-->
+      <% if @vtuber.name_x.present? %>
         <div class="mb-5 mt-5 col-lg-12 mx-auto">
           <a class="twitter-timeline twitter-timeline" data-lang="ja" data-height="700", data-width="500" href="https://twitter.com/<%= @vtuber.name_x %>?ref_src=twsrc%5Etfw">Tweets by <%= @vtuber.name_x %>></a> 
           <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
--->
+      <% end %>
+      
       </div>
     </div>
   </div>
