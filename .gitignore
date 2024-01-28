@@ -29,3 +29,7 @@
 /vendor/bundle
 
 /public/uploads
+
+.env
+
+/config/credentials.yml.enc
