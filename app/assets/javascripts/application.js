@@ -19,4 +19,3 @@
 //= require activestorage
 //= require turbolinks
 
-// 「require_tree .」は削除しました
