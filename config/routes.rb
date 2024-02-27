@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   patch 'user/name', to: 'users#update_name'
 
   get 'pages/about', to: 'pages#about'
+  get 'pages/terms', to: 'pages#terms'
   get 'pages/privacy_policy', to: 'pages#privacy_policy'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
