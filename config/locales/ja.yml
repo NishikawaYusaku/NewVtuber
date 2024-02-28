@@ -4,10 +4,19 @@ ja:
       user:
         email: メールアドレス
         password: パスワード
+        password_confirmation: パスワード（確認用）
         name: ユーザー名
+        agreement: 利用規約とプライバシーポリシー
       vtuber:
-        name: Vtuberの名前
+        name: VTuberの名前
         name_x: Xのユーザー
+    errors:
+      models:
+        user:
+          attributes:
+            agreement:
+              format: '%{attribute}%{message}'
+              accepted: に同意してください
   views:
     pagination:
       first: <i class="fas fa-angle-double-left"></i>

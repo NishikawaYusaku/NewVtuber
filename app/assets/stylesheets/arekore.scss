@@ -20,3 +20,8 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+// フォームのエラー時にレイアウトが崩れることを防ぐ
+.field_with_errors {
+  display: contents;
+}
