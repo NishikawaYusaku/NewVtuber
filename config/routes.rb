@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   delete 'user/favorite/:id', to: 'favorites#destroy_user', as: :user_favorite
 
   post 'show/:id/comments', to: 'comments#create', as: :vtuber_comment
+  get 'show/:id/comments', to: 'comments#edit', as: :vtuber_comment_edit
+  patch 'show/:id/comments', to: 'comments#update', as: :vtuber_comment_update
   delete 'comments/:id', to: 'comments#destroy', as: :vtuber_comment_delete
 
   post '/', to: 'vtubers#name_input'
