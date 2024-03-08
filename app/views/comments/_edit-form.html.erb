@@ -1,0 +1,9 @@
+<div id="comment_<%= comment.id %>" class="mb-3 border-top">
+  <p><%= "#{comment.user.name}　　#{l comment.created_at}" %></p>
+  <div>
+    <%= form_with(model:[vtuber, comment], local: false) do |f|%>
+      <%= f.text_area :body, value: comment.body, class: "form-control" %>
+      <%= f.submit "更新", class: "btn btn-primary mt-3" %>
+    <% end%>
+  </div>
+</div>
