@@ -3,19 +3,22 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center align-middle form-margin">
-    <%= form_with url: login_path, local: true do |f| %>
-      <div class="mb-3">
-        <%= f.label :email, "メールアドレス", class: "form-label" %>
-        <%= f.email_field :email, class: "form-control si-form-width" %>
-      </div>
-      <div class="mb-3">
-        <%= f.label :password, "パスワード", class: "form-label" %>
-        <%= f.password_field :password, class: "form-control " %>
-      </div>
-      <div class="text-center">
-        <%= f.submit "ログイン", class: "btn btn-primary si-form-width" %>
-      </div>
-    <% end %>
+      <%= form_with url: login_path, local: true do |f| %>
+        <div class="mb-5">
+          <%= f.label :email, "メールアドレス", class: "form-label" %>
+          <%= f.email_field :email, class: "form-control si-form-width" %>
+        </div>
+        <div class="mb-5">
+          <%= f.label :password, "パスワード", class: "form-label" %>
+          <%= f.password_field :password, class: "form-control " %>
+        </div>
+        <div class="text-center mb-4">
+          <%= f.submit "ログイン", class: "btn btn-primary si-form-width" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="text-center mb-5">
+      <%= link_to "パスワードを忘れた方はこちら", new_password_reset_path, class: "text-center" %>
     </div>
   </div>
 </div>

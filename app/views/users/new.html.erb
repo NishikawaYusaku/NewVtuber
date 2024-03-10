@@ -5,24 +5,24 @@
     <div class="d-flex justify-content-center align-middle form-margin">
       <%= form_with model: @user, url: user_new_path, local: true do |f| %>
         <%= render 'shared/error_message', object: f.object %>
-        <div class="mb-3">
+        <div class="mb-5">
           <%= f.label :email, "メールアドレス", class: "form-label" %>
           <%= f.email_field :email, class: "form-control si-form-width" %>
         </div>
-        <div class="mb-3">
+        <div class="mb-5">
           <%= f.label :password, "パスワード", class: "form-label" %>
-          <div class="mb-1"><small>8文字以上でご設定してください</small></div>
+          <div class="mb-1"><small>8文字以上でご設定してください。</small></div>
           <%= f.password_field :password, class: "form-control " %>
         </div>
-        <div class="mb-3">
+        <div class="mb-5">
           <%= f.label :password_confirmation, "パスワード（確認用）", class: "form-label" %>
           <%= f.password_field :password_confirmation, class: "form-control " %>
         </div>
-        <div class="mb-3">
+        <div class="mb-5">
           <%= f.label :name, "ユーザー名", class: "form-label" %>
           <%= f.text_field :name, class: "form-control " %>
         </div>
-        <div class="mb-3">
+        <div class="mb-5">
           <%= f.check_box :agreement, as: :boolean, checked: false %>
           <%= link_to "利用規約", pages_terms_path, target: :_blank, rel: "noopener noreferrer" %>と<%= link_to "プライバシーポリシー", pages_privacy_policy_path, target: :_blank, rel: "noopener noreferrer" %>に同意します
         </div>
