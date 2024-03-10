@@ -3,13 +3,15 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 border mx-auto">
+      <h3 class="mt-4">パスワードの変更</h3>
       <div class="d-flex mb-5 mt-5">
         <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
-          <div class="mb-3">
+          <div class="mb-5">
             <%= f.label :password, "新しいパスワード" %>
+            <div class="mb-1"><small>8文字以上でご設定してください。</small></div>
             <%= f.password_field :password, class: 'form-control' %>
           </div>
-          <div class="mb-3">
+          <div class="mb-5">
             <%= f.label :password_confirmation, "新しいパスワード（確認用）" %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
           </div>

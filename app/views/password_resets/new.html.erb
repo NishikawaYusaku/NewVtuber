@@ -3,16 +3,18 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 border mx-auto">
+      <h3 class="mt-4">パスワードの変更</h3>
+      <p>パスワードを忘れた方はリセットをします。<br>下記のメールアドレス宛に変更のご案内をお送りします。</p>
       <div class="d-flex mb-5 mt-5">
         <%= form_with url: password_resets_path, local: true, method: :post do |f| %>
-          <div class="mb-3">
-            <%= f.label :email, "メールアドレス" %>
+          <div class="mb-5">
+            <%= f.label :email, "ご登録のメールアドレス", class: "form-label" %>
             <% if logged_in? %>
               <div class="text-left">
                 <%= current_user.email %>
               </div>
             <% else %>
-              <%= f.text_field :email, class:"form-control" %>
+              <%= f.email_field :email, class:"form-control" %>
             <% end %>
           </div>
           <div class="text-center"></div>
