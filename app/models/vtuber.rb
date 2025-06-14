@@ -27,6 +27,8 @@ class Vtuber < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :notifications, dependent: :destroy
+
   validates :name, uniqueness: true, presence: true
   validates :name_x, uniqueness: true, if: -> { new_record? || changes[:name_x] }, allow_blank: true
 
