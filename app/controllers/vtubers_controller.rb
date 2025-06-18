@@ -81,6 +81,7 @@ class VtubersController < ApplicationController
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
       tag_list = params[:vtuber][:tag].delete(' ').delete('　').split('、')
       @vtuber.save_tags(tag_list)
+      @vtuber.set_notification_update(current_user)
       redirect_to vtuber_path(@vtuber)
       flash[:success] = "VTuberを更新しました"
     else
