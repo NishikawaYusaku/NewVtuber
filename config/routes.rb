@@ -9,6 +9,12 @@ Rails.application.routes.draw do
 
   get '/vtubers/autocomplete_names', to: 'vtubers#autocomplete_names'
   post '/vtubers/name_input', to: 'vtubers#name_input'
+  
+  resources :notifications, only: %i[index] do
+    collection do
+      post :mark_as_read
+    end
+  end
 
   resources :vtubers, only: %i[new create show edit update] do
     post 'favorite', to: 'favorites#create'

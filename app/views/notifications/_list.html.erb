@@ -1,0 +1,4 @@
+<%= render @notifications %>
+<div class="d-flex justify-content-center">
+  <%= paginate @notifications, theme: 'bootstrap-5', window: 2, remote: true %>
+</div>

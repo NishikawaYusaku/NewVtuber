@@ -39,13 +39,13 @@
         <% end %>
       </div>
       <ul class="navbar-nav ms-auto mt-2">
-        <li class="nav-item d-flex justify-content-center me-3">
-          <button type="button" class="nav-link active text-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+        <li class="nav-item d-flex justify-content-center mx-3">
+          <button type="button" class="nav-link active text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <div class="d-none d-xl-block" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user-pen fa-2xl ms-2"></i>
               <div class="mt-2 small"><small>設定</small></div>
             </div>
-            <div class="d-xl-none mt-3 me-4" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
+            <div class="d-xl-none mt-3 me-5" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user-pen fa-2xl me-2"></i>
               <span>設定</span>
             </div>
@@ -73,19 +73,31 @@
             </div>
           </div>
         </li>
-        <li class="nav-item text-center me-3">
-          <%= link_to "#", class: "nav-link disabled" do %>
-            <div class="d-none d-xl-block">
-              <i class="fa-solid fa-bell fa-2xl"></i>
-              <div class="mt-2 small"><small>通知</small></div>
-            </div>
-            <div class="d-xl-none mt-3 me-4">
-              <i class="fa-solid fa-bell fa-2xl me-3"></i>
-              <span>通知</span>
-            </div>
+        <li class="nav-item d-flex justify-content-center mx-3", data-turbolinks="false">
+          <%= link_to notifications_path, class: "text-decoration-none", remote: true do %>
+            <button type="button" class="nav-link active text-center" data-bs-target="#notify-modal">
+            <% if @notification_check.present? %>
+              <div class="d-none d-xl-block" style="color: #ffffbc" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color">
+            <% else %>
+              <div class="d-none d-xl-block" style="color: #606060" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#606060';">
+            <% end %>
+                <i class="fa-solid fa-bell fa-2xl"></i>
+                <div class="mt-2 small"><small>通知</small></div>
+              </div>
+            <% if @notification_check.present? %>
+              <div class="d-xl-none mt-3 me-5" style="color: #ffffbc;" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color2">
+            <% else %>
+              <div class="d-xl-none mt-3 me-5" style="color: #606060;" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#606060';">
+            <% end %>
+                <i class="fa-solid fa-bell fa-2xl me-3"></i>
+                <span>通知</span>
+              </div>
+            </button>
           <% end %>
+          <div class="modal fade" id="notify-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          </div>
         </li>
-        <li class="nav-item text-center me-2">
+        <li class="nav-item text-center mx-3">
           <%= link_to user_path, class: "nav-link active" do %>
             <div class="d-none d-xl-block" style="color: #606060;" onmouseover="this.style.color='#7f7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user fa-2xl"></i>
@@ -97,7 +109,7 @@
             </div>
           <% end %>
         </li>
-        <li class="nav-item text-center me-2">
+        <li class="nav-item text-center ms-2 me-3">
           <%= link_to logout_path, class: "nav-link active", method: :delete do %>
             <div class="d-none d-xl-block" style="color: #606060;" onmouseover="this.style.color='#000000';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-right-from-bracket fa-2xl"></i>

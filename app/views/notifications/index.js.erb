@@ -1,0 +1,15 @@
+if(!document.getElementById("notify-modal").classList.contains("show")) {
+  const colorChange = document.getElementById("notification-color");
+  const colorChange2 = document.getElementById("notification-color2");
+  if(colorChange) colorChange.onmouseout = function() { this.style.color = "#606060";}
+  if(colorChange2) colorChange2.onmouseout = function() { this.style.color = "#606060";}
+  
+  document.getElementById("notify-modal").innerHTML = "<%= j(render 'index', notifications: @notifications) %>";
+  (function() {
+    const modalElement = document.getElementById("notify-modal");
+    const modalInstance = new bootstrap.Modal(modalElement);
+    modalInstance.show();
+  })();
+} else {
+  document.getElementById("pagenate").innerHTML = "<%= j(render 'list', notifications: @notifications) %>";
+}
