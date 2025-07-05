@@ -1,0 +1,16 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">通知</h1>
+      <small>（各メッセージは7日後に消えます）</small>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body" id="pagenate">
+      <% if @notifications.present? %>
+        <%= render 'list', notifications: @notifications %>
+      <% else %>
+        <p class="mt-3">通知はありません</p>
+      <% end %>
+    </div>
+  </div>
+</div>

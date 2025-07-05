@@ -50,7 +50,7 @@ class Vtuber < ApplicationRecord
   end
 
   def set_notification_update(current_user)
-    temp_ids = Favorite.select(:user_id).where(vtuber_id: id).where.not(user_id: current_user.id)
+    temp_ids = Favorite.select(:user_id).where(vtuber_id: id)
     if temp_ids.present?
       temp_ids.each do |temp_id|
         notification = current_user.active_notifications.new(
@@ -58,6 +58,9 @@ class Vtuber < ApplicationRecord
           vtuber_id: id,
           action: "update"
         )
+        if notification.visitor_id == notification.visited_id
+          notification.checked = true
+        end
         notification.save if notification.valid?
       end
     end

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :success, :info, :warning, :danger
   before_action :require_login
   before_action :set_search
+  before_action :check_notification, if: proc {logged_in?}
 
   private
 
@@ -19,5 +20,9 @@ class ApplicationController < ActionController::Base
       @q = Vtuber.ransack(@query)
       @vtubers = @q.result(distinct: true).order(:id).page(params[:page]).per(20)
     end
+  end
+
+  def check_notification
+    @notification_check = current_user.passive_notifications.where(checked: false)
   end
 end

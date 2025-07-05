@@ -1,0 +1,15 @@
+<% if notification.action == "update" %>
+  <div class="py-3 text-start <%= "bg-dark-subtle" if notification.checked == true %>">
+    <span class="ps-3">プロフィールが更新されました。</span>
+    <%= link_to vtuber_path(notification.vtuber_id), class: "text-decoration-none" do %>
+      <div class="py-3 ps-3 d-flex align-items-center link-dark <%= notification.checked ? "checked_notification" : "unchecked_notification" %> hover_notification">
+        <%= image_tag Vtuber.find(notification.vtuber_id).image.url, class: "rounded-circle me-3", size: "50x50", style: "border: 1px solid #000;" %>
+        <%= Vtuber.find(notification.vtuber_id).name %>
+      </div>
+    <% end %>
+    <div class="pe-3 text-end">
+      <%= time_ago_in_words(notification.created_at, include_seconds: true) %>
+    </div>
+  </div>
+  <div class="border-bottom border-2 my-3"></div>
+<% end %>
