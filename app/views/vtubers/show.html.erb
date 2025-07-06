@@ -66,13 +66,13 @@
           <div class="col-4">
             <li class="text-end">誕生日：</li>
           </div>
-          <div class="col-8"><%= @vtuber.birthday.strftime('%-m / %-d') %></div>
+          <div class="col-8"><%= @vtuber.birthday.strftime('%-m / %-d') if @vtuber.birthday %></div>
         </div>
         <div class="row pt-3 justify-content-start">
           <div class="col-4">
             <li class="text-end">デビュー日：</li>
           </div>
-          <div class="col-8"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') %></div>
+          <div class="col-8"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') if @vtuber.debut_date %></div>
         </div>
         <% if @youtube_channel %>
           <div class="row pt-3 justify-content-start">
