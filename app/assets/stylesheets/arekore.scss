@@ -42,11 +42,18 @@ ul.ui-autocomplete {
 .checked_notification {
   background-color: #ced4da;
 }
-
 .unchecked_notification {
   background-color: #ffffff;
 }
-
 .hover_notification:hover {
   background-color: #ffffbc;
+}
+
+.profile-hover:hover {
+  background-color: #b7ffdb;
+}
+
+.index-name {
+  margin-inline: auto;
+  max-inline-size: max-content;
 }
