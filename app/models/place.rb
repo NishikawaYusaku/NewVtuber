@@ -4,6 +4,6 @@ class Place < ApplicationRecord
     ["name"]
   end
 
-  has_many :vtuber_places
+  has_many :vtuber_places, dependent: :destroy
   has_many :vtubers, through: :vtuber_places
 end

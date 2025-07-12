@@ -86,22 +86,29 @@ RSpec.describe User, type: :model do
   describe 'association' do
     let(:user) {create(:user)}
     let(:vtuber) {create(:vtuber)}
+    
     context 'vtuber_users/vtubers' do
       it 'vtuber_users/vtubers' do
         create(:vtuber_user, user: user, vtuber: vtuber)
-        expect(user.vtubers).to include vtuber
+        expect(user.vtubers.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:vtuber_user, user: user, vtuber: vtuber)
+        expect {user.destroy} .to change {VtuberUser.count}.by(-1)
       end
     end
+    
     context 'favorites/favorite_vtubers' do
       it 'favorites/favorite_vtubers' do
         create(:favorite, user: user, vtuber: vtuber)
-        expect(user.favorite_vtubers).to include vtuber
+        expect(user.favorite_vtubers.count).to eq 1
       end
       it 'dependent: :destroy' do
         create(:favorite, user: user, vtuber: vtuber)
-        expect { user.destroy }.to change { Favorite.count }.by(-1)
+        expect {user.destroy}.to change {Favorite.count}.by(-1)
       end
     end
+    
     context 'comments' do
       it 'comments' do
         create(:comment, user: user, vtuber: vtuber)
@@ -109,9 +116,10 @@ RSpec.describe User, type: :model do
       end
       it 'dependent: :destroy' do
         create(:comment, user: user, vtuber: vtuber)
-        expect { user.destroy }.to change { Comment.count }.by(-1)
+        expect {user.destroy}.to change {Comment.count}.by(-1)
       end
     end
+    
     context 'active_notifications' do
       it 'active_notifications' do
         create(:favorite, user: create(:user), vtuber: vtuber)
@@ -125,9 +133,10 @@ RSpec.describe User, type: :model do
         visited_id = Favorite.find_by(vtuber_id: vtuber.id)&.user_id
         visited_user = User.find(visited_id)
         create(:notification, visitor: user, visited: visited_user, vtuber: vtuber)
-        expect { user.destroy }.to change { Notification.count }.by(-1)
+        expect {user.destroy}.to change {Notification.count}.by(-1)
       end
     end
+    
     context 'passive_notifications' do
       it 'passive_notifications' do
         create(:notification, visitor: create(:user), visited: user, vtuber: vtuber)
@@ -135,7 +144,7 @@ RSpec.describe User, type: :model do
       end
       it 'dependent: :destroy' do
         create(:notification, visitor: create(:user), visited: user, vtuber: vtuber)
-        expect {user.destroy}.to change { Notification.count }.by(-1)
+        expect {user.destroy}.to change {Notification.count}.by(-1)
       end
     end
   end
