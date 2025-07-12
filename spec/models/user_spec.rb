@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) {build(:user)}
-
   describe 'validation' do
+    let(:user) {build(:user)}
     it '有効な属性値' do
       expect(user).to be_valid
     end
@@ -80,6 +79,63 @@ RSpec.describe User, type: :model do
         user.agreement = "0"
         user.valid?
         is_expected.to include "に同意してください"
+      end
+    end
+  end
+
+  describe 'association' do
+    let(:user) {create(:user)}
+    let(:vtuber) {create(:vtuber)}
+    context 'vtuber_users/vtubers' do
+      it 'vtuber_users/vtubers' do
+        create(:vtuber_user, user: user, vtuber: vtuber)
+        expect(user.vtubers).to include vtuber
+      end
+    end
+    context 'favorites/favorite_vtubers' do
+      it 'favorites/favorite_vtubers' do
+        create(:favorite, user: user, vtuber: vtuber)
+        expect(user.favorite_vtubers).to include vtuber
+      end
+      it 'dependent: :destroy' do
+        create(:favorite, user: user, vtuber: vtuber)
+        expect { user.destroy }.to change { Favorite.count }.by(-1)
+      end
+    end
+    context 'comments' do
+      it 'comments' do
+        create(:comment, user: user, vtuber: vtuber)
+        expect(user.comments.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:comment, user: user, vtuber: vtuber)
+        expect { user.destroy }.to change { Comment.count }.by(-1)
+      end
+    end
+    context 'active_notifications' do
+      it 'active_notifications' do
+        create(:favorite, user: create(:user), vtuber: vtuber)
+        visited_id = Favorite.find_by(vtuber_id: vtuber.id)&.user_id
+        visited_user = User.find(visited_id)
+        create(:notification, visitor: user, visited: visited_user, vtuber: vtuber)
+        expect(user.active_notifications.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:favorite, user: create(:user), vtuber: vtuber)
+        visited_id = Favorite.find_by(vtuber_id: vtuber.id)&.user_id
+        visited_user = User.find(visited_id)
+        create(:notification, visitor: user, visited: visited_user, vtuber: vtuber)
+        expect { user.destroy }.to change { Notification.count }.by(-1)
+      end
+    end
+    context 'passive_notifications' do
+      it 'passive_notifications' do
+        create(:notification, visitor: create(:user), visited: user, vtuber: vtuber)
+        expect(user.passive_notifications.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:notification, visitor: create(:user), visited: user, vtuber: vtuber)
+        expect {user.destroy}.to change { Notification.count }.by(-1)
       end
     end
   end
