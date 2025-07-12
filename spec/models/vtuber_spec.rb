@@ -42,4 +42,88 @@ RSpec.describe Vtuber, type: :model do
       end
     end
   end
+
+  describe 'assocication' do
+    let(:user) {create(:user)}
+    let(:vtuber) {create(:vtuber)}
+    
+    context 'vtuber_users/users' do
+      it 'vtuber_users/users' do
+        create(:vtuber_user, user: user, vtuber: vtuber)
+        expect(vtuber.users.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:vtuber_user, user: user, vtuber: vtuber)
+        expect {vtuber.destroy}.to change {VtuberUser.count}.by(-1)
+      end
+    end
+    
+    context 'vtuber_places' do
+      let(:place) {create(:place)}
+      it 'vtuber_places' do
+        create(:vtuber_place, vtuber: vtuber, place: place)
+        expect(vtuber.places.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:vtuber_place, vtuber: vtuber, place: place)
+        expect {vtuber.destroy}.to change {VtuberPlace.count}.by(-1)
+      end
+    end
+
+    context 'vtuber_contents' do
+      let(:content) {create(:content)}
+      it 'vtuber_contents' do
+        create(:vtuber_content, vtuber: vtuber, content: content)
+        expect(vtuber.contents.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:vtuber_content, vtuber: vtuber, content: content)
+        expect {vtuber.destroy}.to change {VtuberContent.count}.by(-1)
+      end
+    end
+
+    context 'favorites/favorite_users' do
+      it 'favorites/favorite_users' do
+        create(:favorite, user: user, vtuber: vtuber)
+        expect(vtuber.favorite_users.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:favorite, user: user, vtuber: vtuber)
+        expect {vtuber.destroy}.to change {Favorite.count}.by(-1)
+      end
+    end
+
+    context 'vtuber_tags/tags' do
+      let(:tag) {create(:tag)}
+      it 'vtuber_tags/tags' do
+        create(:vtuber_tag, vtuber: vtuber, tag: tag)
+        expect(vtuber.tags.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:vtuber_tag, vtuber: vtuber, tag: tag)
+        expect {vtuber.destroy}.to change {VtuberTag.count}.by(-1)
+      end
+    end
+
+    context 'comments' do
+      it 'comments' do
+        create(:comment, user: user, vtuber: vtuber)
+        expect(vtuber.comments.count).to eq 1
+      end
+      it 'dependent: :destroy' do
+        create(:comment, user: user, vtuber: vtuber)
+        expect {vtuber.destroy}.to change {Comment.count}.by(-1)
+      end
+    end
+
+    context 'notifications' do
+      it 'notifications' do
+        create(:favorite, user: create(:user), vtuber: vtuber)
+        visited_id = Favorite.find_by(vtuber_id: vtuber.id)&.user_id
+        visited_user = User.find(visited_id)
+        create(:notification, visitor: create(:user), visited: visited_user, vtuber: vtuber)
+        expect(vtuber.notifications.count).to eq 1
+      end
+    end
+  end
 end

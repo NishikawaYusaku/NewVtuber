@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
-  has_many :vtuber_users
+  has_many :vtuber_users, dependent: :destroy
   has_many :vtubers, through: :vtuber_users
 
   has_many :favorites, dependent: :destroy
