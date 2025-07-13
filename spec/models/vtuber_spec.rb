@@ -58,9 +58,9 @@ RSpec.describe Vtuber, type: :model do
       end
     end
     
-    context 'vtuber_places' do
+    context 'vtuber_places/places' do
       let(:place) {create(:place)}
-      it 'vtuber_places' do
+      it 'vtuber_places/places' do
         create(:vtuber_place, vtuber: vtuber, place: place)
         expect(vtuber.places.count).to eq 1
       end
@@ -70,9 +70,9 @@ RSpec.describe Vtuber, type: :model do
       end
     end
 
-    context 'vtuber_contents' do
+    context 'vtuber_contents/contents' do
       let(:content) {create(:content)}
-      it 'vtuber_contents' do
+      it 'vtuber_contents/contents' do
         create(:vtuber_content, vtuber: vtuber, content: content)
         expect(vtuber.contents.count).to eq 1
       end
