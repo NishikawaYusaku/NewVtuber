@@ -126,4 +126,81 @@ RSpec.describe Vtuber, type: :model do
       end
     end
   end
+
+  describe 'save_tags(tags)' do
+    let(:vtuber) {create(:vtuber)}
+
+    context '配列要素が新規のみ' do
+      it 'VtuberTag、Tagに新規追加される' do
+        vtuber.save_tags(["あ", "い", "う"])
+        expect(vtuber.tags.pluck(:name)).to match_array(["あ", "い", "う"])
+        expect(Tag.count).to eq 3
+      end
+    end
+
+    context '配列要素が新規と既存' do
+      before do
+        vtuber.save_tags(["あ", "い", "う"])
+      end
+      it 'VtuberTagは新規追加、既存維持、旧式削除、Tagは新規追加される' do
+        vtuber.save_tags(["う", "え", "お"])
+        expect(vtuber.tags.pluck(:name)).to match_array(["う", "え", "お"])
+        expect(Tag.where(name: ["あ","い"]).count).to eq 2
+        expect(Tag.count).to eq 5
+      end
+    end
+
+    context '配列要素が空（登録タグが無い）' do
+      before do
+        vtuber.save_tags(["あ", "い", "う"])
+      end
+      it 'VtuberTagは旧式削除、Tagは維持される' do
+        vtuber.save_tags([])
+        expect(vtuber.tags).to be_empty
+        expect(Tag.count).to eq 3
+      end
+    end
+
+    context '配列要素が重複' do
+      it 'VtuberTag、Tagに新規の重複は1件追加' do
+        vtuber.save_tags(["あ", "い", "あ"])
+        expect(vtuber.tags.pluck(:name)).to match_array(["あ", "い"])
+        expect(Tag.count).to eq 2
+      end
+    end
+  end
+
+  describe 'set_notification_update(current_user)' do
+    let(:vtuber) {create(:vtuber)}
+    let(:current_user) {create(:user)}
+
+    context '通知相手（お気に入り登録している）がいる' do
+      let(:favorited_user) {create(:user)}
+      before do
+        Favorite.create(user: favorited_user, vtuber: vtuber)
+      end
+
+      it '通知データが登録される' do
+        vtuber.set_notification_update(current_user)
+        expect(current_user.active_notifications.count).to eq 1
+        notification = current_user.active_notifications.first
+        expect(notification.visited_id).to eq favorited_user.id
+        expect(notification.vtuber_id).to eq vtuber.id
+        expect(notification.action).to eq "update"
+      end
+      it '自分宛の通知は既読になる' do
+        Favorite.create(user: current_user, vtuber: vtuber)
+        vtuber.set_notification_update(current_user)
+        notification = current_user.active_notifications.find_by(visited_id: current_user.id)
+        expect(notification.checked).to be true
+      end
+    end
+
+    context '通知相手（お気に入り登録している）がいない' do
+      it '通知データが登録されない' do
+        vtuber.set_notification_update(current_user)
+        expect(Notification.count).to eq 0
+      end
+    end
+  end
 end
