@@ -16,4 +16,4 @@ RSpec.describe Content, type: :model do
       end
     end
   end
-enabled
+end
