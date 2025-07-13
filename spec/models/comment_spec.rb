@@ -9,7 +9,7 @@ RSpec.describe Comment, type: :model do
       it '有効な入力値' do
         expect(build(:comment)).to be_valid
       end
-      it '入力されていない' do
+      it '入力されている' do
         comment = build(:comment, user: user, vtuber: vtuber, body: "")
         expect(comment).to be_invalid
         expect(comment.errors[:body]).to include "を入力してください"
