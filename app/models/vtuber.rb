@@ -7,7 +7,7 @@ class Vtuber < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["comments", "contents", "places", "tags", "vtuber_contents", "vtuber_places", "vtuber_tags"]
+    ["contents", "places", "tags"]
   end
   
   has_many :vtuber_users, dependent: :destroy
