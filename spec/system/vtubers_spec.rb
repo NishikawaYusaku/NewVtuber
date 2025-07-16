@@ -144,8 +144,7 @@ RSpec.describe "Vtubers", type: :system do
     describe 'ユーザページ' do
       describe 'お気に入り登録' do
         context 'している' do
-          
-           'プロフィールを見に行ける' do
+          it 'プロフィールを見に行ける' do
 
           end
           it 'お気に入りを外せる' do
