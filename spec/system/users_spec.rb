@@ -91,7 +91,7 @@ RSpec.describe "Users", type: :system do
     end
 
     describe 'ユーザページ' do
-      it 'アクセスできない' do
+      it '見れない' do
 
       end
     end
