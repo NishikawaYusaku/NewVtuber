@@ -80,7 +80,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'simplecov'
-  gem 'webdrivers'
 end
 
 group :development do
