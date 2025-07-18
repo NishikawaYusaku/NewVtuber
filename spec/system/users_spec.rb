@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
+  let(:user) {create(:user, password: 'password', password_confirmation: 'password')}
+
   context 'ログイン前' do
     describe 'ログイン' do
       context 'できる' do
-        it 'できる' do
-
+        it 'できる', focus: true do
+          login(user)
+          expect(current_path).to eq root_path
         end
       end
       context 'できない' do
