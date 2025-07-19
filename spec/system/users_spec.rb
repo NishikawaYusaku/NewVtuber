@@ -6,20 +6,32 @@ RSpec.describe "Users", type: :system do
   context 'ログイン前' do
     describe 'ログイン' do
       context 'できる' do
-        it 'できる', focus: true do
+        it 'できる' do
           login(user)
           expect(current_path).to eq root_path
         end
       end
       context 'できない' do
         it 'メールアドレスが一致しない' do
-
+          visit login_path
+          fill_in 'email', with: ""
+          fill_in 'password', with: "password"
+          click_button 'ログイン'
+          expect(page).to have_content "ログインできませんでした"
         end
         it 'パスワードが一致しない' do
-
+          visit login_path
+          fill_in 'email', with: user.email
+          fill_in 'password', with: ""
+          click_button 'ログイン'
+          expect(page).to have_content "ログインできませんでした"
         end
         it 'メールアドレスとパスワードが一致しない' do
-
+          visit login_path
+          fill_in 'email', with: ""
+          fill_in 'password', with: ""
+          click_button 'ログイン'
+          expect(page).to have_content "ログインできませんでした"
         end
       end
     end
