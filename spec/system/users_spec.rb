@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
-  let(:user) {create(:user, password: 'password', password_confirmation: 'password')}
-
-  context 'ログイン前' do
+  context 'ログイン前', focus: true do
     describe 'ログイン' do
+      let(:user) {create(:user, email: "test@com", name: "test", password: 'password')}
+      
       context 'できる' do
         it 'できる' do
           login(user)
@@ -39,39 +39,96 @@ RSpec.describe "Users", type: :system do
     describe 'ユーザ登録' do
       context 'できる' do
         it 'できる' do
-
+          visit new_user_path
+          fill_in 'メールアドレス', with: "test@com"
+          fill_in 'user[password]', with: "password"
+          fill_in 'user[password_confirmation]', with: "password"
+          fill_in 'ユーザー名', with: "test"
+          check 'user_agreement'
+          click_button '登録'
+          expect(page).to have_content "ユーザーを登録しました"
         end
       end
       context 'できない' do
         describe 'メールアドレス' do
           it '入力していない' do
-
+            visit new_user_path
+            fill_in 'メールアドレス', with: ""
+            fill_in 'user[password]', with: "password"
+            fill_in 'user[password_confirmation]', with: "password"
+            fill_in 'ユーザー名', with: "test"
+            check 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
           it '重複している' do
-            
+            create(:user, email: "test@com", name: "test", password: 'password')
+            visit new_user_path
+            fill_in 'メールアドレス', with: "test@com"
+            fill_in 'user[password]', with: "password"
+            fill_in 'user[password_confirmation]', with: "password"
+            fill_in 'ユーザー名', with: "test"
+            check 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
         describe 'パスワード' do
           it '入力していない' do
-            
+            visit new_user_path
+            fill_in 'メールアドレス', with: "test@com"
+            fill_in 'user[password]', with: ""
+            fill_in 'user[password_confirmation]', with: "password"
+            fill_in 'ユーザー名', with: "test"
+            check 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
           it '8文字未満' do
-            
+            visit new_user_path
+            fill_in 'メールアドレス', with: "test@com"
+            fill_in 'user[password]', with: "pass"
+            fill_in 'user[password_confirmation]', with: "password"
+            fill_in 'ユーザー名', with: "test"
+            check 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
         describe 'パスワード確認' do
           it '一致しない' do
-            
+            visit new_user_path
+            fill_in 'メールアドレス', with: "test@com"
+            fill_in 'user[password]', with: "password"
+            fill_in 'user[password_confirmation]', with: "pass"
+            fill_in 'ユーザー名', with: "test"
+            check 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
         describe 'ユーザ名' do
           it '入力していない' do
-            
+            visit new_user_path
+            fill_in 'メールアドレス', with: "test@com"
+            fill_in 'user[password]', with: "password"
+            fill_in 'user[password_confirmation]', with: "pass"
+            fill_in 'ユーザー名', with: ""
+            check 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
         describe '利用規約/プライバシーポリシー' do
           it '同意してない' do
-            
+            visit new_user_path
+            fill_in 'メールアドレス', with: "test@com"
+            fill_in 'user[password]', with: "password"
+            fill_in 'user[password_confirmation]', with: "pass"
+            fill_in 'ユーザー名', with: "test"
+            uncheck 'user_agreement'
+            click_button '登録'
+            expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
       end
