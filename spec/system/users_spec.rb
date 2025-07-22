@@ -134,7 +134,7 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    describe 'パスワードリセット', focus: true do
+    describe 'パスワードリセット' do
       context 'できる' do
         it 'できる' do
           create(:user, email: "test@com", name: "test", password: 'password')
@@ -218,21 +218,30 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    describe 'ユーザページ' do
+    describe 'マイページ' do
       it '見れない' do
-
+        visit user_path
+        expect(page).to have_content 'ログインしてください'
+        expect(current_path).to eq login_path
       end
     end
   end
   
   context 'ログイン後' do
-    describe 'ログアウト' do
+    before do
+      # create(:user, email: "test@com", name: "test", password: 'password')
+      login
+    end
+    describe 'ログアウト', focus: true do
       it 'できる' do
-
+        page.driver.browser.manage.window.resize_to(1400, 900)
+        find('a.nav-link.active', text: 'ログアウト').click
+        expect(page).to have_content 'ログアウトしました'
+        expect(current_path).to eq root_path
       end
     end
 
-    describe 'ユーザページ' do
+    describe 'マイページ' do
       describe 'メールアドレスの変更' do
         context 'できる' do
           it 'できる' do
