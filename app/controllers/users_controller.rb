@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       flash[:success] = "メールアドレスを変更しました"
     else
       flash.now[:danger] = "メールアドレスを変更できませんでした"
-      render :edit_name
+      render :edit_email
     end
   end
 

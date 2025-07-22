@@ -228,11 +228,8 @@ RSpec.describe "Users", type: :system do
   end
   
   context 'ログイン後' do
-    before do
-      # create(:user, email: "test@com", name: "test", password: 'password')
-      login
-    end
-    describe 'ログアウト', focus: true do
+    before {login}
+    describe 'ログアウト' do
       it 'できる' do
         page.driver.browser.manage.window.resize_to(1400, 900)
         find('a.nav-link.active', text: 'ログアウト').click
@@ -241,40 +238,111 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    describe 'マイページ' do
+    describe 'マイページ', focus: true do
+      before do
+        ActionMailer::Base.deliveries.clear
+        page.driver.browser.manage.window.resize_to(1400, 900)
+        find('a.nav-link.active', text: 'マイページ').click
+      end
+      after do
+        Capybara.reset_sessions!
+      end
       describe 'メールアドレスの変更' do
         context 'できる' do
           it 'できる' do
-            
+            find('a[href="/user/email"]').click
+            fill_in '新しいメールアドレス', with: 'newtest@com'
+            click_button '保存'
+            expect(page).to have_content 'メールアドレスを変更しました'
+            expect(current_path).to eq user_path
           end
         end
         context 'できない' do
           it '入力していない' do
-
+            find('a[href="/user/email"]').click
+            fill_in '新しいメールアドレス', with: ''
+            click_button '保存'
+            expect(page).to have_content 'メールアドレスを変更できませんでした'
+            expect(current_path).to eq email_user_path
           end
           it '重複している' do
-            
+            create(:user, email: "newtest@com", name: "test", password: "password")
+            find('a[href="/user/email"]').click
+            fill_in '新しいメールアドレス', with: 'newtest@com'
+            click_button '保存'
+            expect(page).to have_content 'メールアドレスを変更できませんでした'
+            expect(current_path).to eq email_user_path
           end
         end
       end
       describe 'パスワードの変更' do
         context 'できる' do
           it 'できる' do
-            
+            visit new_password_reset_path
+            click_button '送信'
+            expect(ActionMailer::Base.deliveries.size).to eq 1
+
+            mail = ActionMailer::Base.deliveries.last
+            body = mail.text_part&.decoded || mail.html_part&.decoded
+            reset_url = body.match(/href="([^"]+)"/)[1]
+            uri = URI.parse(reset_url)
+            visit uri.path
+            expect(page).to have_content 'パスワードの変更'
+
+            fill_in 'user[password]', with: 'newpassword'
+            fill_in 'user[password_confirmation]', with: 'newpassword'
+            click_button '保存'
+            expect(page).to have_content 'パスワードを変更しました'
           end
         end
         context 'できない' do
           describe 'パスワード' do
             it '入力していない' do
-
+              visit new_password_reset_path
+              click_button '送信'
+              expect(ActionMailer::Base.deliveries.size).to eq 1
+              mail = ActionMailer::Base.deliveries.last
+              body = mail.text_part&.decoded || mail.html_part&.decoded
+              reset_url = body.match(/href="([^"]+)"/)[1]
+              uri = URI.parse(reset_url)
+              visit uri.path
+              expect(page).to have_content 'パスワードの変更'
+              fill_in 'user[password]', with: ''
+              fill_in 'user[password_confirmation]', with: 'newpassword'
+              click_button '保存'
+              expect(page).to have_content 'パスワードを変更できませんでした'
             end
             it '8文字未満' do
-
+              visit new_password_reset_path
+              click_button '送信'
+              expect(ActionMailer::Base.deliveries.size).to eq 1
+              mail = ActionMailer::Base.deliveries.last
+              body = mail.text_part&.decoded || mail.html_part&.decoded
+              reset_url = body.match(/href="([^"]+)"/)[1]
+              uri = URI.parse(reset_url)
+              visit uri.path
+              expect(page).to have_content 'パスワードの変更'
+              fill_in 'user[password]', with: 'pass'
+              fill_in 'user[password_confirmation]', with: 'pass'
+              click_button '保存'
+              expect(page).to have_content 'パスワードを変更できませんでした'
             end
           end
           describe 'パスワード確認' do
             it '一致しない' do
-
+              visit new_password_reset_path
+              click_button '送信'
+              expect(ActionMailer::Base.deliveries.size).to eq 1
+              mail = ActionMailer::Base.deliveries.last
+              body = mail.text_part&.decoded || mail.html_part&.decoded
+              reset_url = body.match(/href="([^"]+)"/)[1]
+              uri = URI.parse(reset_url)
+              visit uri.path
+              expect(page).to have_content 'パスワードの変更'
+              fill_in 'user[password]', with: 'newpassword'
+              fill_in 'user[password_confirmation]', with: ''
+              click_button '保存'
+              expect(page).to have_content 'パスワードを変更できませんでした'
             end
           end
         end
@@ -282,12 +350,20 @@ RSpec.describe "Users", type: :system do
       describe 'ユーザ名の変更' do
         context 'できる' do
           it 'できる' do
-            
+            find('a[href="/user/name"]').click
+            fill_in '新しいユーザー名', with: 'newtest'
+            click_button '保存'
+            expect(page).to have_content 'ユーザー名を変更しました'
+            expect(current_path).to eq user_path
           end
         end
         context 'できない' do
           it '入力していない' do
-            
+            find('a[href="/user/name"]').click
+            fill_in '新しいユーザー名', with: ''
+            click_button '保存'
+            expect(page).to have_content 'ユーザーを変更できませんでした'
+            expect(current_path).to eq name_user_path
           end
         end
       end
