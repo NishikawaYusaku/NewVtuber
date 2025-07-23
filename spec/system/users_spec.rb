@@ -238,7 +238,7 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    describe 'マイページ', focus: true do
+    describe 'マイページ' do
       before do
         ActionMailer::Base.deliveries.clear
         page.driver.browser.manage.window.resize_to(1400, 900)
