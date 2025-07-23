@@ -1,12 +1,12 @@
 <% if current_user %>
   <% if current_user.favorites.find_by(vtuber_id: vtuber.id) %>
-    <%= link_to vtuber_favorite_path(vtuber.id), method: :delete, remote: true, class: "text-decoration-none link-dark" do %>
+    <%= link_to vtuber_favorite_path(vtuber.id), method: :delete, remote: true, class: "text-decoration-none link-dark", data: { testid: "favorite-create" } do %>
       <i class="fa-solid fa-heart fa-5x" aria-hidden="true" style="color: red;", size: "100x100"></i>
       <span class="mx-3">×</span>
       <%= vtuber.favorites.count %>
     <% end %>
   <% else %>
-    <%= link_to vtuber_favorite_path(vtuber.id), method: :post, remote: true, class: "text-decoration-none link-dark" do %>
+    <%= link_to vtuber_favorite_path(vtuber.id), method: :post, remote: true, class: "text-decoration-none link-dark", data: { testid: "favorite-destroy" } do %>
       <i class="fa-solid fa-heart fa-5x" aria-hidden="true" style="color: black"></i>
       <span class="mx-3">×</span>
       <%= vtuber.favorites.count %>
