@@ -1,6 +1,6 @@
 module LoginModule
   def login
-    create(:user, email: "test@com", name: "test", password: "password")
+    @user = create(:user, email: "test@com", name: "test", password: "password")
     visit login_path
     fill_in 'email', with: "test@com"
     fill_in 'password', with: "password"

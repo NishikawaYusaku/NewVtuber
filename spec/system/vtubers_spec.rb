@@ -12,6 +12,7 @@ RSpec.describe "Vtubers", type: :system do
     page.driver.browser.manage.window.resize_to(1400, 900)
     visit root_path
   end
+
   context 'ログイン前' do
     describe 'プロフィールページ' do
       before do
@@ -69,39 +70,67 @@ RSpec.describe "Vtubers", type: :system do
       expect(page).to have_content 'ログインしてください'
       expect(current_path).to eq login_path
     end
-    it 'ユーザページが見れない',focus: true do
+    it 'ユーザページが見れない' do
       expect(page).not_to have_content 'マイページ'
       visit user_path
       expect(page).to have_content 'ログインしてください'
       expect(current_path).to eq login_path
-      
     end
   end
 
   context 'ログイン後' do
-    describe 'プロフィールページ' do
+    before {login}
+    describe 'プロフィールページ',focus: true do
+      before do
+        expect(page).to have_content 'vtuber1'
+        expect(page).to have_content 'vtuber2'
+        expect(page).to have_content 'vtuber3'
+        find("a[href='/vtubers/#{vtuber1.id}']").click
+      end
       describe 'プロフィール' do
         it '全ての項目が正しく表示される' do
-
+          expect(page).to have_content '所属'
         end
       end
       describe 'お気に入り登録' do
         it 'できる' do
-          
+          expect(page).to have_content '× 0'
+          find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
+          expect(current_path).to eq vtuber_path(vtuber1)
+          expect(page).to have_content '× 1'
         end
         it '外せる' do
-
+          find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
+          expect(page).to have_content '× 1'
+          find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
+          expect(current_path).to eq vtuber_path(vtuber1)
+          expect(page).to have_content '× 0'
         end
       end
       describe 'コメント' do
         it '投稿できる' do
-          
+          expect(page).to have_button '投稿する'
+          expect(page).to have_content 'コメント（0）'
+          fill_in 'comment[body]', with: "testcomment"
+          find("[data-testid='comment-create']").click
+          expect(current_path).to eq vtuber_path(vtuber1)
+          expect(page).to have_content 'コメント（1）'
+          expect(page).to have_content 'testcomment'
         end
         it '編集できる' do
-          
+          comment = create(:comment, user: @user, vtuber: vtuber1, body: "testcomment")
+          find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}/edit']").click
+          expect(page).to have_button '更新する'
+          fill_in "textarea-comment-#{comment.id}", with: "testcomment_edit"
+          find("[data-testid='comment-edit']").click
+          expect(page).to have_content 'コメント（1）'
+          expect(page).to have_content 'testcomment_edit'
         end
         it '削除できる' do
-          
+          comment = create(:comment, user: @user, vtuber: vtuber1, body: "testcomment")
+          find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}']").click
+          expect(page).to have_content 'コメント（0）'
+          expect(page).not_to have_content 'testcomment'
         end
       end
     end
