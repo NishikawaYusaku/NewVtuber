@@ -4,7 +4,7 @@ RSpec.describe "Vtubers", type: :system do
   let!(:vtuber1) { create(:vtuber, name: "vtuber1", name_x: "x1") }
   let!(:vtuber2) { create(:vtuber, name: "vtuber2", name_x: "x2") }
   let!(:vtuber3) { create(:vtuber, name: "vtuber3", name_x: "x3") }
-  let!(:place)   { create(:place, name: "YouTube") }
+  let!(:place)   { create(:place, id: 1, name: "YouTube") }
   before do
     create(:vtuber_place, vtuber: vtuber1, place: place, url: "https://www.youtube.com/@nijisanji")
     create(:vtuber_place, vtuber: vtuber2, place: place, url: "https://www.youtube.com/@hololive")
@@ -42,7 +42,7 @@ RSpec.describe "Vtubers", type: :system do
       context '該当プロフィールがある' do
         it 'プロフィールが表示される' do
           fill_in 'q', with: 'vtuber1'
-          find('[data-testid="search"]').click
+          find('[data-testid="before-login-search"]').click
           expect(page).to have_content 'vtuber1'
           expect(page).not_to have_content 'vtuber2'
           expect(page).not_to have_content 'vtuber3'
@@ -52,7 +52,7 @@ RSpec.describe "Vtubers", type: :system do
       context '該当プロフィールがない' do
         it 'プロフィールが表示されない' do
           fill_in 'q', with: 'vtuber4'
-          find('[data-testid="search"]').click
+          find('[data-testid="before-login-search"]').click
           expect(page).to have_content '登録されていません'
           expect(page).not_to have_content 'vtuber'
         end
@@ -80,7 +80,7 @@ RSpec.describe "Vtubers", type: :system do
 
   context 'ログイン後' do
     before {login}
-    describe 'プロフィールページ',focus: true do
+    describe 'プロフィールページ' do
       before do
         expect(page).to have_content 'vtuber1'
         expect(page).to have_content 'vtuber2'
@@ -112,7 +112,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_button '投稿する'
           expect(page).to have_content 'コメント（0）'
           fill_in 'comment[body]', with: "testcomment"
-          find("[data-testid='comment-create']").click
+          click_button '投稿する'
           expect(current_path).to eq vtuber_path(vtuber1)
           expect(page).to have_content 'コメント（1）'
           expect(page).to have_content 'testcomment'
@@ -122,7 +122,7 @@ RSpec.describe "Vtubers", type: :system do
           find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}/edit']").click
           expect(page).to have_button '更新する'
           fill_in "textarea-comment-#{comment.id}", with: "testcomment_edit"
-          find("[data-testid='comment-edit']").click
+          click_button '更新する'
           expect(page).to have_content 'コメント（1）'
           expect(page).to have_content 'testcomment_edit'
         end
@@ -137,41 +137,93 @@ RSpec.describe "Vtubers", type: :system do
     describe '検索' do
       context '該当プロフィールがある' do
         it 'プロフィールが表示される' do
-
+          fill_in 'q', with: 'vtuber1'
+          find('[data-testid="after-login-search"]').click
+          expect(page).to have_content 'vtuber1'
+          expect(page).not_to have_content 'vtuber2'
+          expect(page).not_to have_content 'vtuber3'
+          expect(page).not_to have_content '登録されていません'
         end
       end
       context '該当プロフィールがない' do
         it 'プロフィールが表示されない' do
-          
+          fill_in 'q', with: 'vtuber4'
+          find('[data-testid="after-login-search"]').click
+          expect(page).to have_content '登録されていません'
+          expect(page).not_to have_content 'vtuber'
         end
       end
     end
     describe 'プロフィール作成' do
+      before do
+        expect(page).to have_content '設定'
+        click_button 'profile-modal'
+        expect(page).to have_content '設定するVTuberのお名前'
+        fill_in 'name', with: 'vtuber4'
+        click_button '設定する'
+        ActionMailer::Base.deliveries.clear
+      end
+      after do
+        Capybara.reset_sessions!
+      end
       context 'できる' do
         it 'できる' do
-
+          expect(page).to have_content 'VTuberのお名前（必須）'
+          expect(page).to have_field('vtuber_name', with: 'vtuber4')
+          fill_in 'vtuber_name_x', with: 'x4'
+          find('[data-testid="place-select"]').select('YouTube')
+          find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+          click_button '登録'
+          expect(page).to have_content '× 0'
+          expect(page).to have_content '最新動画'
         end
       end
       context 'できない' do
         describe '名前' do
           it '入力してない' do
-
+            fill_in 'vtuber_name', with: ''
+            fill_in 'vtuber_name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
           it '重複している' do
-            
+            fill_in 'vtuber_name', with: 'vtuber1'
+            fill_in 'vtuber_name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
         describe 'Xのユーザ名' do
           it '重複している' do
-            
+            fill_in 'vtuber_name_x', with: 'x1'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
         describe '配信サイト' do
           it 'サイトを選択してない' do
-            
+            fill_in 'vtuber_name_x', with: 'x4'
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
           it 'URLを入力していない' do
-            
+            fill_in 'vtuber_name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
       end

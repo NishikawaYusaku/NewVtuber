@@ -51,8 +51,8 @@
           <div class="mb-5">
             <%= place_fields.label :place_id, "配信サイト", class: "form-label" %><small class="text-danger fw-semibold">（必須）</small>
             <div class="input-group">
-              <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn btn-outline-secondary"} ) %>
-              <%= place_fields.text_field :url, class: "form-control", placeholder: "選択した配信サイトのURL" %>
+              <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn btn-outline-secondary", data: {testid: "place-select"}} ) %>
+              <%= place_fields.text_field :url, class: "form-control", placeholder: "選択した配信サイトのURL", data: {testid: "place-url"} %>
             </div>
           </div>
         <% end %>
@@ -83,7 +83,7 @@
         </div>
         <div class="text-center mb-5 pt-5">
           <%= link_to "やめる", root_path, class: "btn btn-secondary mx-4" %>
-          <%= f.submit "登録", class: "btn btn-primary mx-4" %>
+          <%= f.submit "登録", class: "btn btn-primary mx-4", data: {testid: "profile-create"} %>
         </div>
       <% end %>
     </div>
