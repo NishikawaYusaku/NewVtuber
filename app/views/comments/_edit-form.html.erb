@@ -21,7 +21,7 @@
     <%= f.text_area :body, value: comment.body, class: "form-control", id: "textarea-comment-#{comment.id}" %>
     <div id="comment-button-<%= comment.id %>" class="mt-3">
       <button data-cancel-id="<%= comment.id %>" type="button" class="btn btn-secondary comment-cancel-button">やめる</button>
-      <%= f.submit "更新する", class: "btn btn-comment", data: { testid: "comment-edit" } %>
+      <%= f.submit "更新する", class: "btn btn-comment" %>
     </div>
   <% end%>
 </div>
