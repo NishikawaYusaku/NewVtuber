@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Notifications", type: :system do
-  context 'ログイン前' do
+  context 'ログイン前', focus: true do
     it '通知が見れない' do
-
+      expect(page).not_to have_content '通知'
     end
   end
 
