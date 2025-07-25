@@ -23,7 +23,7 @@ RSpec.describe "Vtubers", type: :system do
       end
       describe 'プロフィール' do
         it '全ての項目が正しく表示される' do
-          expect(page).to have_content '所属'
+          expect(current_path).to eq vtuber_path(vtuber1)
         end
       end
       describe 'お気に入り登録' do
@@ -89,7 +89,7 @@ RSpec.describe "Vtubers", type: :system do
       end
       describe 'プロフィール' do
         it '全ての項目が正しく表示される' do
-          expect(page).to have_content '所属'
+          expect(current_path).to eq vtuber_path(vtuber1)
         end
       end
       describe 'お気に入り登録' do
@@ -237,7 +237,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_content '最新動画'
         end
       end
-      context 'できない', focus: true do
+      context 'できない' do
         describe '名前' do
           it '入力してない' do
             visit edit_vtuber_path(vtuber1)
@@ -278,16 +278,26 @@ RSpec.describe "Vtubers", type: :system do
     describe 'マイページ' do
       describe 'お気に入り登録' do
         context 'している' do
-          it 'プロフィールを見に行ける' do
-
+          before do
+            create(:favorite, user: @user, vtuber: vtuber1)
+            visit user_path
+            expect(page).to have_content 'vtuber1'
+            expect(page).to have_content '見る'
+            expect(page).to have_css('[data-testid="mypage-heart"]')
           end
-          it 'お気に入りを外せる' do
-
+          it 'プロフィールを見に行ける' do
+            find("a[href='/vtubers/#{vtuber1.id}']").click
+            expect(current_path).to eq vtuber_path(vtuber1)
+          end
+          it 'お気に入りを外せる', js: true do
+            find('[data-testid="mypage-heart"]').click
+            expect(page).not_to have_content 'vtuber1'
           end
         end
         context 'していない' do
           it '何も表示されない' do
-
+            visit user_path
+            expect(page).to have_content 'いません'
           end
         end
       end
