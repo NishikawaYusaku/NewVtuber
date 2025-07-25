@@ -69,6 +69,10 @@ RSpec.configure do |config|
   
   config.before(:each, type: :system) do
     # "_headless"を外すとブラウザでの実際の挙動を確認しながらテストできる
-    driven_by(:selenium_chrome_headless)
+    driven_by(:selenium_chrome)
+  end
+
+  config.after(:each, type: :system) do
+    Capybara.reset_sessions!
   end
 end

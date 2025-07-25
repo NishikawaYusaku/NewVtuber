@@ -7,7 +7,7 @@ RSpec.describe "Users", type: :system do
       
       context 'できる' do
         it 'できる' do
-          login(user)
+          login
           expect(current_path).to eq root_path
         end
       end
@@ -135,6 +135,9 @@ RSpec.describe "Users", type: :system do
     end
 
     describe 'パスワードリセット' do
+      before do
+        ActionMailer::Base.deliveries.clear
+      end
       context 'できる' do
         it 'できる' do
           create(:user, email: "test@com", name: "test", password: 'password')
@@ -243,9 +246,6 @@ RSpec.describe "Users", type: :system do
         ActionMailer::Base.deliveries.clear
         page.driver.browser.manage.window.resize_to(1400, 900)
         find('a.nav-link.active', text: 'マイページ').click
-      end
-      after do
-        Capybara.reset_sessions!
       end
       describe 'メールアドレスの変更' do
         context 'できる' do

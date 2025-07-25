@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Pages", type: :system
- do
+RSpec.describe "Pages", type: :system do
   before do
     page.driver.browser.manage.window.resize_to(1400, 900)
   end
