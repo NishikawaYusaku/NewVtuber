@@ -162,9 +162,6 @@ RSpec.describe "Vtubers", type: :system do
         fill_in 'name', with: 'vtuber4'
         click_button '設定する'
       end
-      after do
-        Capybara.reset_sessions!
-      end
       context 'できる' do
         it 'できる' do
           expect(page).to have_content 'VTuberのお名前（必須）'

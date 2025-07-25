@@ -15,7 +15,7 @@ RSpec.describe "Notifications", type: :system do
   end
 
   context 'ログイン後' do
-    describe 'プロフィール', focus: true do
+    describe 'プロフィール' do
       it '通知がある' do
         login
         create(:favorite, user: @user, vtuber: vtuber1)
