@@ -70,7 +70,7 @@ RSpec.describe "Vtubers", type: :system do
       expect(page).to have_content 'ログインしてください'
       expect(current_path).to eq login_path
     end
-    it 'ユーザページが見れない' do
+    it 'マイページが見れない' do
       expect(page).not_to have_content 'マイページ'
       visit user_path
       expect(page).to have_content 'ログインしてください'
@@ -161,7 +161,6 @@ RSpec.describe "Vtubers", type: :system do
         expect(page).to have_content '設定するVTuberのお名前'
         fill_in 'name', with: 'vtuber4'
         click_button '設定する'
-        ActionMailer::Base.deliveries.clear
       end
       after do
         Capybara.reset_sessions!
@@ -231,34 +230,52 @@ RSpec.describe "Vtubers", type: :system do
     describe 'プロフィール編集' do
       context 'できる' do
         it 'できる' do
-
+          visit edit_vtuber_path(vtuber1)
+          fill_in 'vtuber_name', with: 'vtuber10'
+          click_button '更新'
+          expect(page).to have_content 'vtuber10'
+          expect(page).to have_content '最新動画'
         end
       end
-      context 'できない' do
+      context 'できない', focus: true do
         describe '名前' do
           it '入力してない' do
-
+            visit edit_vtuber_path(vtuber1)
+            fill_in 'vtuber_name', with: ''
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
           it '重複している' do
-            
+            visit edit_vtuber_path(vtuber2)
+            fill_in 'vtuber_name', with: ''
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
         describe 'Xのユーザ名' do
           it '重複している' do
-            
+            visit edit_vtuber_path(vtuber1)
+            fill_in 'vtuber_name_x', with: 'x2'
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
         describe '配信サイト' do
-          it 'サイトを選択してない' do
-            
-          end
+          # サイトの無選択は編集ページではできないためテストは不要
           it 'URLを入力していない' do
-            
+            visit edit_vtuber_path(vtuber1)
+            find('[data-testid="place-url"]').set('')
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
       end
     end
-    describe 'ユーザページ' do
+    describe 'マイページ' do
       describe 'お気に入り登録' do
         context 'している' do
           it 'プロフィールを見に行ける' do
