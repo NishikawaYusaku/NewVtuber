@@ -75,7 +75,7 @@
         </li>
         <li class="nav-item d-flex justify-content-center mx-3", data-turbolinks="false">
           <%= link_to notifications_path, class: "text-decoration-none", remote: true do %>
-            <button type="button" class="nav-link active text-center" data-bs-target="#notify-modal">
+            <button type="button" class="nav-link active text-center" data-bs-target="#notify-modal", id="notification-modal">
             <% if @notification_check.present? %>
               <div class="d-none d-xl-block" style="color: #ffffbc" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color">
             <% else %>
