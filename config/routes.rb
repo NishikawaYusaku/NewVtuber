@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get '/vtubers/autocomplete_names', to: 'vtubers#autocomplete_names'
   post '/vtubers/name_input', to: 'vtubers#name_input'
-  
+
   resources :notifications, only: %i[index] do
     collection do
       post :mark_as_read
@@ -31,9 +31,7 @@ Rails.application.routes.draw do
   end
 
   resources :password_resets, only: %i[new create edit update]
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   resources :pages, only: [] do
     collection do

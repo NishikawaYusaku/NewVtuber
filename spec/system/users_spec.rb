@@ -3,14 +3,15 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   context 'ログイン前' do
     describe 'ログイン' do
-      let(:user) {create(:user, email: "test@com", name: "test", password: 'password')}
-      
+      let(:user) { create(:user, email: "test@com", name: "test", password: 'password') }
+
       context 'できる' do
         it 'できる' do
           login
           expect(current_path).to eq root_path
         end
       end
+
       context 'できない' do
         it 'メールアドレスが一致しない' do
           visit login_path
@@ -19,6 +20,7 @@ RSpec.describe "Users", type: :system do
           click_button 'ログイン'
           expect(page).to have_content "ログインできませんでした"
         end
+
         it 'パスワードが一致しない' do
           visit login_path
           fill_in 'email', with: user.email
@@ -26,6 +28,7 @@ RSpec.describe "Users", type: :system do
           click_button 'ログイン'
           expect(page).to have_content "ログインできませんでした"
         end
+
         it 'メールアドレスとパスワードが一致しない' do
           visit login_path
           fill_in 'email', with: ""
@@ -35,7 +38,7 @@ RSpec.describe "Users", type: :system do
         end
       end
     end
-    
+
     describe 'ユーザ登録' do
       context 'できる' do
         it 'できる' do
@@ -49,6 +52,7 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_content "ユーザーを登録しました"
         end
       end
+
       context 'できない' do
         describe 'メールアドレス' do
           it '入力していない' do
@@ -61,6 +65,7 @@ RSpec.describe "Users", type: :system do
             click_button '登録'
             expect(page).to have_content "ユーザーを登録できませんでした"
           end
+
           it '重複している' do
             create(:user, email: "test@com", name: "test", password: 'password')
             visit new_user_path
@@ -73,6 +78,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
+
         describe 'パスワード' do
           it '入力していない' do
             visit new_user_path
@@ -84,6 +90,7 @@ RSpec.describe "Users", type: :system do
             click_button '登録'
             expect(page).to have_content "ユーザーを登録できませんでした"
           end
+
           it '8文字未満' do
             visit new_user_path
             fill_in 'メールアドレス', with: "test@com"
@@ -95,6 +102,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
+
         describe 'パスワード確認' do
           it '一致しない' do
             visit new_user_path
@@ -107,6 +115,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
+
         describe 'ユーザ名' do
           it '入力していない' do
             visit new_user_path
@@ -119,6 +128,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content "ユーザーを登録できませんでした"
           end
         end
+
         describe '利用規約/プライバシーポリシー' do
           it '同意してない' do
             visit new_user_path
@@ -138,6 +148,7 @@ RSpec.describe "Users", type: :system do
       before do
         ActionMailer::Base.deliveries.clear
       end
+
       context 'できる' do
         it 'できる' do
           create(:user, email: "test@com", name: "test", password: 'password')
@@ -159,6 +170,7 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_content 'パスワードを変更しました'
         end
       end
+
       context 'できない' do
         describe 'メールアドレス' do
           it '一致しない' do
@@ -169,6 +181,7 @@ RSpec.describe "Users", type: :system do
             expect(ActionMailer::Base.deliveries.size).to eq 0
           end
         end
+
         describe 'パスワード' do
           it '入力していない' do
             create(:user, email: "test@com", name: "test", password: 'password')
@@ -185,6 +198,7 @@ RSpec.describe "Users", type: :system do
             click_button '保存'
             expect(page).to have_content 'パスワードを変更できませんでした'
           end
+
           it '8文字未満' do
             create(:user, email: "test@com", name: "test", password: 'password')
             visit new_password_reset_path
@@ -201,6 +215,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content 'パスワードを変更できませんでした'
           end
         end
+
         describe 'パスワード確認' do
           it '一致しない' do
             create(:user, email: "test@com", name: "test", password: 'password')
@@ -229,9 +244,10 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
-  
+
   context 'ログイン後' do
-    before {login}
+    before { login }
+
     describe 'ログアウト' do
       it 'できる' do
         page.driver.browser.manage.window.resize_to(1400, 900)
@@ -247,6 +263,7 @@ RSpec.describe "Users", type: :system do
         page.driver.browser.manage.window.resize_to(1400, 900)
         find('a.nav-link.active', text: 'マイページ').click
       end
+
       describe 'メールアドレスの変更' do
         context 'できる' do
           it 'できる' do
@@ -257,6 +274,7 @@ RSpec.describe "Users", type: :system do
             expect(current_path).to eq user_path
           end
         end
+
         context 'できない' do
           it '入力していない' do
             find('a[href="/user/email"]').click
@@ -265,6 +283,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content 'メールアドレスを変更できませんでした'
             expect(current_path).to eq email_user_path
           end
+
           it '重複している' do
             create(:user, email: "newtest@com", name: "test", password: "password")
             find('a[href="/user/email"]').click
@@ -275,6 +294,7 @@ RSpec.describe "Users", type: :system do
           end
         end
       end
+
       describe 'パスワードの変更' do
         context 'できる' do
           it 'できる' do
@@ -295,6 +315,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content 'パスワードを変更しました'
           end
         end
+
         context 'できない' do
           describe 'パスワード' do
             it '入力していない' do
@@ -312,6 +333,7 @@ RSpec.describe "Users", type: :system do
               click_button '保存'
               expect(page).to have_content 'パスワードを変更できませんでした'
             end
+
             it '8文字未満' do
               visit new_password_reset_path
               click_button '送信'
@@ -328,6 +350,7 @@ RSpec.describe "Users", type: :system do
               expect(page).to have_content 'パスワードを変更できませんでした'
             end
           end
+
           describe 'パスワード確認' do
             it '一致しない' do
               visit new_password_reset_path
@@ -347,6 +370,7 @@ RSpec.describe "Users", type: :system do
           end
         end
       end
+
       describe 'ユーザ名の変更' do
         context 'できる' do
           it 'できる' do
@@ -357,6 +381,7 @@ RSpec.describe "Users", type: :system do
             expect(current_path).to eq user_path
           end
         end
+
         context 'できない' do
           it '入力していない' do
             find('a[href="/user/name"]').click

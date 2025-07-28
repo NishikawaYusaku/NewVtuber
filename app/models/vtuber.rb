@@ -1,15 +1,14 @@
 class Vtuber < ApplicationRecord
-
   mount_uploader :image, ImageUploader
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     ["name", "affiliation", "gender", "like", "unlike"]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     ["contents", "places", "tags"]
   end
-  
+
   has_many :vtuber_users, dependent: :destroy
   has_many :users, through: :vtuber_users
 
@@ -38,18 +37,18 @@ class Vtuber < ApplicationRecord
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
     old_tags = current_tags - tags
     new_tags = tags - current_tags
-  
+
     old_tags.each do |old_tag|
       self.tags.delete Tag.find_by(name: old_tag)
     end
-  
+
     new_tags.each do |new_tag|
       vtuber_tag = Tag.find_or_create_by(name: new_tag)
       self.tags << vtuber_tag unless self.tags.exists?(vtuber_tag.id)
     end
   end
 
-  def set_notification_update(current_user)
+  def notification_update(current_user)
     temp_ids = Favorite.select(:user_id).where(vtuber_id: id)
     if temp_ids.present?
       temp_ids.each do |temp_id|
@@ -58,9 +57,7 @@ class Vtuber < ApplicationRecord
           vtuber_id: id,
           action: "update"
         )
-        if notification.visitor_id == notification.visited_id
-          notification.checked = true
-        end
+        notification.checked = true if notification.visitor_id == notification.visited_id
         notification.save if notification.valid?
       end
     end

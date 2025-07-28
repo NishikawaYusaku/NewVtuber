@@ -16,22 +16,22 @@ module NewVtuber
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.i18n.default_locale = :ja
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+    config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.yml").to_s]
     config.active_model.i18n_customize_full_message = true
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
 
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
 
     config.generators do |g|
       g.assets false
       g.skip_routes false
       g.test_framework :rspec,
-        controller_specs: false,
-        view_specs: false,
-        helper_specs: false,
-        routing_specs: false
+                       controller_specs: false,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false
     end
   end
 end

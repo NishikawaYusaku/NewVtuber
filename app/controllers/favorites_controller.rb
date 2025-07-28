@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :set_vtuber, only: %i[create destroy_vtuber]
-  
+
   def create
     @favorite = Favorite.new(user_id: current_user.id, vtuber_id: @vtuber.id)
     @favorite.save

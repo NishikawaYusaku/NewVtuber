@@ -30,11 +30,11 @@ module ApplicationHelper
       },
       twitter: {
         card: 'summary_large_image',
-        site: '@NewVtuber_info',
+        site: '@NewVtuber_info'
       }
     }
   end
-  
+
   def assign_meta_tags(options = {})
     defaults = default_meta_tags
     options.reverse_merge!(defaults)
