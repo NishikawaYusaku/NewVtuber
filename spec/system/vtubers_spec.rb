@@ -5,6 +5,7 @@ RSpec.describe "Vtubers", type: :system do
   let!(:vtuber2) { create(:vtuber, name: "vtuber2", name_x: "x2") }
   let!(:vtuber3) { create(:vtuber, name: "vtuber3", name_x: "x3") }
   let!(:place)   { create(:place, id: 1, name: "YouTube") }
+
   before do
     create(:vtuber_place, vtuber: vtuber1, place: place, url: "https://www.youtube.com/@nijisanji")
     create(:vtuber_place, vtuber: vtuber2, place: place, url: "https://www.youtube.com/@hololive")
@@ -21,23 +22,27 @@ RSpec.describe "Vtubers", type: :system do
         expect(page).to have_content 'vtuber3'
         find("a[href='/vtubers/#{vtuber1.id}']").click
       end
+
       describe 'プロフィール' do
         it '全ての項目が正しく表示される' do
           expect(current_path).to eq vtuber_path(vtuber1)
         end
       end
+
       describe 'お気に入り登録' do
         it 'できない' do
           find("a[data-testid='favorite-login-link']").click
           expect(current_path).to eq login_path
         end
       end
+
       describe 'コメント' do
         it '投稿できない' do
           expect(page).not_to have_button '投稿する'
         end
       end
     end
+
     describe '検索' do
       context '該当プロフィールがある' do
         it 'プロフィールが表示される' do
@@ -49,6 +54,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).not_to have_content '登録されていません'
         end
       end
+
       context '該当プロフィールがない' do
         it 'プロフィールが表示されない' do
           fill_in 'q', with: 'vtuber4'
@@ -58,18 +64,21 @@ RSpec.describe "Vtubers", type: :system do
         end
       end
     end
+
     it 'プロフィール作成ができない' do
       expect(page).not_to have_content '設定'
       visit new_vtuber_path
       expect(page).to have_content 'ログインしてください'
       expect(current_path).to eq login_path
     end
+
     it 'プロフィール編集ができない' do
       expect(page).not_to have_content '設定'
       visit edit_vtuber_path(vtuber1)
       expect(page).to have_content 'ログインしてください'
       expect(current_path).to eq login_path
     end
+
     it 'マイページが見れない' do
       expect(page).not_to have_content 'マイページ'
       visit user_path
@@ -79,7 +88,8 @@ RSpec.describe "Vtubers", type: :system do
   end
 
   context 'ログイン後' do
-    before {login}
+    before { login }
+
     describe 'プロフィールページ' do
       before do
         expect(page).to have_content 'vtuber1'
@@ -87,11 +97,13 @@ RSpec.describe "Vtubers", type: :system do
         expect(page).to have_content 'vtuber3'
         find("a[href='/vtubers/#{vtuber1.id}']").click
       end
+
       describe 'プロフィール' do
         it '全ての項目が正しく表示される' do
           expect(current_path).to eq vtuber_path(vtuber1)
         end
       end
+
       describe 'お気に入り登録' do
         it 'できる' do
           expect(page).to have_content '× 0'
@@ -99,6 +111,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(current_path).to eq vtuber_path(vtuber1)
           expect(page).to have_content '× 1'
         end
+
         it '外せる' do
           find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
           expect(page).to have_content '× 1'
@@ -107,6 +120,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_content '× 0'
         end
       end
+
       describe 'コメント' do
         it '投稿できる' do
           expect(page).to have_button '投稿する'
@@ -117,6 +131,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_content 'コメント（1）'
           expect(page).to have_content 'testcomment'
         end
+
         it '編集できる' do
           comment = create(:comment, user: @user, vtuber: vtuber1, body: "testcomment")
           find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}/edit']").click
@@ -126,6 +141,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_content 'コメント（1）'
           expect(page).to have_content 'testcomment_edit'
         end
+
         it '削除できる' do
           comment = create(:comment, user: @user, vtuber: vtuber1, body: "testcomment")
           find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}']").click
@@ -134,6 +150,7 @@ RSpec.describe "Vtubers", type: :system do
         end
       end
     end
+
     describe '検索' do
       context '該当プロフィールがある' do
         it 'プロフィールが表示される' do
@@ -145,6 +162,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).not_to have_content '登録されていません'
         end
       end
+
       context '該当プロフィールがない' do
         it 'プロフィールが表示されない' do
           fill_in 'q', with: 'vtuber4'
@@ -154,6 +172,7 @@ RSpec.describe "Vtubers", type: :system do
         end
       end
     end
+
     describe 'プロフィール作成' do
       before do
         expect(page).to have_content '設定'
@@ -162,6 +181,7 @@ RSpec.describe "Vtubers", type: :system do
         fill_in 'name', with: 'vtuber4'
         click_button '設定する'
       end
+
       context 'できる' do
         it 'できる' do
           expect(page).to have_content 'VTuberのお名前（必須）'
@@ -174,6 +194,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_content '最新動画'
         end
       end
+
       context 'できない' do
         describe '名前' do
           it '入力してない' do
@@ -185,6 +206,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
+
           it '重複している' do
             fill_in 'vtuber_name', with: 'vtuber1'
             fill_in 'vtuber_name_x', with: 'x4'
@@ -195,6 +217,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
+
         describe 'Xのユーザ名' do
           it '重複している' do
             fill_in 'vtuber_name_x', with: 'x1'
@@ -205,6 +228,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
+
         describe '配信サイト' do
           it 'サイトを選択してない' do
             fill_in 'vtuber_name_x', with: 'x4'
@@ -213,6 +237,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
+
           it 'URLを入力していない' do
             fill_in 'vtuber_name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
@@ -224,6 +249,7 @@ RSpec.describe "Vtubers", type: :system do
         end
       end
     end
+
     describe 'プロフィール編集' do
       context 'できる' do
         it 'できる' do
@@ -234,6 +260,7 @@ RSpec.describe "Vtubers", type: :system do
           expect(page).to have_content '最新動画'
         end
       end
+
       context 'できない' do
         describe '名前' do
           it '入力してない' do
@@ -243,6 +270,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberを更新できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
+
           it '重複している' do
             visit edit_vtuber_path(vtuber2)
             fill_in 'vtuber_name', with: ''
@@ -251,6 +279,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
+
         describe 'Xのユーザ名' do
           it '重複している' do
             visit edit_vtuber_path(vtuber1)
@@ -260,6 +289,7 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
+
         describe '配信サイト' do
           # サイトの無選択は編集ページではできないためテストは不要
           it 'URLを入力していない' do
@@ -272,6 +302,7 @@ RSpec.describe "Vtubers", type: :system do
         end
       end
     end
+
     describe 'マイページ' do
       describe 'お気に入り登録' do
         context 'している' do
@@ -282,15 +313,18 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content '見る'
             expect(page).to have_css('[data-testid="mypage-heart"]')
           end
+
           it 'プロフィールを見に行ける' do
             find("a[href='/vtubers/#{vtuber1.id}']").click
             expect(current_path).to eq vtuber_path(vtuber1)
           end
-          it 'お気に入りを外せる', js: true do
+
+          it 'お気に入りを外せる', :js do
             find('[data-testid="mypage-heart"]').click
             expect(page).not_to have_content 'vtuber1'
           end
         end
+
         context 'していない' do
           it '何も表示されない' do
             visit user_path

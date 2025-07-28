@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe VtuberTag, type: :model do
-  let(:vtuber) {create(:vtuber)}
-  let(:tag) {create(:tag)}
+  let(:vtuber) { create(:vtuber) }
+  let(:tag) { create(:tag) }
 
   describe 'validation' do
     before do
-      vtuber = create(:vtuber)
-      tag = create(:tag)
+      create(:vtuber)
+      create(:tag)
     end
 
     context 'tag_id' do
@@ -16,6 +16,7 @@ RSpec.describe VtuberTag, type: :model do
         vtuber_tag = build(:vtuber_tag, vtuber: vtuber, tag: tag)
         expect(vtuber_tag).not_to be_valid
       end
+
       it 'vtuber_idが違う場合は重複を許す' do
         create(:vtuber_tag, vtuber: vtuber, tag: tag)
         vtuber.id = vtuber.id + 1
@@ -31,10 +32,12 @@ RSpec.describe VtuberTag, type: :model do
         vtuber_tag = build(:vtuber_tag, vtuber: vtuber, tag: tag)
         expect(vtuber_tag).to be_valid
       end
+
       it 'vtuberがいない' do
         vtuber_tag = build(:vtuber_tag, vtuber: nil, tag: tag)
         expect(vtuber_tag).not_to be_valid
       end
+
       it 'tagがいない' do
         vtuber_tag = build(:vtuber_tag, vtuber: vtuber, tag: nil)
         expect(vtuber_tag).not_to be_valid

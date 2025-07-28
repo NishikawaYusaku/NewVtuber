@@ -66,7 +66,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include LoginModule, type: :system
-  
+
   config.before(:each, type: :system) do
     # "_headless"を外すとブラウザでの実際の挙動を確認しながらテストできる
     driven_by(:selenium_chrome)

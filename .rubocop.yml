@@ -1,8 +1,8 @@
 inherit_from: .rubocop_todo.yml
 
-require:
+plugins:
   - rubocop-rails
-  - rubocop-rspec
+  # - rubocop-rspec
   - rubocop-performance
 
 AllCops:
@@ -79,7 +79,7 @@ Lint/AssignmentInCondition:
   Enabled: false
 
 # メソッド名等の命名の指摘
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Enabled: false
 
 # 未i18nのチェック（バリデーションエラーメッセージをi18nに登録するのはやや冗長？なためfalse）
@@ -89,3 +89,6 @@ Rails/I18nLocaleTexts:
 # before_actionの際の未定義メソッドのチェック（deviseとの兼ね合いで一旦false）
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+
+Style/StringConcatenation:
+  Mode: conservative

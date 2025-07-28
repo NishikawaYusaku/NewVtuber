@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :set_user, only: %i[edit_email update_email edit_name update_name]
 
+  def show
+    @vtuber = current_user.favorite_vtubers
+  end
+
   def new
     @user = User.new
   end
@@ -15,10 +19,6 @@ class UsersController < ApplicationController
       flash.now[:danger] = "ユーザーを登録できませんでした"
       render :new
     end
-  end
-
-  def show
-    @vtuber = current_user.favorite_vtubers
   end
 
   def edit_email

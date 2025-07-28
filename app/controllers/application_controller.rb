@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :success, :info, :warning, :danger
   before_action :require_login
   before_action :set_search
-  before_action :check_notification, if: proc {logged_in?}
+  before_action :check_notification, if: proc { logged_in? }
 
   private
 

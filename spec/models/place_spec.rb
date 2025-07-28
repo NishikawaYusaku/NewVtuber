@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Place, type: :model do
-  let(:place) {create(:place)}
-  let(:vtuber) {create(:vtuber)}
+  let(:place) { create(:place) }
+  let(:vtuber) { create(:vtuber) }
 
   describe 'association' do
     context 'vtuber_places/vtubers' do
@@ -10,9 +10,10 @@ RSpec.describe Place, type: :model do
         create(:vtuber_place, vtuber: vtuber, place: place)
         expect(place.vtubers.count).to eq 1
       end
+
       it 'dependent: :destroy' do
         create(:vtuber_place, vtuber: vtuber, place: place)
-        expect {place.destroy}.to change {VtuberPlace.count}.by(-1)
+        expect { place.destroy }.to change { VtuberPlace.count }.by(-1)
       end
     end
   end

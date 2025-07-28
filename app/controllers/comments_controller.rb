@@ -2,12 +2,12 @@ class CommentsController < ApplicationController
   before_action :set_vtuber
   before_action :set_comment, only: %i[edit update destroy]
 
+  def edit; end
+
   def create
     @comment = Comment.new(comment_params)
     @comment.save
   end
-
-  def edit; end
 
   def update
     @comment.update(comment_params)

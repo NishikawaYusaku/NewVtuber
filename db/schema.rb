@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_12_084543) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_28_120353) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_12_084543) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,7 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_12_084543) do
     t.datetime "reset_password_email_sent_at"
     t.integer "access_count_to_reset_password_page", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "vtuber_contents", force: :cascade do |t|
@@ -102,6 +103,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_12_084543) do
     t.datetime "updated_at", null: false
     t.string "url"
     t.index ["place_id"], name: "index_vtuber_places_on_place_id"
+    t.index ["url"], name: "index_vtuber_places_on_url", unique: true
     t.index ["vtuber_id"], name: "index_vtuber_places_on_vtuber_id"
   end
 

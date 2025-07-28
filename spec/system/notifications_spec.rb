@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Notifications", type: :system do
   let!(:vtuber1) { create(:vtuber, name: "vtuber1", name_x: "x1") }
   let!(:place)   { create(:place, id: 1, name: "YouTube") }
+
   before do
     page.driver.browser.manage.window.resize_to(1400, 900)
     create(:vtuber_place, vtuber: vtuber1, place: place, url: "https://www.youtube.com/@nijisanji")
@@ -42,6 +43,7 @@ RSpec.describe "Notifications", type: :system do
         find('[data-testid="notification-modal-link"]').click
         expect(current_path).to eq vtuber_path(vtuber1)
       end
+
       it '通知がない' do
         login
         click_button 'notification-modal'

@@ -32,5 +32,4 @@ SitemapGenerator::Sitemap.create do
   Vtuber.find_each do |vtuber|
     add vtuber_path(vtuber.id), lastmod: vtuber.updated_at
   end
-  
 end

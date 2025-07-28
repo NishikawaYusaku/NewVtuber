@@ -9,13 +9,13 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
-  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy, inverse_of: :visitor
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy, inverse_of: :visited
 
   validates :email, presence: true, uniqueness: true
   validates :password, confirmation: true, presence: true, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { self[:password].present? && (new_record? || changes[:crypted_password]) }
   validates :name, presence: true
   validates :reset_password_token, uniqueness: true, allow_nil: true
-  validates_acceptance_of :agreement, allow_nil: false, on: :create
+  validates :agreement, acceptance: { allow_nil: false, on: :create }
 end
