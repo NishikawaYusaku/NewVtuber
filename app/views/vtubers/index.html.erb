@@ -2,7 +2,7 @@
   <div class="row mt-5">
     <% if @vtubers.present? %>
       <% if @tag_name %>
-        <p class="mb-5">タグ「<%= @tag_name %>」の検索結果：　<%= @vtubers.count %></p>
+        <p class="mb-5">タグ「<%= @tag_name %>」の検索結果：　<%= @vtubers.size %></p>
       <% end %>
       <% @vtubers.each do |vtuber| %>
         <div class="col">
