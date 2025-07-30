@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_28_120353) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_30_094827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -140,6 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_28_120353) do
     t.string "name_x"
     t.string "affiliation"
     t.date "birthday"
+    t.integer "version", default: 0, null: false
     t.index ["frequency_id"], name: "index_vtubers_on_frequency_id"
     t.index ["name"], name: "index_vtubers_on_name", unique: true
   end
