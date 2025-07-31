@@ -11,5 +11,6 @@ FactoryBot.define do
     name_x { Faker::Alphanumeric.alpha(number: 10) }
     affiliation { Faker::Name.name }
     birthday { Faker::Date.in_date_period }
+    version { 0 }
   end
 end

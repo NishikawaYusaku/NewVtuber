@@ -70,6 +70,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     # "_headless"を外すとブラウザでの実際の挙動を確認しながらテストできる
     driven_by(:selenium_chrome)
+    # driven_by(:selenium_chrome_headless)
   end
 
   config.after(:each, type: :system) do
