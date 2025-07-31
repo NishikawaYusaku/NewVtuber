@@ -84,6 +84,7 @@
           <%= f.label :tag, "タグ（「、」で区切って入力してください）", class: "form-label" %>
           <%= f.text_field :tag, class: "form-control", value: @tag %>
         </div>
+        <%= f.hidden_field :version, value: @vtuber.version %>
         <div class="text-center mb-5 pt-5">
           <%= link_to "戻る", root_path, class: "btn btn-secondary mx-4" %>
           <%= f.submit "更新", class: "btn btn-setting mx-4" %>
