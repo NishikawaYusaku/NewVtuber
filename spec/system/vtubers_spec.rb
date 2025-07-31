@@ -300,6 +300,38 @@ RSpec.describe "Vtubers", type: :system do
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
+
+        it '複数人同時編集', focus: true do
+          Capybara.using_session(:user1) do
+            user1 = create(:user, email: "user1@example.com", password: "password")
+            visit login_path
+            fill_in 'email', with: user1.email
+            fill_in 'password', with: 'password'
+            click_button 'ログイン'
+            visit edit_vtuber_path(vtuber1)
+            fill_in 'vtuber_name', with: '編集A'
+          end
+
+          Capybara.using_session(:user2) do
+            user2 = create(:user, email: "user2@example.com", password: "password")
+            visit login_path
+            fill_in 'email', with: user2.email
+            fill_in 'password', with: 'password'
+            click_button 'ログイン'
+            visit edit_vtuber_path(vtuber1)
+            fill_in 'vtuber_name', with: '編集B'
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新しました'
+            expect(vtuber1.reload.version).to eq 1
+          end
+
+          Capybara.using_session(:user1) do
+            click_button '更新'
+            expect(current_path).to eq vtuber_path(vtuber1)
+            expect(page).to have_content '他の人が先にプロフィールを更新しました'
+            expect(vtuber1.reload.version).to eq 1
+          end
+        end
       end
     end
 
