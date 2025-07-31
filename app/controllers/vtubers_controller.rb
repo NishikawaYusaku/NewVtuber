@@ -61,7 +61,6 @@ class VtubersController < ApplicationController
 
   def create
     @vtuber = current_user.vtubers.new(vtuber_params)
-    @tag = params[:vtuber][:tag]
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
       tag_list = params[:vtuber][:tag].delete(' ').delete('　').split('、')
@@ -76,17 +75,24 @@ class VtubersController < ApplicationController
 
   def update
     @vtuber = Vtuber.find(params[:id])
-    @tag = params[:vtuber][:tag]
-    if @vtuber.update(vtuber_params)
-      VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
-      tag_list = params[:vtuber][:tag].delete(' ').delete('　').split('、')
-      @vtuber.save_tags(tag_list)
-      @vtuber.notification_update(current_user)
-      redirect_to vtuber_path(@vtuber)
-      flash[:success] = "VTuberを更新しました"
+    latest_version = @vtuber.version
+    if latest_version == params[:vtuber][:version].to_i
+      if @vtuber.update(vtuber_params)
+        VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
+        tag_list = params[:vtuber][:tag].delete(' ').delete('　').split('、')
+        @vtuber.save_tags(tag_list)
+        @vtuber.notification_update(current_user)
+        @vtuber.update(version: @vtuber.version + 1)
+
+        flash[:success] = "VTuberを更新しました"
+        redirect_to vtuber_path(@vtuber)
+      else
+        flash.now[:danger] = "VTuberを更新できませんでした"
+        render :edit
+      end
     else
-      flash.now[:danger] = "VTuberを更新できませんでした"
-      render :edit
+      flash[:danger] = "他の人が先にプロフィールを更新しましたので、内容を確認して再編集してください。"
+      redirect_to vtuber_path(@vtuber)
     end
   end
 
