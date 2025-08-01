@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[edit_email update_email edit_name update_name]
 
   def show
-    @vtuber = current_user.favorite_vtubers.order("favorites.id DESC")
+    @favorites_vtuber = current_user.favorite_vtubers.order("favorites.id DESC")
   end
 
   def new
