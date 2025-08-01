@@ -63,7 +63,7 @@ class VtubersController < ApplicationController
     @vtuber = current_user.vtubers.new(vtuber_params)
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
-      tag_list = params[:vtuber][:tag].delete(' ').delete('　').split('、')
+      tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
       redirect_to vtuber_path(@vtuber)
       flash[:success] = "VTuberを登録しました"
@@ -79,7 +79,7 @@ class VtubersController < ApplicationController
     if latest_version == params[:vtuber][:version].to_i
       if @vtuber.update(vtuber_params)
         VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
-        tag_list = params[:vtuber][:tag].delete(' ').delete('　').split('、')
+        tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
         @vtuber.save_tags(tag_list)
         @vtuber.notification_update(current_user)
         @vtuber.update(version: @vtuber.version + 1)

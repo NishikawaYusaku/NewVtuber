@@ -35,6 +35,8 @@ class Vtuber < ApplicationRecord
   accepts_nested_attributes_for :vtuber_places, allow_destroy: true
 
   def save_tags(tags)
+    tags.delete("")
+
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
     old_tags = current_tags - tags
     new_tags = tags - current_tags
