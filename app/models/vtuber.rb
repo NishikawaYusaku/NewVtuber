@@ -25,6 +25,7 @@ class Vtuber < ApplicationRecord
   has_many :tags, through: :vtuber_tags
 
   has_many :comments, dependent: :destroy
+  has_many :users, through: :comments
 
   has_many :notifications, dependent: :destroy
 

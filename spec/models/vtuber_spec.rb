@@ -117,10 +117,10 @@ RSpec.describe Vtuber, type: :model do
       end
     end
 
-    context 'comments' do
-      it 'comments' do
+    context 'comments/users' do
+      it 'comments/users' do
         create(:comment, user: user, vtuber: vtuber)
-        expect(vtuber.comments.count).to eq 1
+        expect(vtuber.users.count).to eq 1
       end
 
       it 'dependent: :destroy' do

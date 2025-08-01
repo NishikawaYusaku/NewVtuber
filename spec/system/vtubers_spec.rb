@@ -301,7 +301,7 @@ RSpec.describe "Vtubers", type: :system do
           end
         end
 
-        it '複数人同時編集', focus: true do
+        it '複数人同時編集' do
           Capybara.using_session(:user1) do
             user1 = create(:user, email: "user1@example.com", password: "password")
             visit login_path
