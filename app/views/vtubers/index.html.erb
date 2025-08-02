@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="row mt-5">
+  <div class="row mt-5 justify-content-start">
     <% if @vtubers.present? %>
       <% if @tag_name %>
         <p class="mb-5">タグ「<%= @tag_name %>」の検索結果：　<%= @vtubers.size %></p>
       <% end %>
       <% @vtubers.each do |vtuber| %>
-        <div class="col">
+        <div class="col-xl-3 col-lg-4 col-md-5">
           <%= link_to vtuber_path(vtuber.id), class: "text-decoration-none" do %>
             <div class="pt-3 pb-2 mb-5 profile-hover">
               <div class="text-center">
