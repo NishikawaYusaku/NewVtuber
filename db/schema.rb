@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_30_094827) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_02_123950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -126,6 +126,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_30_094827) do
     t.index ["vtuber_id"], name: "index_vtuber_users_on_vtuber_id"
   end
 
+  create_table "vtuber_youtubes", force: :cascade do |t|
+    t.bigint "vtuber_id", null: false
+    t.integer "subscriber_count"
+    t.integer "video_count"
+    t.string "latest_video_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vtuber_id"], name: "index_vtuber_youtubes_on_vtuber_id"
+  end
+
   create_table "vtubers", force: :cascade do |t|
     t.string "name", null: false
     t.string "image"
@@ -157,5 +167,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_30_094827) do
   add_foreign_key "vtuber_tags", "vtubers"
   add_foreign_key "vtuber_users", "users"
   add_foreign_key "vtuber_users", "vtubers"
+  add_foreign_key "vtuber_youtubes", "vtubers"
   add_foreign_key "vtubers", "frequencies"
 end
