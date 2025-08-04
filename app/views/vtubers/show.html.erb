@@ -74,18 +74,18 @@
           </div>
           <div class="col-8"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') if @vtuber.debut_date %></div>
         </div>
-        <% if @youtube_channel %>
+        <% if @youtube %>
           <div class="row pt-3 justify-content-start">
             <div class="col-4">
               <li class="text-end">ch登録者数：</li>
             </div>
-            <div class="col-8"><%= @youtube_channel[:items][0][:statistics][:subscriber_count].to_formatted_s(:delimited) %>人</div>
+            <div class="col-8"><%= @youtube.subscriber_count.to_formatted_s(:delimited) %>人</div>
           </div>
           <div class="row pt-3 justify-content-start">
             <div class="col-4">
               <li class="text-end">動画数：</li>
             </div>
-            <div class="col-8"><%= @youtube_channel[:items][0][:statistics][:video_count].to_formatted_s(:delimited) %></div>
+            <div class="col-8"><%= @youtube.video_count.to_formatted_s(:delimited) %></div>
           </div>
         <% end %>
         <div class="row pt-3 justify-content-start">
@@ -127,13 +127,13 @@
   </div>
 
   <div class="row pt-5">
-    <% if @youtube_video %>
+    <% if @youtube %>
       <div class="mb-5">
         <p>最新動画</p>
         <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/<%= @youtube_video[:items][0][:id][:video_id] %>?rel=0" title="YouTube video player" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/<%= @youtube.latest_video_id %>?rel=0" title="YouTube video player" allowfullscreen></iframe>
         </div>
-        <p class="mt-3"><%= @youtube_video[:items][0][:snippet][:title] %></p>
+        <p class="mt-3"><%= @youtube.latest_video_title %></p>
       </div>
     <% end %>
 
