@@ -63,7 +63,7 @@ gem 'fog-aws'
 
 gem 'aws-sdk-s3'
 
-gem 'google-api-client'
+gem 'google-apis-youtube_v3'
 
 gem "meta-tags"
 gem 'sitemap_generator'

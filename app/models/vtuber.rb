@@ -29,6 +29,8 @@ class Vtuber < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  has_one :vtuber_youtube, dependent: :destroy
+
   validates :name, uniqueness: true, presence: true
   validates :name_x, uniqueness: true, if: -> { new_record? || changes[:name_x] }, allow_blank: true
 
@@ -48,6 +50,35 @@ class Vtuber < ApplicationRecord
     new_tags.each do |new_tag|
       vtuber_tag = Tag.find_or_create_by(name: new_tag)
       self.tags << vtuber_tag unless self.tags.exists?(vtuber_tag.id)
+    end
+  end
+
+  def youtube_information(vtuber_id, url)
+    require 'google/apis/youtube_v3'
+    youtube = Google::Apis::YoutubeV3::YouTubeService.new
+    youtube.key = ENV.fetch('GOOGLE_API_KEY', nil)
+
+    if url.include?("@")
+      youtube_handle = url[url.index("@")..]
+      youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
+      youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
+    elsif url.include?("/UC")
+      youtube_channel_id = url[(url.index("/UC") + 1)..]
+    end
+
+    @youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
+    @youtube_video = youtube.list_searches("snippet", channel_id: youtube_channel_id, type: 'video', max_results: 1, order: :date).to_h
+
+    subscriber_count = @youtube_channel[:items][0][:statistics][:subscriber_count]
+    video_count = @youtube_channel[:items][0][:statistics][:video_count]
+    latest_video_id = @youtube_video[:items][0][:id][:video_id]
+    latest_video_title = @youtube_video[:items][0][:snippet][:title]
+    
+    record = VtuberYoutube.find_by(vtuber_id: vtuber_id)
+    if record
+      record.update(subscriber_count: subscriber_count, video_count: video_count, latest_video_id: latest_video_id, latest_video_title: latest_video_title)
+    else
+      VtuberYoutube.create(vtuber_id: vtuber_id, subscriber_count: subscriber_count, video_count: video_count, latest_video_id: latest_video_id, latest_video_title: latest_video_title)
     end
   end
 

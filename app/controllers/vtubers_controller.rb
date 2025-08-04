@@ -7,30 +7,7 @@ class VtubersController < ApplicationController
     @vtuber = Vtuber.find(params[:id])
     @comment = Comment.new
     @comments = @vtuber.comments
-
-    place_url = @vtuber.vtuber_places.last.url
-    if place_url.include?("youtube")
-      require 'google/apis/youtube_v3'
-      youtube = Google::Apis::YoutubeV3::YouTubeService.new
-      youtube.key = ENV.fetch('GOOGLE_API_KEY', nil)
-
-      if place_url.include?("@")
-        youtube_handle = place_url[place_url.index("@")..]
-        youtube_id = Rails.cache.fetch("youtube_handle_to_id_#{youtube_handle}", expires_in: 12.hours) do
-          youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
-          youtube_handle_to_id[:items][0][:id][:channel_id]
-        end
-      elsif place_url.include?("/UC")
-        youtube_id = place_url[(place_url.index("/UC") + 1)..]
-      end
-
-      @youtube_channel = Rails.cache.fetch("youtube_channel_#{youtube_id}", expires_in: 12.hours) do
-        youtube.list_channels("statistics", id: youtube_id).to_h
-      end
-      @youtube_video = Rails.cache.fetch("youtube_video_#{youtube_id}", expires_in: 12.hours) do
-        youtube.list_searches("snippet", channel_id: youtube_id, type: 'video', max_results: 1, order: :date).to_h
-      end
-    end
+    @youtube = VtuberYoutube.find_by(vtuber_id: @vtuber.id)
   end
 
   def autocomplete_names
@@ -65,6 +42,13 @@ class VtubersController < ApplicationController
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
+
+      place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
+      if place_id == "1"
+        youtube_url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
+        @vtuber.youtube_information(@vtuber.id, youtube_url)
+      end
+
       redirect_to vtuber_path(@vtuber)
       flash[:success] = "VTuberを登録しました"
     else
@@ -81,6 +65,13 @@ class VtubersController < ApplicationController
         VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
         tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
         @vtuber.save_tags(tag_list)
+
+        place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
+        if place_id == "1"
+          youtube_url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
+          @vtuber.youtube_information(@vtuber.id, youtube_url)
+        end
+
         @vtuber.notification_update(current_user)
         @vtuber.update(version: @vtuber.version + 1)
 
