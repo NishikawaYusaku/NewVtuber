@@ -57,28 +57,53 @@ class Vtuber < ApplicationRecord
     require 'google/apis/youtube_v3'
     youtube = Google::Apis::YoutubeV3::YouTubeService.new
     youtube.key = ENV.fetch('GOOGLE_API_KEY', nil)
-
-    if url.include?("@")
-      youtube_handle = url[url.index("@")..]
-      youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
-      youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
-    elsif url.include?("/UC")
-      youtube_channel_id = url[(url.index("/UC") + 1)..]
-    end
-
-    @youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
-    @youtube_video = youtube.list_searches("snippet", channel_id: youtube_channel_id, type: 'video', max_results: 1, order: :date).to_h
-
-    subscriber_count = @youtube_channel[:items][0][:statistics][:subscriber_count]
-    video_count = @youtube_channel[:items][0][:statistics][:video_count]
-    latest_video_id = @youtube_video[:items][0][:id][:video_id]
-    latest_video_title = @youtube_video[:items][0][:snippet][:title]
     
-    record = VtuberYoutube.find_by(vtuber_id: vtuber_id)
-    if record
-      record.update(subscriber_count: subscriber_count, video_count: video_count, latest_video_id: latest_video_id, latest_video_title: latest_video_title)
-    else
-      VtuberYoutube.create(vtuber_id: vtuber_id, subscriber_count: subscriber_count, video_count: video_count, latest_video_id: latest_video_id, latest_video_title: latest_video_title)
+    begin
+      if url.include?("@")
+        youtube_handle = url[url.index("@")..]
+        if youtube_handle.include?("/")
+          youtube_handle = youtube_handle.slice(0..youtube_handle.index("/")-1)
+        end
+        youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
+        if youtube_handle_to_id[:items]&.any?
+          youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
+        else
+          return
+        end
+      elsif url.include?("/UC")
+        youtube_channel_id = url[(url.index("/UC") + 1)..]
+      else
+        return
+      end
+    
+      youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
+      if youtube_channel[:items]&.any?
+        subscriber_count = youtube_channel[:items][0][:statistics][:subscriber_count]
+        video_count = youtube_channel[:items][0][:statistics][:video_count]
+      else
+        return
+      end
+    
+      youtube_video = youtube.list_searches("snippet", channel_id: youtube_channel_id, type: 'video', max_results: 1, order: :date).to_h
+      if youtube_video[:items]&.any?
+        latest_video_id = youtube_video[:items][0][:id][:video_id]
+        latest_video_title = youtube_video[:items][0][:snippet][:title]
+      else
+        latest_video_id = nil
+        latest_video_title = nil
+      end
+    
+      record = VtuberYoutube.find_or_initialize_by(vtuber_id: vtuber_id)
+      record.update!(
+        channel_id: youtube_channel_id,
+        subscriber_count: subscriber_count,
+        video_count: video_count,
+        latest_video_id: latest_video_id,
+        latest_video_title: latest_video_title
+      )
+    
+    rescue Google::Apis::Error, StandardError
+      return
     end
   end
 

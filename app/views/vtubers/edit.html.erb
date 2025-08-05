@@ -52,7 +52,7 @@
             <%= place_fields.label :place_id, "配信サイト", class: "form-label" %><small class="text-danger fw-semibold">（必須）</small>
             <div class="input-group">
               <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn btn-outline-secondary"} ) %>
-              <%= place_fields.text_field :url, class: "form-control", placeholder: "選択した配信サイトのURL", data: {testid: "place-url"} %>
+              <%= place_fields.text_field :url, class: "form-control", placeholder: "選択した配信サイトのチャンネルURL", data: {testid: "place-url"} %>
             </div>
           </div>
         <% end %>
