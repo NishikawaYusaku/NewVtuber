@@ -73,6 +73,24 @@ RUN apt-get update -qq && \
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
+# Supercronicのインストール
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.34/supercronic-linux-amd64 \
+    SUPERCRONIC_SHA1SUM=e8631edc1775000d119b70fd40339a7238eece14 \
+    SUPERCRONIC=supercronic-linux-amd64
+
+RUN curl -fsSLO "$SUPERCRONIC_URL" \
+ && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+ && chmod +x "$SUPERCRONIC" \
+ && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+ && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+
+# run_rake_task.shをコピー（buildステージから）し、実行権限を付与
+# ※ アプリ内に既にあるならこのCOPYは不要
+RUN chmod +x /rails/run_rake_task.sh
+
+# wheneverでcrontabを生成
+RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
+
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
