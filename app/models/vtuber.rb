@@ -60,10 +60,13 @@ class Vtuber < ApplicationRecord
     
     begin
       if url.include?("@")
-        youtube_handle = url[url.index("@")..]
-        if youtube_handle.include?("/")
-          youtube_handle = youtube_handle.slice(0..youtube_handle.index("/")-1)
+        youtube_handle = url[url.index("@") + 1..]
+        if youtube_handle.include?("?")
+          youtube_handle = youtube_handle[0...youtube_handle.index("?")]
+        elsif youtube_handle.include?("/")
+          youtube_handle = youtube_handle[0...youtube_handle.index("/")]
         end
+
         youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
         if youtube_handle_to_id[:items]&.any?
           youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
@@ -71,7 +74,7 @@ class Vtuber < ApplicationRecord
           return
         end
       elsif url.include?("/UC")
-        youtube_channel_id = url[(url.index("/UC") + 1)..]
+        youtube_channel_id = url[url.index("/UC") + 1..]
       else
         return
       end
