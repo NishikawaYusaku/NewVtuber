@@ -89,7 +89,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 RUN chmod +x /rails/run_rake_task.sh
 
 # wheneverでcrontabを生成
-RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
+RUN bundle exec whenever --update-crontab
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
