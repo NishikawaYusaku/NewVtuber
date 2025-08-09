@@ -62,7 +62,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # wheneverでcrontabファイルを生成
-# RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
+RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
 
 # Final stage for app image
 FROM base
