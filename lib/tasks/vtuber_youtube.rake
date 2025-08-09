@@ -36,6 +36,7 @@ namespace :vtuber_youtube do
         # end
 
       rescue Google::Apis::Error, StandardError
+        puts "エラー"
         next
       end
     end
