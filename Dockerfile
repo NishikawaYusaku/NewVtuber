@@ -92,6 +92,8 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 # ※ アプリ内に既にあるならこのCOPYは不要
 RUN chmod +x /rails/run_rake_task.sh
 
+RUN mkdir -p /rails && chown -R 1000:1000 /rails
+
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
