@@ -62,7 +62,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # wheneverでcrontabファイルを生成
-RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
+# RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
 
 # Final stage for app image
 FROM base
@@ -75,7 +75,7 @@ RUN apt-get update -qq && \
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
-COPY --from=build /rails/crontab /rails/crontab
+# COPY --from=build /rails/crontab /rails/crontab
 
 # Supercronicのインストール
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.34/supercronic-linux-amd64 \
