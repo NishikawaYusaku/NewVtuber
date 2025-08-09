@@ -14,7 +14,7 @@ console_command = '/rails/bin/rails console'
 
 [processes]
   web = "bundle exec puma -C config/puma.rb"
-  cron = "sh -c 'bundle exec whenever --update-crontab && crontab -l > /rails/crontab && supercronic /rails/crontab'"
+  cron = "sh -c 'bundle exec whenever --output /rails/crontab && supercronic /rails/crontab'"
 
 [http_service]
   internal_port = 3000
