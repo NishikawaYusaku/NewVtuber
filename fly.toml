@@ -13,7 +13,8 @@ console_command = '/rails/bin/rails console'
   release_command = './bin/rails db:prepare'
 
 [processes]
-app = "bash -c \"bundle exec whenever --write-crontab /rails/crontab && bundle exec supercronic /rails/crontab & bundle exec puma -C config/puma.rb\""
+  web = "bin/rails server"
+  cron = "supercronic /rails/crontab"
 
 [http_service]
   internal_port = 3000
@@ -21,7 +22,7 @@ app = "bash -c \"bundle exec whenever --write-crontab /rails/crontab && bundle e
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
-  processes = ['app']
+  processes = ['web']
 
 [[vm]]
   memory = '1gb'
