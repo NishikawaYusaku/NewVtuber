@@ -61,9 +61,6 @@ RUN bundle exec bootsnap precompile app/ lib/
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-# wheneverでcrontabファイルを生成
-# RUN bundle exec whenever --update-crontab && crontab -l > /rails/crontab
-
 # Final stage for app image
 FROM base
 
@@ -75,9 +72,8 @@ RUN apt-get update -qq && \
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
-# COPY --from=build /rails/crontab /rails/crontab
 
-# Supercronicのインストール
+# Latest releases available at https://github.com/aptible/supercronic/releases
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.34/supercronic-linux-amd64 \
     SUPERCRONIC_SHA1SUM=e8631edc1775000d119b70fd40339a7238eece14 \
     SUPERCRONIC=supercronic-linux-amd64
@@ -88,11 +84,8 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-# run_rake_task.shをコピー（buildステージから）し、実行権限を付与
-# ※ アプリ内に既にあるならこのCOPYは不要
-RUN chmod +x /rails/run_rake_task.sh
-
-RUN mkdir -p /rails && chown -R 1000:1000 /rails
+# You might need to change this depending on where your crontab is located
+COPY crontab crontab
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
@@ -105,4 +98,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["./bin/rails", "server"]
