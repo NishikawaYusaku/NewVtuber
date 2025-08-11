@@ -11,7 +11,7 @@
 
 
 
-require File.expand_path(File.dirname(__FILE__) + '/environment')
+# require File.expand_path(File.dirname(__FILE__) + '/environment')
 
 # job_type :rake, "source /Users/saku/.zshrc; export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init - zsh)\"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
 job_type :rake, %Q{export PATH="$HOME/.rbenv/shims:$PATH"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output} 
