@@ -53,11 +53,8 @@ class Vtuber < ApplicationRecord
     end
   end
 
-  def youtube_information(vtuber_id, url)
-    require 'google/apis/youtube_v3'
-    youtube = Google::Apis::YoutubeV3::YouTubeService.new
-    youtube.key = ENV.fetch('GOOGLE_API_KEY', nil)
-    
+  def get_youtube_channel_id(url)
+    youtube = youtube_data_api
     begin
       if url.include?("@")
         youtube_handle = url[url.index("@") + 1..]
@@ -68,17 +65,26 @@ class Vtuber < ApplicationRecord
         end
 
         youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
-        if youtube_handle_to_id[:items]&.any?
-          youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
-        else
-          return
-        end
+        return if youtube_handle_to_id[:items].blank?
+        youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
       elsif url.include?("/UC")
         youtube_channel_id = url[url.index("/UC") + 1..]
+        youtube_channel_id_digits = 24
+        return if youtube_channel_id.length != youtube_channel_id_digits
       else
         return
       end
-    
+
+      return youtube_channel_id;
+
+    rescue Google::Apis::Error, StandardError
+      return
+    end
+  end
+
+  def youtube_information(vtuber_id, youtube_channel_id)
+    youtube = youtube_data_api
+    begin
       youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
       if youtube_channel[:items]&.any?
         subscriber_count = youtube_channel[:items][0][:statistics][:subscriber_count]
@@ -123,5 +129,14 @@ class Vtuber < ApplicationRecord
         notification.save if notification.valid?
       end
     end
+  end
+
+  private
+
+  def youtube_data_api
+    require 'google/apis/youtube_v3'
+    youtube = Google::Apis::YoutubeV3::YouTubeService.new
+    youtube.key = ENV.fetch('GOOGLE_API_KEY', nil)
+    return youtube
   end
 end
