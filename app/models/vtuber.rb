@@ -85,6 +85,7 @@ class Vtuber < ApplicationRecord
   def youtube_information(vtuber_id, youtube_channel_id)
     youtube = youtube_data_api
     begin
+      # partをstatisticsからsnippetにするとチャンネルのアイコン画像のURLを取得可能
       youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
       return if youtube_channel[:items].blank?
       subscriber_count = youtube_channel[:items][0][:statistics][:subscriber_count]

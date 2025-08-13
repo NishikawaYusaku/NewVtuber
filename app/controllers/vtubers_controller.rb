@@ -60,7 +60,10 @@ class VtubersController < ApplicationController
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
 
-      is_platform_youtube2
+      if @youtube_channel_id.present?
+        youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
+        @vtuber.youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check == nil
+      end
 
       redirect_to vtuber_path(@vtuber)
       flash[:success] = "VTuberを登録しました"
@@ -87,7 +90,9 @@ class VtubersController < ApplicationController
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
 
-      is_platform_youtube2
+      if @youtube_channel_id.present?
+        @vtuber.youtube_information(@vtuber.id, @youtube_channel_id)
+      end
 
       @vtuber.notification_update(current_user)
       @vtuber.update(version: @vtuber.version + 1)
@@ -111,13 +116,6 @@ class VtubersController < ApplicationController
     url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
     if place_id == "1" && url.present?
       @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
-    end
-  end
-
-  def is_platform_youtube2
-    if @youtube_channel_id.present?
-      youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
-      @vtuber.youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check == nil
     end
   end
 end
