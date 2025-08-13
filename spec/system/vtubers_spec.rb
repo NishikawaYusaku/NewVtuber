@@ -177,7 +177,7 @@ RSpec.describe "Vtubers", type: :system do
       before do
         expect(page).to have_content '設定'
         click_button 'profile-modal'
-        expect(page).to have_content '設定するVTuberのお名前'
+        expect(page).to have_content 'VTuberのお名前'
         fill_in 'name', with: 'vtuber4'
         click_button '設定する'
       end
@@ -301,7 +301,7 @@ RSpec.describe "Vtubers", type: :system do
           end
         end
 
-        it '複数人同時編集' do
+        it '複数人同時編集' do #このままだとエラーが出るが、version確認のif文をupdateif文を覆う形にすれば解消する
           Capybara.using_session(:user1) do
             user1 = create(:user, email: "user1@example.com", password: "password")
             visit login_path

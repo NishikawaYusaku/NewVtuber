@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Vtuber, type: :model, focus: true do
+RSpec.describe Vtuber, type: :model do
   describe 'validation' do
     let(:vtuber) { build(:vtuber) }
 
