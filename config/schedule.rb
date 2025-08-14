@@ -8,23 +8,16 @@
 # set :environment, Rails.env
 # set :output, "#{Rails.root}/log/cron.log"
 
-
-
-
 # require File.expand_path(File.dirname(__FILE__) + '/environment')
 
 # # job_type :rake, "source /Users/saku/.zshrc; export PATH=\"$HOME/.rbenv/bin:$PATH\"; eval \"$(rbenv init - zsh)\"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
-# job_type :rake, %Q{export PATH="$HOME/.rbenv/shims:$PATH"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output} 
+# job_type :rake, %Q{export PATH="$HOME/.rbenv/shims:$PATH"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output}
 
 # # rails_env = ENV['RAILS_ENV'] || :development
 
 # # set :environment, rails_env
 # set :environment, Rails.env
 # set :output, "#{Rails.root}/log/cron.log"
-
-
-
-
 
 # # every 1.minutes do
 # every 1.day, at: Rails.env.production? ? '6:00 pm' : '3:00 am' do
@@ -35,21 +28,9 @@
 #   rake "vtuber_youtube:update"
 # end
 
-
-
-
-
-
-
-
-
-
-
-
-
 # require File.expand_path(File.dirname(__FILE__) + '/environment')
 
-job_type :rake, %Q{export PATH="$HOME/.rbenv/shims:$PATH"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output}
+job_type :rake, %(export PATH="$HOME/.rbenv/shims:$PATH"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output)
 
 rails_env = ENV['RAILS_ENV'] || 'development'
 set :environment, rails_env

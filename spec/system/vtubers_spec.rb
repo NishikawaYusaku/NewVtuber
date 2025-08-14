@@ -301,7 +301,7 @@ RSpec.describe "Vtubers", type: :system do
           end
         end
 
-        it '複数人同時編集' do #このままだとエラーが出るが、version確認のif文をupdateif文を覆う形にすれば解消する
+        it '複数人同時編集' do # このままだとエラーが出るが、version確認のif文をupdateif文を覆う形にすれば解消する
           Capybara.using_session(:user1) do
             user1 = create(:user, email: "user1@example.com", password: "password")
             visit login_path

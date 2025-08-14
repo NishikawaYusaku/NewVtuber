@@ -57,7 +57,7 @@ class Vtuber < ApplicationRecord
     youtube = youtube_data_api
     begin
       if url.include?("@")
-        youtube_handle = url[url.index("@") + 1..]
+        youtube_handle = url[(url.index("@") + 1)..]
         if youtube_handle.include?("?")
           youtube_handle = youtube_handle[0...youtube_handle.index("?")]
         elsif youtube_handle.include?("/")
@@ -66,19 +66,19 @@ class Vtuber < ApplicationRecord
 
         youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
         return if youtube_handle_to_id[:items].blank?
+
         youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
       elsif url.include?("/UC")
-        youtube_channel_id = url[url.index("/UC") + 1..]
+        youtube_channel_id = url[(url.index("/UC") + 1)..]
         youtube_channel_id_digits = 24
         return if youtube_channel_id.length != youtube_channel_id_digits
       else
         return
       end
 
-      return youtube_channel_id;
-
+      youtube_channel_id
     rescue Google::Apis::Error, StandardError
-      return
+      nil
     end
   end
 
@@ -88,9 +88,10 @@ class Vtuber < ApplicationRecord
       # partをstatisticsからsnippetにするとチャンネルのアイコン画像のURLを取得可能
       youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
       return if youtube_channel[:items].blank?
+
       subscriber_count = youtube_channel[:items][0][:statistics][:subscriber_count]
       video_count = youtube_channel[:items][0][:statistics][:video_count]
-    
+
       youtube_video = youtube.list_searches("snippet", channel_id: youtube_channel_id, type: 'video', max_results: 1, order: :date).to_h
       if youtube_video[:items]&.any?
         latest_video_id = youtube_video[:items][0][:id][:video_id]
@@ -99,7 +100,7 @@ class Vtuber < ApplicationRecord
         latest_video_id = nil
         latest_video_title = nil
       end
-    
+
       record = VtuberYoutube.find_or_initialize_by(vtuber_id: vtuber_id)
       record.update!(
         channel_id: youtube_channel_id,
@@ -108,9 +109,8 @@ class Vtuber < ApplicationRecord
         latest_video_id: latest_video_id,
         latest_video_title: latest_video_title
       )
-    
     rescue Google::Apis::Error, StandardError
-      return
+      nil
     end
   end
 
@@ -135,6 +135,6 @@ class Vtuber < ApplicationRecord
     require 'google/apis/youtube_v3'
     youtube = Google::Apis::YoutubeV3::YouTubeService.new
     youtube.key = ENV.fetch('GOOGLE_API_KEY', nil)
-    return youtube
+    youtube
   end
 end
