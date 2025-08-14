@@ -261,7 +261,7 @@ RSpec.describe Vtuber, type: :model do
 
   describe 'save_youtube_information(vtuber_id, youtube_channel_id)' do
     let(:vtuber) { create(:vtuber) }
-    
+
     context 'VtuberYoutubeのデータがある' do
       before { create(:vtuber_youtube, vtuber: vtuber) }
 

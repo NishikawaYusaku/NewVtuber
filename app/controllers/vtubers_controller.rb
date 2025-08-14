@@ -62,7 +62,7 @@ class VtubersController < ApplicationController
 
       if @youtube_channel_id.present?
         youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
-        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check == nil
+        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check.nil?
       end
 
       redirect_to vtuber_path(@vtuber)
@@ -90,9 +90,7 @@ class VtubersController < ApplicationController
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
 
-      if @youtube_channel_id.present?
-        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
-      end
+      @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if @youtube_channel_id.present?
 
       @vtuber.notification_update(current_user)
       @vtuber.update(version: @vtuber.version + 1)
@@ -103,7 +101,6 @@ class VtubersController < ApplicationController
       flash.now[:danger] = "VTuberを更新できませんでした"
       render :edit
     end
-    
   end
 
   private
@@ -115,8 +112,6 @@ class VtubersController < ApplicationController
   def is_platform_youtube
     place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
     url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
-    if place_id == "1" && url.present?
-      @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
-    end
+    @youtube_channel_id = @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
   end
 end

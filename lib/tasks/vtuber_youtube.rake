@@ -11,7 +11,7 @@ namespace :vtuber_youtube do
         youtube_channel = youtube.list_channels("statistics", id: channel_id).to_h
         youtube_video = youtube.list_searches("snippet", channel_id: channel_id, type: 'video', max_results: 1, order: :date).to_h
         next if youtube_channel[:items].blank? || youtube_video[:items].blank?
-      
+
         record = VtuberYoutube.find_by(channel_id: channel_id)
         next unless record
 
@@ -34,7 +34,6 @@ namespace :vtuber_youtube do
         # else
         #   record.touch
         # end
-
       rescue Google::Apis::Error, StandardError
         puts "エラー"
         next
