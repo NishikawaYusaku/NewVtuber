@@ -82,7 +82,7 @@ class Vtuber < ApplicationRecord
     end
   end
 
-  def youtube_information(vtuber_id, youtube_channel_id)
+  def save_youtube_information(vtuber_id, youtube_channel_id)
     youtube = youtube_data_api
     begin
       # partをstatisticsからsnippetにするとチャンネルのアイコン画像のURLを取得可能
