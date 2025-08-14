@@ -198,196 +198,91 @@ RSpec.describe Vtuber, type: :model do
     end
   end
 
-  describe 'youtube_information(vtuber_id, url)' do
+  describe 'get_youtube_channel_id(url)' do
+    let(:vtuber) { create(:vtuber) }
+
+    describe '@が含まれている' do
+      describe '?が含まれている' do
+        it 'チャンネルIDを取得できる' do
+          youtube_channel_id = vtuber.get_youtube_channel_id("https://youtube.com/@nijisanji?si=chg-oLZEQIIDtx7o")
+          expect(youtube_channel_id).to eq "UCX7YkU9nEeaoZbkVLVajcMg"
+        end
+
+        it 'チャンネルIDを取得できない' do
+          youtube_channel_id = vtuber.get_youtube_channel_id("https://youtube.com/@nijisanji_errortest?si=chg-oLZEQIIDtx7o")
+          expect(youtube_channel_id).to eq nil
+        end
+      end
+
+      describe '/が含まれている' do
+        it 'チャンネルIDを取得できる' do
+          youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/@nijisanji/videos")
+          expect(youtube_channel_id).to eq "UCX7YkU9nEeaoZbkVLVajcMg"
+        end
+
+        it 'チャンネルIDを取得できない' do
+          youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/@nijisanji_errortest/videos")
+          expect(youtube_channel_id).to eq nil
+        end
+      end
+
+      describe '何も含まれていない' do
+        it 'チャンネルIDを取得できる' do
+          youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/@nijisanji")
+          expect(youtube_channel_id).to eq "UCX7YkU9nEeaoZbkVLVajcMg"
+        end
+
+        it 'チャンネルIDを取得できない' do
+          youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/@nijisanji_errortest")
+          expect(youtube_channel_id).to eq nil
+        end
+      end
+    end
+
+    describe 'UCが含まれている' do
+      it 'チャンネルIDを取得できる' do
+        youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMg")
+        expect(youtube_channel_id).to eq "UCX7YkU9nEeaoZbkVLVajcMg"
+      end
+
+      it 'チャンネルIDを取得できない' do
+        youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMgErRrOrTeSt")
+        expect(youtube_channel_id).to eq nil
+      end
+    end
+
+    describe 'それ以外' do
+      it 'チャンネルIDを取得できない' do
+        youtube_channel_id = vtuber.get_youtube_channel_id("https://www.youtube.com/watch?v=A_g9pdp2KWI")
+        expect(youtube_channel_id).to eq nil
+      end
+    end
+  end
+
+  describe 'save_youtube_information(vtuber_id, youtube_channel_id)' do
     let(:vtuber) { create(:vtuber) }
     
     context 'VtuberYoutubeのデータがある' do
       before { create(:vtuber_youtube, vtuber: vtuber) }
-      describe 'URLに@が含まれている' do
-        describe '?が含まれている' do
-          context 'YouTubeのチャンネルIDを取得できた' do
-            it 'VtuberYoutubeのデータが更新される' do
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-              vtuber.youtube_information(vtuber.id, "https://youtube.com/@nijisanji?si=dCf13Rbr6BYmL-OP")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-            end
-          end
 
-          context 'YouTubeのチャンネルIDを取得できなかった' do
-            it 'VtuberYoutubeのデータが更新されない' do
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-              vtuber.youtube_information(vtuber.id, "https://youtube.com/@nijisanji_errortest?si=dCf13Rbr6BYmL-OP")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-            end
-          end
-        end
-
-        describe '/が含まれている' do
-          context 'YouTubeのチャンネルIDを取得できた' do
-            it 'VtuberYoutubeのデータが更新される' do
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji/videos")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-            end
-          end
-
-          context 'YouTubeのチャンネルIDを取得できなかった' do
-            it 'VtuberYoutubeのデータが更新されない' do
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji_errortest/videos")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-            end
-          end
-        end
-
-        describe '何も含まれていない' do
-          context 'YouTubeのチャンネルIDを取得できた' do
-            it 'VtuberYoutubeのデータが更新される' do
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-            end
-          end
-
-          context 'YouTubeのチャンネルIDを取得できなかった' do
-            it 'VtuberYoutubeのデータが更新されない' do
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji_errortest")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).to eq nil
-            end
-          end
-        end
-      end
-
-      describe 'URLにUCが含まれている' do
-        context 'YouTubeのチャンネルIDが有効である' do
-          it 'VtuberYoutubeのデータが更新される' do
-            expect(VtuberYoutube.count).to eq 1
-            expect(VtuberYoutube.first.subscriber_count).to eq nil
-            vtuber.youtube_information(vtuber.id, "https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMg")
-            expect(VtuberYoutube.count).to eq 1
-            expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-          end
-        end
-
-        context 'YouTubeのチャンネルIDが無効である' do
-          it 'VtuberYoutubeのデータが更新されない' do
-            expect(VtuberYoutube.count).to eq 1
-            expect(VtuberYoutube.first.subscriber_count).to eq nil
-            vtuber.youtube_information(vtuber.id, "https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMgErR0RtEsT")
-            expect(VtuberYoutube.count).to eq 1
-            expect(VtuberYoutube.first.subscriber_count).to eq nil
-          end
-        end
-      end
-
-      describe 'どれも含まれていない' do
-        it 'VtuberYoutubeのデータが更新されない' do
+      describe 'チャンネルIDが有効である' do
+        it 'VtuberYoutubeのデータが更新される' do
           expect(VtuberYoutube.count).to eq 1
           expect(VtuberYoutube.first.subscriber_count).to eq nil
-          vtuber.youtube_information(vtuber.id, "https://www.youtube.com/watch?v=A_g9pdp2KWI")
+          vtuber.save_youtube_information(vtuber.id, "UCX7YkU9nEeaoZbkVLVajcMg")
           expect(VtuberYoutube.count).to eq 1
-          expect(VtuberYoutube.first.subscriber_count).to eq nil
+          expect(VtuberYoutube.first.subscriber_count).not_to eq nil
         end
       end
     end
 
     context 'VtuberYoutubeのデータがない' do
-      describe 'URLに@が含まれている' do
-        describe '?が含まれている' do
-          context 'YouTubeのチャンネルIDを取得できた' do
-            it 'VtuberYoutubeのデータが更新される' do
-              expect(VtuberYoutube.count).to eq 0
-              vtuber.youtube_information(vtuber.id, "https://youtube.com/@nijisanji?si=dCf13Rbr6BYmL-OP")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-            end
-          end
-
-          context 'YouTubeのチャンネルIDを取得できなかった' do
-            it 'VtuberYoutubeのデータが更新されない' do
-              expect(VtuberYoutube.count).to eq 0
-              vtuber.youtube_information(vtuber.id, "https://youtube.com/@nijisanji_errortest?si=dCf13Rbr6BYmL-OP")
-              expect(VtuberYoutube.count).to eq 0
-            end
-          end
-        end
-
-        describe '/が含まれている' do
-          context 'YouTubeのチャンネルIDを取得できた' do
-            it 'VtuberYoutubeのデータが更新される' do
-              expect(VtuberYoutube.count).to eq 0
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji/videos")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-            end
-          end
-
-          context 'YouTubeのチャンネルIDを取得できなかった' do
-            it 'VtuberYoutubeのデータが更新されない' do
-              expect(VtuberYoutube.count).to eq 0
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji_errortest/videos")
-              expect(VtuberYoutube.count).to eq 0
-            end
-          end
-        end
-
-        describe '何も含まれていない' do
-          context 'YouTubeのチャンネルIDを取得できた' do
-            it 'VtuberYoutubeのデータが更新される' do
-              expect(VtuberYoutube.count).to eq 0
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji")
-              expect(VtuberYoutube.count).to eq 1
-              expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-            end
-          end
-
-          context 'YouTubeのチャンネルIDを取得できなかった' do
-            it 'VtuberYoutubeのデータが更新されない' do
-              expect(VtuberYoutube.count).to eq 0
-              vtuber.youtube_information(vtuber.id, "https://www.youtube.com/@nijisanji_errortest")
-              expect(VtuberYoutube.count).to eq 0
-            end
-          end
-        end
-      end
-
-      describe 'URLにUCが含まれている' do
-        context 'YouTubeのチャンネルIDが有効である' do
-          it 'VtuberYoutubeのデータが更新される' do
-            expect(VtuberYoutube.count).to eq 0
-            vtuber.youtube_information(vtuber.id, "https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMg")
-            expect(VtuberYoutube.count).to eq 1
-            expect(VtuberYoutube.first.subscriber_count).not_to eq nil
-          end
-        end
-
-        context 'YouTubeのチャンネルIDが無効である' do
-          it 'VtuberYoutubeのデータが更新されない' do
-            expect(VtuberYoutube.count).to eq 0
-            vtuber.youtube_information(vtuber.id, "https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMgErR0RtEsT")
-            expect(VtuberYoutube.count).to eq 0
-          end
-        end
-      end
-
-      describe 'どれも含まれていない' do
-        it 'VtuberYoutubeのデータが作成されない' do
+      describe 'チャンネルIDが有効である', focus: true do
+        it 'VtuberYoutubeのデータが登録される' do
           expect(VtuberYoutube.count).to eq 0
-          vtuber.youtube_information(vtuber.id, "https://www.youtube.com/watch?v=A_g9pdp2KWI")
-          expect(VtuberYoutube.count).to eq 0
+          vtuber.save_youtube_information(vtuber.id, "UCX7YkU9nEeaoZbkVLVajcMg")
+          expect(VtuberYoutube.count).to eq 1
+          expect(VtuberYoutube.first.subscriber_count).not_to eq nil
         end
       end
     end

@@ -53,7 +53,7 @@ class VtubersController < ApplicationController
   def create
     @vtuber = current_user.vtubers.new(vtuber_params)
 
-    is_platform_youtube1
+    is_platform_youtube
 
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
@@ -62,7 +62,7 @@ class VtubersController < ApplicationController
 
       if @youtube_channel_id.present?
         youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
-        @vtuber.youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check == nil
+        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check == nil
       end
 
       redirect_to vtuber_path(@vtuber)
@@ -82,7 +82,7 @@ class VtubersController < ApplicationController
       redirect_to vtuber_path(@vtuber)
     end
 
-    is_platform_youtube1
+    is_platform_youtube
 
     if @vtuber.update(vtuber_params)
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
@@ -91,7 +91,7 @@ class VtubersController < ApplicationController
       @vtuber.save_tags(tag_list)
 
       if @youtube_channel_id.present?
-        @vtuber.youtube_information(@vtuber.id, @youtube_channel_id)
+        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
       end
 
       @vtuber.notification_update(current_user)
@@ -103,6 +103,7 @@ class VtubersController < ApplicationController
       flash.now[:danger] = "VTuberを更新できませんでした"
       render :edit
     end
+    
   end
 
   private
@@ -111,7 +112,7 @@ class VtubersController < ApplicationController
     params.require(:vtuber).permit(:name, :affiliation, :name_x, :gender, :birthday, :debut_date, :like, :unlike, :image, vtuber_places_attributes: [:place_id, :url, :_destroy, :id], content_ids: [])
   end
 
-  def is_platform_youtube1
+  def is_platform_youtube
     place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
     url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
     if place_id == "1" && url.present?
