@@ -22,7 +22,7 @@ class PasswordResetsController < ApplicationController
         redirect_to login_path
         flash[:success] = 'パスワードリセットのメールを送信しました'
       else
-        flash.now[:danger] = "パスワードリセットのメールを送信できませんでした"
+        flash.now[:danger] = "メールアドレスが正しくありません"
         render :new
       end
     end
