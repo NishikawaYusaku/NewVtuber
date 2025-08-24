@@ -57,12 +57,15 @@ class VtubersController < ApplicationController
 
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
+
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
 
       if @youtube_channel_id.present?
         youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
         @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check.nil?
+
+        @vtuber.get_profile_icon_from_youtube(@vtuber, @youtube_channel_id) if @vtuber.image.identifier.nil?
       end
 
       redirect_to vtuber_path(@vtuber)
@@ -90,7 +93,11 @@ class VtubersController < ApplicationController
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
 
-      @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if @youtube_channel_id.present?
+      if @youtube_channel_id.present?
+        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
+
+        @vtuber.get_profile_icon_from_youtube(@vtuber, @youtube_channel_id) if @vtuber.image.identifier.nil?
+      end
 
       @vtuber.notification_update(current_user)
       @vtuber.update(version: @vtuber.version + 1)

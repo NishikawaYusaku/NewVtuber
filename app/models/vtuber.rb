@@ -85,7 +85,6 @@ class Vtuber < ApplicationRecord
   def save_youtube_information(vtuber_id, youtube_channel_id)
     youtube = youtube_data_api
     begin
-      # partをstatisticsからsnippetにするとチャンネルのアイコン画像のURLを取得可能
       youtube_channel = youtube.list_channels("statistics", id: youtube_channel_id).to_h
       return if youtube_channel[:items].blank?
 
@@ -112,6 +111,26 @@ class Vtuber < ApplicationRecord
     rescue Google::Apis::Error, StandardError
       nil
     end
+  end
+
+  def get_profile_icon_from_youtube(vtuber, youtube_channel_id)
+    require 'open-uri'
+    
+    path = "public/uploads/vtuber/image/#{vtuber.id}"
+    
+    if Dir.exist?(path)
+      File.delete(Dir.glob(path + "/*").first) if Dir.glob(path + "/*").any?
+    else
+      Dir.mkdir(path)
+    end
+
+    youtube_channel = youtube_data_api.list_channels("snippet", id: youtube_channel_id).to_h
+    url  = youtube_channel[:items][0][:snippet][:thumbnails][:high][:url]
+
+    File.open(path + "/#{vtuber.name}.jpg", 'wb').write(URI.open(url).read)
+
+    vtuber.update_column(:image, "#{vtuber.name}.jpg")
+    vtuber.reload
   end
 
   def notification_update(current_user)
