@@ -4,16 +4,7 @@
 <div class="container" style="background-color: #b7ffdb;">
   <div class="row my-5">
     <div class="col-xl-6 mt-5 text-center">
-      <% case @vtuber.gender %>
-      <% when "男性" then %>
-        <%= image_tag @vtuber.image.url, class: "rounded-circle", size: "300x300", style: "border: solid; border-color: #0000ff;" %>
-      <% when "女性" then %>
-        <%= image_tag @vtuber.image.url, class: "rounded-circle", size: "300x300", style: "border: solid; border-color: #ff0000;" %>
-      <% when "その他" then %>
-        <%= image_tag @vtuber.image.url, class: "rounded-circle", size: "300x300", style: "border: solid; border-color: #ffff00;" %>
-      <% when nil then %>
-        <%= image_tag @vtuber.image.url, class: "rounded-circle border border-black", size: "300x300" %>
-      <% end %>
+      <%= image_tag @vtuber.image.url, class: "rounded-circle border border-black", size: "300x300" %>
     </div>
     <div class="col-xl-6 d-flex justify-content-center align-items-center flex-column">
       <div class="display-4 mt-5 text-break">
