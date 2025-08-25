@@ -114,22 +114,9 @@ class Vtuber < ApplicationRecord
   end
 
   def get_profile_icon_from_youtube(vtuber, youtube_channel_id)
-    require 'open-uri'
-
-    path = "public/uploads/vtuber/image/#{vtuber.id}"
-
-    if Dir.exist?(path)
-      File.delete(Dir.glob(path + "/*").first) if Dir.glob(path + "/*").any?
-    else
-      Dir.mkdir(path)
-    end
-
     youtube_channel = youtube_data_api.list_channels("snippet", id: youtube_channel_id).to_h
-    url = youtube_channel[:items][0][:snippet][:thumbnails][:high][:url]
-
-    File.binwrite(path + "/#{vtuber.name}.jpg", URI.parse(url).read)
-
-    vtuber.update_column(:image, "#{vtuber.name}.jpg")
+    vtuber.remote_image_url = youtube_channel[:items][0][:snippet][:thumbnails][:high][:url]
+    vtuber.save
     vtuber.reload
   end
 
