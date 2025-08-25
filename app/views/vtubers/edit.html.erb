@@ -74,11 +74,15 @@
         </div>
         <div class="mb-5">
           <%= f.label :image, "アイコン", class: "form-label" %>
-          <%= f.file_field :image, class: "form-control" %>
-          <div id="current_image">
-            <%= image_tag @vtuber.image.url, class: "mt-3 rounded-circle border border-dark", size: "250x250" %>
+          <%= f.file_field :image, class: "form-control", id: "vtuber_image" %>
+          <%= f.hidden_field :remove_image, id: "remove_image" %>
+          <small>（配信サイトがYouTubeの方で未選択の場合はチャンネルのアイコンになります）</small>
+          <div class="preview_image">
+            <% if @vtuber.image.present? %>
+              <%= image_tag @vtuber.image.url, class: "mt-3 rounded-circle border border-dark", size: "250x250" %>
+              <div class="ms-3 mt-2"><button type="button" class="btn btn-setting ms-5 remove_image_btn">アイコン削除</button></div>
+            <% end %>
           </div>
-          <div id="previews"></div>
         </div>
         <div class="mb-5">
           <%= f.label :tag, "タグ（「、」で区切って入力してください）", class: "form-label" %>

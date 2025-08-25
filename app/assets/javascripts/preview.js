@@ -1,23 +1,31 @@
 document.addEventListener('DOMContentLoaded', function(){
-  const createForm = document.getElementById('content_setting');
-  if (!createForm) return null;
+  const profileForm = document.getElementById('content_setting');
+  if (!profileForm) return null;
   
-  const fileField = document.querySelector('input[type="file"][name="vtuber[image]"]');
-  
+  const fileField = document.getElementById('vtuber_image');
   fileField.addEventListener('change', function(e){
-    const currentImage = document.getElementById('current_image');
-    if (currentImage) currentImage.remove();
+    const src = window.URL.createObjectURL(e.target.files[0]);
 
-    const alreadyPreview = document.querySelector('.preview');
-    if (alreadyPreview) alreadyPreview.remove();
+    const previewImage = document.querySelector('.preview_image');
+    if (previewImage) {
+      previewImage.innerHTML = '';
+      previewImage.insertAdjacentHTML("beforeend", `
+        <img src="${src}" class="preview mt-3 rounded-circle border border-dark" width="250" height="250">
+        <div class="ms-3 mt-2">
+          <button type="button" class="btn btn-setting ms-5 remove_image_btn">アイコン削除</button>
+        </div>
+      `);
+    }
     
-    const previewImage = document.createElement('img');
-    previewImage.setAttribute('class', 'preview mt-3 rounded-circle border border-dark');
-    previewImage.setAttribute('width', '250');
-    previewImage.setAttribute('height', '250');
-    previewImage.setAttribute('src', window.URL.createObjectURL(e.target.files[0]));
+    const removeImage = document.getElementById('remove_image');
+    if (removeImage) removeImage.value = "";
+  });
 
-    const previewList = document.getElementById('previews');
-    previewList.appendChild(previewImage);
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove_image_btn')) {
+      document.getElementById('vtuber_image').value = '';
+      document.getElementById('remove_image').value = '1';
+      document.querySelector('.preview_image').innerHTML = '';
+    }
   });
 });
