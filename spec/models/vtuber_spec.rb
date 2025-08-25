@@ -277,13 +277,44 @@ RSpec.describe Vtuber, type: :model do
     end
 
     context 'VtuberYoutubeのデータがない' do
-      describe 'チャンネルIDが有効である', focus: true do
+      describe 'チャンネルIDが有効である' do
         it 'VtuberYoutubeのデータが登録される' do
           expect(VtuberYoutube.count).to eq 0
           vtuber.save_youtube_information(vtuber.id, "UCX7YkU9nEeaoZbkVLVajcMg")
           expect(VtuberYoutube.count).to eq 1
           expect(VtuberYoutube.first.subscriber_count).not_to eq nil
         end
+      end
+    end
+  end
+
+  describe 'get_profile_icon_from_youtube(vtuber, youtube_channel_id)' do
+    let(:vtuber) { create(:vtuber) }
+
+    context '画像ファイル格納先がある' do
+      it 'YouTubeのアイコン画像が保存される' do
+        expect(Dir.exist?("public/uploads/vtuber/image")).to be true
+        path = "public/uploads/vtuber/image/#{vtuber.id}"
+        Dir.mkdir(path)
+
+        expect(vtuber.image.identifier).to eq nil
+        expect(File.exist?(path + "/#{vtuber.name}.jpg")).to be false
+        vtuber.get_profile_icon_from_youtube(vtuber, "UCX7YkU9nEeaoZbkVLVajcMg")
+        expect(File.exist?(path + "/#{vtuber.name}.jpg")).to be true
+        expect(vtuber.image.identifier).to eq "#{vtuber.name}.jpg"
+      end
+    end
+
+    context '画像ファイル格納先がない' do
+      it 'YouTubeのアイコン画像が保存される' do
+        expect(Dir.exist?("public/uploads/vtuber/image")).to be true
+        path = "public/uploads/vtuber/image/#{vtuber.id}"
+
+        expect(vtuber.image.identifier).to eq nil
+        expect(File.exist?(path + "/#{vtuber.name}.jpg")).to be false
+        vtuber.get_profile_icon_from_youtube(vtuber, "UCX7YkU9nEeaoZbkVLVajcMg")
+        expect(File.exist?(path + "/#{vtuber.name}.jpg")).to be true
+        expect(vtuber.image.identifier).to eq "#{vtuber.name}.jpg"
       end
     end
   end
