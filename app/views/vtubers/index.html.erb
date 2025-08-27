@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row mt-5 justify-content-start">
     <% if @vtubers.present? %>
-      <% if @tag_name %>
+      <% if @q_name %>
+        <p class="mb-5">「<%= @q_name %>」の検索結果：　<%= @vtubers.size %></p>
+      <% elsif @tag_name %>
         <p class="mb-5">タグ「<%= @tag_name %>」の検索結果：　<%= @vtubers.size %></p>
       <% end %>
       <% @vtubers.each do |vtuber| %>
