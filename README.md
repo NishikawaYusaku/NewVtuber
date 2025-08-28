@@ -87,7 +87,7 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 |バックエンド  |Ruby 3.2.2、Ruby on Rails 7.1.2|
 |データベース  |PostgreSQL 16.1|
 |認証        |sorcery 0.17.0|
-|インフラ     |Fly.io、Amazon S3|
+|インフラ     |Fly.io、Amazon S3、UptimeRobot|
 |その他       |Bootstrap 5.3.5、jQuery UI 1.14.1、CarrierWave 3.1.2、MiniMagick 5.3.0、ransack 4.3.0、kaminari 1.2.2、google-apis-youtube_v3 0.57.0、rspec-rails 6.1.5、RuboCop 1.79.1|
 
 ### 選定理由
@@ -114,7 +114,8 @@ MySQLとPostgreSQLを比較検討した結果、書き込みに強い点からPo
 Fly.ioについて、初学者の自分にはインフラは難易度が高いと感じたため、PaaSを利用することにしました。<br>
 その中でもFly.ioは、技術記事やドキュメントが豊富で比較的簡単にアプリを稼働できる点が魅力です。<br>
 また、Fly.ioのリージョンには国内も含まれており、無料で選択できる点も選択の理由です。<br>
-Amazon S3について、AWSは信頼性が高く将来的に拡張や柔軟なカスタマイズがしやすいため利用しました。
+Amazon S3について、AWSは信頼性が高く将来的に拡張や柔軟なカスタマイズがしやすいため利用しました。<br>
+UptimeRobotについて、Webアプリの死活監視が簡単に行える点から導入しました。
 
 #### ・その他
 Bootstrapは多くのクラスがあり、活用することでコードを見やすく整えられるため利用しました。<br>
