@@ -11,21 +11,18 @@ class VtubersController < ApplicationController
   end
 
   def autocomplete_names
-    term = params[:term]
-    normalized_term = term
+    normalized_term = params[:term]
       .then { |t| Moji.zen_to_han(t, Moji::ALNUM) }
       .then { |t| Moji.kata_to_hira(t) }
       .then { |t| Moji.upcase(t) }
 
-    names = Vtuber
-      .pluck(:name)
-      .select do |name|
-        normalized_name = name
-          .then { |n| Moji.zen_to_han(n, Moji::ALNUM) }
-          .then { |n| Moji.kata_to_hira(n) }
-          .then { |n| Moji.upcase(n) }
-        normalized_name.include?(normalized_term)
-      end
+    names = Vtuber.pluck(:name).select do |name|
+      normalized_name = name
+        .then { |n| Moji.zen_to_han(n, Moji::ALNUM) }
+        .then { |n| Moji.kata_to_hira(n) }
+        .then { |n| Moji.upcase(n) }
+      normalized_name.include?(normalized_term)
+    end
 
     render json: names
   end
