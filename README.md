@@ -35,7 +35,7 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 
 #### ・プロフィール設定（作成、編集）
 ログインした状態でヘッダーの設定ボタンを押します。<br>
-<img width="1000" alt="プロフィール設定（作成、編集）の画像1" src="https://i.gyazo.com/1aa55872002c18a42cce291dd5a43ade.png">
+<img width="1000" alt="プロフィール設定（作成、編集）の画像1" src="https://i.gyazo.com/b1076b9004ba5e23025f2029e1ff3e6d.png">
 
 設定するVTuberのお名前を入力して設定するボタンを押します。<br>
 編集時はお名前の一部を入力すると自動補完で候補が表示されます。<br>
@@ -205,7 +205,7 @@ end
 ### ・YouTubeのチャンネル情報の取得
 プロフィール項目に配信サイトがありますが、そこでYouTubeを選択した場合はYouTubeのAPIを使用してその方のチャンネル情報を取得するようにしています。<br>
 必要なのはプロフィール設定時に併せて設定する配信チャンネルのURLです。<br>
-![YouTubeのチャンネル情報の取得の画像1](https://i.gyazo.com/c7476bc9a24a58160355a47f95664653.png)
+<img width="400" alt="YouTubeのチャンネル情報の取得の画像1" src="https://i.gyazo.com/c7476bc9a24a58160355a47f95664653.png">
 
 実際のコード（作成時）は下記の通りです。<br>
 プロフィール設定は作成/編集の2パターンがありますが、処理内容は大差ないです。<br>
@@ -297,17 +297,17 @@ end
 具体的にはURLに@が含まれている場合と文字列UCが含まれている場合とそれ以外の3つです。<br>
 YouTubeのチャンネルURLは種類があることを知りました。<br>
 複数ありますが、その中でも現在よく使われているものは下記3パターンであると定めました。<br>
-　　https:// www.youtube.com/@ハンドル<br>
-　　https:// youtube.com/@小文字化したハンドル?si=クエリ<br>
-　　https:// www.youtube.com/channel/UCから始まるチャンネルID<br>
+　　https://www.youtube.com/@ハンドル<br>
+　　https://youtube.com/@小文字化したハンドル?si=クエリ<br>
+　　https://www.youtube.com/channel/UCから始まるチャンネルID<br>
 プロフィール設定時において、設定するURLの種類に制限は設けていないため、それぞれのパターンに対応できるようにしています。<br>
 まず@が含まれているパターンについて、@より後の部分（ハンドル）を抽出します。<br>
-　　https:// www.youtube.com/@ハンドル　→ ハンドル<br>
+　　https://www.youtube.com/@ハンドル　→ ハンドル<br>
 意図としては、後続処理でAPIを使用してハンドルからIDを求めるためです。<br>
 IDではなくハンドルから直接チャンネル情報を取得することも可能と公式ドキュメントには記載がありますが、うまくいかないので一手間加えることにしました。<br>
 抽出した部分の内容により、さらに分岐をさせています。<br>
 理由はURLのパターン2つ目や下記のように、ハンドルの後に文字が続くURLに対応するためです。<br>
-　　https:// www.youtube.com/@ハンドル/videos<br>
+　　https://www.youtube.com/@ハンドル/videos<br>
 それぞれ指定の文字を条件に抽出します。<br>
 　　小文字化したハンドル?si=クエリ　→　小文字化したハンドル<br>
 　　ハンドル/videos　　　　　　　　→　ハンドル<br>
@@ -316,7 +316,7 @@ IDではなくハンドルから直接チャンネル情報を取得すること
 その場合、IDは取得されることなくcreateアクションに戻ります。<br>
 正しくメソッドが実行できた場合は、そこからチャンネルIDを取得し、@が含まれていた場合の処理は終了です。<br>
 次に文字列UCが含まれていた場合は、UC以降を抽出します。<br>
-　　https:// www.youtube.com/channel/UCから始まるチャンネルID　→　UCから始まるチャンネルID<br>
+　　https://www.youtube.com/channel/UCから始まるチャンネルID　→　UCから始まるチャンネルID<br>
 YouTubeのチャンネルIDは24文字固定のため、抽出した文字列の桁数が24文字ではない場合は同じくreturnを通ります。<br>
 それ以外のURLは扱っていないためreturnです。<br>
 戻り値はチャンネルIDです。<br>
@@ -370,7 +370,7 @@ end
 取得した情報たちを格納してsave_youtube_informationメソッドは終了です。<br><br>
 createアクションに戻りプロフィール画像が設定されているかを確認します。<br>
 設定されていない場合、チャンネルのアイコンを使用するようにしています。<br>
-![YouTubeのチャンネル情報の取得の画像2](https://i.gyazo.com/e19448b8a97aaf10672ea4d4c4afa48f.png)
+<img width="400" alt="YouTubeのチャンネル情報の取得の画像2" src="https://i.gyazo.com/e19448b8a97aaf10672ea4d4c4afa48f.png">
 
 登録したVTuberのインスタンスとチャンネルIDを引数に、同モデルに書いた下記インスタンスメソッドget_profile_icon_from_youtubeを呼び出します。<br>
 
