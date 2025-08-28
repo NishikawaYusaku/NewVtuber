@@ -81,14 +81,14 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 * 複数条件による絞り込み検索
 
 ## 使用技術
-|カテゴリ     |技術   |
-|------------|------|
-|フロントエンド|jQuery 3.7.0|
-|バックエンド  |Ruby 3.2.2、Ruby on Rails 7.1.2|
-|データベース  |PostgreSQL 16.1|
-|認証        |sorcery 0.17.0|
-|インフラ     |Fly.io、Amazon S3、UptimeRobot|
-|その他       |Bootstrap 5.3.5、jQuery UI 1.14.1、CarrierWave 3.1.2、MiniMagick 5.3.0、ransack 4.3.0、kaminari 1.2.2、google-apis-youtube_v3 0.57.0、rspec-rails 6.1.5、RuboCop 1.79.1|
+|カテゴリ               |技術   |
+|----------------------|------|
+|フロントエンド          |jQuery 3.7.0|
+|バックエンド            |Ruby 3.2.2、Ruby on Rails 7.1.2|
+|データベース            |PostgreSQL 16.1|
+|認証                  |sorcery 0.17.0|
+|インフラ               |Fly.io、Amazon S3、UptimeRobot|
+|その他                 |Bootstrap 5.3.5、jQuery UI 1.14.1、CarrierWave 3.1.2、MiniMagick 5.3.0、ransack 4.3.0、kaminari 1.2.2、google-apis-youtube_v3 0.57.0、rspec-rails 6.1.5、RuboCop 1.79.1|
 
 ### 選定理由
 学習コストと開発スピードのバランスを考慮し、初学者でも扱いやすく有名な技術を中心に選びました。
