@@ -8,32 +8,30 @@ namespace :vtuber_youtube do
     VtuberYoutube.pluck(:channel_id).each do |channel_id|
       sleep 1
       begin
-        youtube_channel = youtube.list_channels("statistics", id: channel_id).to_h
-        youtube_video = youtube.list_searches("snippet", channel_id: channel_id, type: 'video', max_results: 1, order: :date).to_h
-        next if youtube_channel[:items].blank? || youtube_video[:items].blank?
-
         record = VtuberYoutube.find_by(channel_id: channel_id)
         next unless record
 
+        youtube_channel = youtube.list_channels("statistics", id: channel_id).to_h
+        next if youtube_channel[:items].blank?
+
+        subscriber_count = youtube_channel[:items][0][:statistics][:subscriber_count]
+        video_count = youtube_channel[:items][0][:statistics][:video_count]
+
+        youtube_video = youtube.list_searches("snippet", channel_id: channel_id, type: 'video', max_results: 1, order: :date).to_h
+        if youtube_video[:items]&.any?
+          latest_video_id = youtube_video[:items][0][:id][:video_id]
+          latest_video_title = youtube_video[:items][0][:snippet][:title]
+        else
+          latest_video_id = nil
+          latest_video_title = nil
+        end
+
         record.update!(
-          subscriber_count: youtube_channel[:items][0][:statistics][:subscriber_count],
-          video_count: youtube_channel[:items][0][:statistics][:video_count],
-          latest_video_id: youtube_video[:items][0][:id][:video_id],
-          latest_video_title: youtube_video[:items][0][:snippet][:title]
+          subscriber_count: subscriber_count,
+          video_count: video_count,
+          latest_video_id: latest_video_id,
+          latest_video_title: latest_video_title
         )
-
-        # record.assign_attributes(
-        #   subscriber_count: youtube_channel[:items][0][:statistics][:subscriber_count],
-        #   video_count: youtube_channel[:items][0][:statistics][:video_count],
-        #   latest_video_id: youtube_video[:items][0][:id][:video_id],
-        #   latest_video_title: youtube_video[:items][0][:snippet][:title]
-        # )
-
-        # if record.changed?
-        #   record.save!
-        # else
-        #   record.touch
-        # end
       rescue Google::Apis::Error, StandardError
         puts "エラー"
         next
