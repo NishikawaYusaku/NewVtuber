@@ -50,7 +50,7 @@ class VtubersController < ApplicationController
   def create
     @vtuber = current_user.vtubers.new(vtuber_params)
 
-    is_platform_youtube
+    @youtube_channel_id = is_platform_youtube
 
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
@@ -82,7 +82,7 @@ class VtubersController < ApplicationController
       redirect_to vtuber_path(@vtuber)
     end
 
-    is_platform_youtube
+    @youtube_channel_id = is_platform_youtube
 
     if @vtuber.update(vtuber_params)
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
@@ -116,6 +116,6 @@ class VtubersController < ApplicationController
   def is_platform_youtube
     place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
     url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
-    @youtube_channel_id = @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
+    @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
   end
 end

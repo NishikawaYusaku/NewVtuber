@@ -64,10 +64,10 @@ class Vtuber < ApplicationRecord
           youtube_handle = youtube_handle[0...youtube_handle.index("/")]
         end
 
-        youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
+        youtube_handle_to_id = youtube.list_channels("statistics", for_handle: youtube_handle).to_h
         return if youtube_handle_to_id[:items].blank?
 
-        youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
+        youtube_channel_id = youtube_handle_to_id[:items][0][:id]
       elsif url.include?("/UC")
         youtube_channel_id = url[(url.index("/UC") + 1)..]
         youtube_channel_id_digits = 24
