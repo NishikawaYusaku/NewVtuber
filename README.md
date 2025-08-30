@@ -205,8 +205,8 @@ end
 以上がプロフィール設定時のモーダルにおけるお名前の自動補完です。
 
 ### ・YouTubeのチャンネル情報の取得
-プロフィール項目に配信サイトがありますが、そこでYouTubeを選択した場合はYouTubeのAPIを使用してその方のチャンネル情報を取得するようにしています。<br>
-必要なのはプロフィール設定時に併せて設定する配信チャンネルのURLです。<br>
+プロフィール項目に配信サイトがありますが、そこでYouTubeを選択した場合はYouTubeのAPIを使用して、その方のチャンネル情報を取得するようにしています。<br>
+必要なのはプロフィール設定時に併せて設定する配信チャンネルのURLと、そこから得られるチャンネルIDです。<br>
 <img width="400" alt="YouTubeのチャンネル情報の取得の画像1" src="https://i.gyazo.com/c7476bc9a24a58160355a47f95664653.png">
 
 実際のコード（作成時）は下記の通りです。<br>
@@ -217,7 +217,7 @@ end
 def create
   @vtuber = current_user.vtubers.new(vtuber_params)
 
-  is_platform_youtube
+  @youtube_channel_id = is_platform_youtube
 
   if @vtuber.save
     他処理
@@ -245,7 +245,7 @@ private
 def is_platform_youtube
   place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
   url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
-  @youtube_channel_id = @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
+  @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
 end
 ```
 実際には処理内でチャンネルURLを引数に、下記インスタンスメソッドget_youtube_channel_idを呼び出しています。<br>
@@ -263,10 +263,10 @@ def get_youtube_channel_id(url)
         youtube_handle = youtube_handle[0...youtube_handle.index("/")]
       end
 
-      youtube_handle_to_id = youtube.list_searches("snippet", q: youtube_handle, type: "channel", max_results: 1).to_h
+      youtube_handle_to_id = youtube.list_channels("statistics", for_handle: youtube_handle).to_h
       return if youtube_handle_to_id[:items].blank?
 
-      youtube_channel_id = youtube_handle_to_id[:items][0][:id][:channel_id]
+      youtube_channel_id = youtube_handle_to_id[:items][0][:id]
     elsif url.include?("/UC")
       youtube_channel_id = url[(url.index("/UC") + 1)..]
       youtube_channel_id_digits = 24
@@ -302,18 +302,18 @@ YouTubeのチャンネルURLは種類があることを知りました。<br>
 　　https://www.youtube.com/@ハンドル<br>
 　　https://youtube.com/@小文字化したハンドル?si=クエリ<br>
 　　https://www.youtube.com/channel/UCから始まるチャンネルID<br>
-プロフィール設定時において、設定するURLの種類に制限は設けていないため、それぞれのパターンに対応できるようにしています。<br>
+プロフィール設定時において、URLの種類に制限は設けておらず、それぞれのパターンに対応できるようにしています。<br>
 まず@が含まれているパターンについて、@より後の部分（ハンドル）を抽出します。<br>
 　　https://www.youtube.com/@ハンドル　→　ハンドル<br>
 意図としては、後続処理でAPIを使用してハンドルからIDを求めるためです。<br>
-IDではなくハンドルから直接チャンネル情報を取得することも可能と公式ドキュメントには記載がありますが、うまくいかないので一手間加えることにしました。<br>
+ハンドルを含んだURLに関しては、IDを求めなくてもハンドルを指定することで直接チャンネル情報を取得することも一部可能なのですが、欲しい情報全部ではないので便宜上IDを求める処理を挟むことにいたしました。<br>
 抽出した部分の内容により、さらに分岐をさせています。<br>
 理由はURLのパターン2つ目や下記のように、ハンドルの後に文字が続くURLに対応するためです。<br>
 　　https://www.youtube.com/@ハンドル/videos<br>
 それぞれ指定の文字を条件に抽出します。<br>
 　　小文字化したハンドル?si=クエリ　→　小文字化したハンドル<br>
 　　ハンドル/videos　　　　　　　　→　ハンドル<br>
-取得したハンドルを引数に、APIのlist_searchesメソッドを実行します。<br>
+取得したハンドルを引数に、APIのlist_channelsメソッドを実行します。<br>
 直後に条件付きでreturnをしていますが、これは取得したハンドルが無効つまり設定されたURLが誤りで情報が取得できなかった場合に通ります。<br>
 その場合、IDは取得されることなくcreateアクションに戻ります。<br>
 正しくメソッドが実行できた場合は、そこからチャンネルIDを取得し、@が含まれていた場合の処理は終了です。<br>
@@ -405,18 +405,29 @@ namespace :vtuber_youtube do
     VtuberYoutube.pluck(:channel_id).each do |channel_id|
       sleep 1
       begin
-        youtube_channel = youtube.list_channels("statistics", id: channel_id).to_h
-        youtube_video = youtube.list_searches("snippet", channel_id: channel_id, type: 'video', max_results: 1, order: :date).to_h
-        next if youtube_channel[:items].blank? || youtube_video[:items].blank?
-
         record = VtuberYoutube.find_by(channel_id: channel_id)
         next unless record
 
+        youtube_channel = youtube.list_channels("statistics", id: channel_id).to_h
+        next if youtube_channel[:items].blank?
+
+        subscriber_count = youtube_channel[:items][0][:statistics][:subscriber_count]
+        video_count = youtube_channel[:items][0][:statistics][:video_count]
+
+        youtube_video = youtube.list_searches("snippet", channel_id: channel_id, type: 'video', max_results: 1, order: :date).to_h
+        if youtube_video[:items]&.any?
+          latest_video_id = youtube_video[:items][0][:id][:video_id]
+          latest_video_title = youtube_video[:items][0][:snippet][:title]
+        else
+          latest_video_id = nil
+          latest_video_title = nil
+        end
+
         record.update!(
-          subscriber_count: youtube_channel[:items][0][:statistics][:subscriber_count],
-          video_count: youtube_channel[:items][0][:statistics][:video_count],
-          latest_video_id: youtube_video[:items][0][:id][:video_id],
-          latest_video_title: youtube_video[:items][0][:snippet][:title]
+          subscriber_count: subscriber_count,
+          video_count: video_count,
+          latest_video_id: latest_video_id,
+          latest_video_title: latest_video_title
         )
       rescue Google::Apis::Error, StandardError
         puts "エラー"
