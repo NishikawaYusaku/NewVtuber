@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'vtubers#index'
 
-  # get "search", to: "searches#search"
+  get "search", to: "searches#index"
 
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
