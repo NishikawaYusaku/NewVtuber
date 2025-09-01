@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-xl" style="background-color: #99ffcc;">
+<nav class="navbar navbar-expand-xxl" style="background-color: #99ffcc;">
   <div class="container-fluid">
     <%= link_to "にゅーぶい！", root_path, class: "navbar-brand ms-2" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #ffffff;">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="d-none d-xl-block flex-column ms-auto">
+      <div class="d-none d-xxl-block flex-column ms-auto">
         <%= form_with url: root_path, class: "d-flex", method: :get, local: true do |f| %>
           <%= f.text_field :q, class: "form-control me-2 h-form-width", placeholder: "気になるワードを入力してください", style: "width: 35rem;" %>
           <%= f.button type: "submit", class: "btn btn-light px-4", name: nil, data: { testid: "after-login-search" } do %>
@@ -30,7 +30,7 @@
           </li>
         </ul> -->
       </div>
-      <div class="d-xl-none flex-column ms-auto">
+      <div class="d-xxl-none flex-column ms-auto">
         <%= form_with url: root_path, class: "d-flex mt-4", method: :get, local: true do |f| %>
           <%= f.text_field :q, class: "form-control me-2", placeholder: "気になるワードを入力してください" %>
           <%= f.button type: "submit", class: "btn btn-light px-4", name: nil do %>
@@ -38,14 +38,24 @@
           <% end %>
         <% end %>
       </div>
+      <div class = "d-none d-xxl-block ms-2">
+        <%= link_to search_path do %>
+          <button type="button" class="btn btn-light"><small>詳細検索</small></button>
+        <% end %>
+      </div>
+      <div class = "d-xxl-none me-5 my-3 text-center">
+        <%= link_to search_path do %>
+          <button type="button" class="btn btn-light"><small>詳細検索</small></button>
+        <% end %>
+      </div>
       <ul class="navbar-nav ms-auto mt-2">
         <li class="nav-item d-flex justify-content-center mx-3">
           <button type="button" class="nav-link active text-center" data-bs-toggle="modal" data-bs-target="#exampleModal", id="profile-modal" >
-            <div class="d-none d-xl-block" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
+            <div class="d-none d-xxl-block" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user-pen fa-2xl ms-2"></i>
               <div class="mt-2 small"><small>設定</small></div>
             </div>
-            <div class="d-xl-none mt-3 me-5" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
+            <div class="d-xxl-none mt-3 me-5" style="color: #606060;" onmouseover="this.style.color='#ff7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user-pen fa-2xl me-2"></i>
               <span>設定</span>
             </div>
@@ -77,17 +87,17 @@
           <%= link_to notifications_path, class: "text-decoration-none", remote: true do %>
             <button type="button" class="nav-link active text-center" data-bs-target="#notify-modal", id="notification-modal">
             <% if @notification_check.present? %>
-              <div class="d-none d-xl-block" style="color: #ffffbc" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color">
+              <div class="d-none d-xxl-block" style="color: #ffffbc" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color">
             <% else %>
-              <div class="d-none d-xl-block" style="color: #606060" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#606060';">
+              <div class="d-none d-xxl-block" style="color: #606060" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#606060';">
             <% end %>
                 <i class="fa-solid fa-bell fa-2xl"></i>
                 <div class="mt-2 small"><small>通知</small></div>
               </div>
             <% if @notification_check.present? %>
-              <div class="d-xl-none mt-3 me-5" style="color: #ffffbc;" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color2">
+              <div class="d-xxl-none mt-3 me-5" style="color: #ffffbc;" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#ffffbc';", id = "notification-color2">
             <% else %>
-              <div class="d-xl-none mt-3 me-5" style="color: #606060;" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#606060';">
+              <div class="d-xxl-none mt-3 me-5" style="color: #606060;" onmouseover="this.style.color='#ffff7f';" onmouseout="this.style.color='#606060';">
             <% end %>
                 <i class="fa-solid fa-bell fa-2xl me-3"></i>
                 <span>通知</span>
@@ -99,11 +109,11 @@
         </li>
         <li class="nav-item text-center mx-3">
           <%= link_to user_path, class: "nav-link active" do %>
-            <div class="d-none d-xl-block" style="color: #606060;" onmouseover="this.style.color='#7f7fff';" onmouseout="this.style.color='#606060';">
+            <div class="d-none d-xxl-block" style="color: #606060;" onmouseover="this.style.color='#7f7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user fa-2xl"></i>
               <div class="mt-2 small"><small>マイページ</small></div>
             </div>
-            <div class="d-xl-none mt-3" style="color: #606060;" onmouseover="this.style.color='#7f7fff';" onmouseout="this.style.color='#606060';">
+            <div class="d-xxl-none mt-3" style="color: #606060;" onmouseover="this.style.color='#7f7fff';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-user fa-2xl me-3"></i>
               <span>マイページ</span>
             </div>
@@ -111,11 +121,11 @@
         </li>
         <li class="nav-item text-center ms-2 me-3">
           <%= link_to logout_path, class: "nav-link active", method: :delete do %>
-            <div class="d-none d-xl-block" style="color: #606060;" onmouseover="this.style.color='#000000';" onmouseout="this.style.color='#606060';">
+            <div class="d-none d-xxl-block" style="color: #606060;" onmouseover="this.style.color='#000000';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-right-from-bracket fa-2xl"></i>
               <div class="mt-2 small"><small>ログアウト</small></div>
             </div>
-            <div class="d-xl-none my-3" style="color: #606060;" onmouseover="this.style.color='#000000';" onmouseout="this.style.color='#606060';">
+            <div class="d-xxl-none my-3" style="color: #606060;" onmouseover="this.style.color='#000000';" onmouseout="this.style.color='#606060';">
               <i class="fa-solid fa-right-from-bracket fa-2xl me-3"></i>
               <span>ログアウト</span>
             </div>
