@@ -1,23 +1,25 @@
 <% content_for(:title, "メールアドレスの変更") %>
 
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col col-sm-5 my-5 py-5">
-      <%= form_with model: @user, url: email_user_path, local: true do |f| %>
-        <%= render 'shared/error_message', object: f.object %>
-        <h3 class="mt-5">メールアドレスの変更</h3>
-        <div class="mt-5">
-          <%= f.label :email, "現在のメールアドレス", class: "form-label" %>
-          <p><%= current_user.email %></p>
-        </div>
-        <div class="mt-5">
-          <%= f.label :email, "新しいメールアドレス", class: "form-label" %>
-          <%= f.text_field :email, class: "form-control" %>
-        </div>
-        <div class="text-center mt-5">
-          <%= f.submit "保存", class: "btn btn-user px-5 ms-3" %>
-        </div>
-      <% end %>
+  <div class="row">
+    <div class="d-flex justify-content-center my-5 py-5">
+      <div style="width: 25rem;">
+        <%= form_with model: @user, url: email_user_path, local: true do |f| %>
+          <%= render 'shared/error_message', object: f.object %>
+          <h3 class="mt-5">メールアドレスの変更</h3>
+          <div class="mt-5">
+            <%= f.label :email, "現在のメールアドレス", class: "form-label" %>
+            <p><%= current_user.email %></p>
+          </div>
+          <div class="mt-5">
+            <%= f.label :email, "新しいメールアドレス", class: "form-label" %>
+            <%= f.text_field :email, class: "form-control" %>
+          </div>
+          <div class="text-center mt-5">
+            <%= f.submit "保存", class: "btn btn-user px-5 ms-3" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

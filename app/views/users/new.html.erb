@@ -1,41 +1,43 @@
 <% content_for(:title, "ユーザー登録") %>
 
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col col-sm-5 my-5 py-5">
-      <%= form_with model: @user, url: user_path, local: true do |f| %>
-        <%= render 'shared/error_message', object: f.object %>
-        <h3 class="mb-5">ユーザー登録</h3>
-        <div class="mb-5">
-          <%= f.label :email, "メールアドレス", class: "form-label" %>
-          <%= f.email_field :email, class: "form-control" %>
-        </div>
-        <div class="mb-5">
-          <%= f.label :password, "パスワード", class: "form-label" %>
-          <div class="mb-1"><small>8文字以上で設定してください</small></div>
-          <%= f.password_field :password, class: "form-control", id: "usernewpass" %>
-          <input type="checkbox" class="mt-2" onChange="document.getElementById('usernewpass').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
-        </div>
-        <div class="mb-5">
-          <%= f.label :password_confirmation, "パスワード（確認用）", class: "form-label" %>
-          <%= f.password_field :password_confirmation, class: "form-control", id: "usernewpassconfirmation" %>
-          <input type="checkbox" class="mt-2" onChange="document.getElementById('usernewpassconfirmation').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
-        </div>
-        <div class="mb-5">
-          <%= f.label :name, "ユーザー名", class: "form-label" %>
-          <%= f.text_field :name, class: "form-control " %>
-        </div>
-        <div class="mb-5">
-          <%= f.check_box :agreement, as: :boolean, checked: false %>
-          　<%= link_to "利用規約", terms_pages_path, target: :_blank, rel: "noopener noreferrer" %>と<%= link_to "プライバシーポリシー", privacy_policy_pages_path, target: :_blank, rel: "noopener noreferrer" %>に同意します
-        </div>
-        <div class="text-center my-5">
-          <%= f.submit "登録", class: "btn btn-user_create px-5" %>
-        </div>
-        <div class="text-center my-5">
-          <%= link_to "アカウントがある方はこちらへ", login_path %>
-        </div>
-      <% end %>
+  <div class="row">
+    <div class="d-flex justify-content-center my-5 py-5">
+      <div style="width: 25rem;">
+        <%= form_with model: @user, url: user_path, local: true do |f| %>
+          <%= render 'shared/error_message', object: f.object %>
+          <h3 class="mb-5">ユーザー登録</h3>
+          <div class="mb-5">
+            <%= f.label :email, "メールアドレス", class: "form-label" %>
+            <%= f.email_field :email, class: "form-control" %>
+          </div>
+          <div class="mb-5">
+            <%= f.label :password, "パスワード", class: "form-label" %>
+            <div class="mb-1"><small>8文字以上で設定してください</small></div>
+            <%= f.password_field :password, class: "form-control", id: "usernewpass" %>
+            <input type="checkbox" class="mt-2" onChange="document.getElementById('usernewpass').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
+          </div>
+          <div class="mb-5">
+            <%= f.label :password_confirmation, "パスワード（確認用）", class: "form-label" %>
+            <%= f.password_field :password_confirmation, class: "form-control", id: "usernewpassconfirmation" %>
+            <input type="checkbox" class="mt-2" onChange="document.getElementById('usernewpassconfirmation').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
+          </div>
+          <div class="mb-5">
+            <%= f.label :name, "ユーザー名", class: "form-label" %>
+            <%= f.text_field :name, class: "form-control " %>
+          </div>
+          <div class="mb-5">
+            <%= f.check_box :agreement, as: :boolean, checked: false %>
+            　<%= link_to "利用規約", terms_pages_path, target: :_blank, rel: "noopener noreferrer" %>と<%= link_to "プライバシーポリシー", privacy_policy_pages_path, target: :_blank, rel: "noopener noreferrer" %>に同意します
+          </div>
+          <div class="text-center my-5">
+            <%= f.submit "登録", class: "btn btn-user_create px-5" %>
+          </div>
+          <div class="text-center my-5">
+            <%= link_to "アカウントがある方はこちらへ", login_path %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
