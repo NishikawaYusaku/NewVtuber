@@ -1,2 +1,19 @@
-<h1>Searches#index</h1>
-<p>Find me in app/views/searches/index.html.erb</p>
+<% content_for(:title, "詳細検索") %>
+
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-center my-5 py-5">
+      <div style="width: 25rem;">
+        <%= form_with url: root_path, local: true do |f| %>
+          <h3 class="mb-5">詳細検索</h3>
+          <div class="mb-5">
+            
+          </div>
+          <div class="text-center mb-5">
+            <%= f.submit "検索", class: "btn btn-comment px-5" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
