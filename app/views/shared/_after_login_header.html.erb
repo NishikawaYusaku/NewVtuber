@@ -6,9 +6,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="d-none d-xxl-block flex-column ms-auto">
-        <%= form_with url: root_path, class: "d-flex", method: :get, local: true do |f| %>
-          <%= f.text_field :q, class: "form-control me-2 h-form-width", placeholder: "気になるワードを入力してください", style: "width: 35rem;" %>
-          <%= f.button type: "submit", class: "btn btn-light px-4", name: nil, data: { testid: "after-login-search" } do %>
+        <%= search_form_for @q, url: root_path, class: "d-flex" do |f| %>
+          <%= f.search_field :name_or_affiliation_or_gender_or_like_or_unlike_or_contents_name_or_places_name_or_tags_name_cont, placeholder: "気になるワードを入力してください", class: "form-control me-2 h-form-width", style: "width: 35rem;" %>
+          <%= f.button type: "submit", class: "btn btn-light px-4", data: { testid: "after-login-search" } do %>
             <i class="fa-solid fa-magnifying-glass" style="color: #00b36e;"></i>
           <% end %>
         <% end %>
@@ -31,9 +31,9 @@
         </ul> -->
       </div>
       <div class="d-xxl-none flex-column ms-auto">
-        <%= form_with url: root_path, class: "d-flex mt-4", method: :get, local: true do |f| %>
-          <%= f.text_field :q, class: "form-control me-2", placeholder: "気になるワードを入力してください" %>
-          <%= f.button type: "submit", class: "btn btn-light px-4", name: nil do %>
+        <%= search_form_for @q, url: root_path, class: "d-flex mt-4" do |f| %>
+          <%= f.search_field :name_or_affiliation_or_gender_or_like_or_unlike_or_contents_name_or_places_name_or_tags_name_cont, placeholder: "気になるワードを入力してください", class: "form-control me-2" %>
+          <%= f.button type: "submit", class: "btn btn-light px-4" do %>
             <i class="fa-solid fa-magnifying-glass" style="color: #00b36e;"></i>
           <% end %>
         <% end %>
