@@ -11,13 +11,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_search
+    @q = Vtuber.ransack(params[:q])
     if params[:tag]
       @results = Vtuber.joins(:tags).where(tags: { name: params[:tag] })
       @q_name = params[:tag]
     else
-      query = { name_or_affiliation_or_gender_or_like_or_unlike_or_contents_name_or_places_name_or_tags_name_cont: params[:q] }
-      @results = Vtuber.ransack(query).result(distinct: true)
-      @q_name = params[:q] unless params[:q].blank?
+      @results = @q.result(distinct: true)
+      @q_name = params[:q].values[0] if params[:q].present? && params[:q].values[0].present?
     end
     @vtubers = @results.order(:id).page(params[:page]).per(20)
   end
