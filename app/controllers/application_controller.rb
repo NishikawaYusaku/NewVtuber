@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
       @q_name = params[:tag]
     else
       @results = @q.result(distinct: true)
-      @q_name = params[:q].values[0] if params[:q].present? && params[:q].values[0].present?
+      @q_name = params[:q].values[0] if params[:q].present? && params[:q].values[0].present? && params[:q][:filtering_search].blank?
+      @filtering_search = params[:q][:filtering_search] if params[:q].present? && params[:q].keys.length > 1
     end
     @vtubers = @results.order(:id).page(params[:page]).per(20)
   end
