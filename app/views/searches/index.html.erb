@@ -8,11 +8,11 @@
           <h3 class="mb-5">詳細検索</h3>
           <div>
             <p><%= f.label "配信サイト" %></p>
-            <% Place.where(id:[1,2]).each do |place| %>
-              <% checkbox_id = "place_#{place.id}" %>
+            <% ["YouTube","Twitch"].each_with_index do |place, i| %>
+              <% checkbox_id = "place_#{i}" %>
               <span class="me-5">
-                <%= f.check_box :places_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, place[:name] %>
-                <%= label_tag checkbox_id, place.name, class: "ms-1 filtering_search_hover" %>
+                <%= f.check_box :places_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, place, nil %>
+                <%= label_tag checkbox_id, place, class: "ms-1 filtering_search_hover" %>
               </span>
             <% end %>
           </div>
