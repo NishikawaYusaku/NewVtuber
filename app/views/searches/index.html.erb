@@ -6,21 +6,28 @@
       <div style="width: 25rem;">
         <%= search_form_for @q, url: root_path do |f| %>
           <h3 class="mb-5">詳細検索</h3>
-          <div class="mb-5">
+          <div>
             <p><%= f.label "配信サイト" %></p>
             <% Place.where(id:[1,2]).each do |place| %>
               <% checkbox_id = "place_#{place.id}" %>
               <span class="me-5">
-                <%= f.check_box :places_name_eq_any,
-                  { multiple: true,
-                    checked: place[:checked],
-                    disabled: place[:disabled],
-                    include_hidden: false,
-                    id: checkbox_id }, place[:name] %>
-                <%= label_tag checkbox_id, place.name, class: "me-1 filtering_search_hover" %>
+                <%= f.check_box :places_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, place[:name] %>
+                <%= label_tag checkbox_id, place.name, class: "ms-1 filtering_search_hover" %>
               </span>
             <% end %>
           </div>
+          <hr class="my-4">
+          <div>
+            <p><%= f.label :gender, "性別" %></p>
+            <% ["男性","女性","その他"].each_with_index do |gender, i| %>
+              <% checkbox_id = "gender_#{i}" %>
+              <span class="me-5">
+                <%= f.check_box :gender_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, gender, nil %>
+                <%= label_tag checkbox_id, gender, class: "ms-1 filtering_search_hover" %>
+              </span>
+            <% end %>
+          </div>
+          <hr class="my-4">
           <%= f.hidden_field :filtering_search, value: true %>
           <div class="text-center mb-5">
             <%= f.submit "検索", class: "btn btn-comment px-5" %>
