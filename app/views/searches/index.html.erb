@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center my-5 py-5">
-      <div style="width: 25rem;">
+      <div style="width: 41rem;">
         <%= search_form_for @q, url: root_path do |f| %>
           <h3 class="mb-5">詳細検索</h3>
           <div>
@@ -18,12 +18,23 @@
           </div>
           <hr class="my-4">
           <div>
-            <p><%= f.label :gender, "性別" %></p>
+            <p><%= f.label "性別" %></p>
             <% ["男性","女性","その他"].each_with_index do |gender, i| %>
               <% checkbox_id = "gender_#{i}" %>
               <span class="me-5">
                 <%= f.check_box :gender_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, gender, nil %>
                 <%= label_tag checkbox_id, gender, class: "ms-1 filtering_search_hover" %>
+              </span>
+            <% end %>
+          </div>
+          <hr class="my-4">
+          <div>
+            <p><%= f.label "配信ジャンル" %></p>
+            <% ["ゲーム","雑談","歌","ASMR","企画","その他"].each_with_index do |content, i| %>
+              <% checkbox_id = "content_#{i}" %>
+              <span class="me-5">
+                <%= f.check_box :contents_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, content, nil %>
+                <%= label_tag checkbox_id, content, class: "ms-1 filtering_search_hover" %>
               </span>
             <% end %>
           </div>
