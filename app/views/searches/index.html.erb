@@ -18,6 +18,17 @@
           </div>
           <hr class="my-4">
           <div>
+            <p><%= f.label "所属" %></p>
+            <% Vtuber.distinct.pluck(:affiliation).reject(&:blank?).sort_by(&:length).each_with_index do |affiliation, i| %>
+              <% checkbox_id = "affiliation#{i}" %>
+              <span class="me-5">
+                <%= f.check_box :affiliation_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, affiliation, nil %>
+                <%= label_tag checkbox_id, affiliation, class: "ms-1 filtering_search_hover" %>
+              </span>
+            <% end %>
+          </div>
+          <hr class="my-4">
+          <div>
             <p><%= f.label "性別" %></p>
             <% ["男性","女性","その他"].each_with_index do |gender, i| %>
               <% checkbox_id = "gender_#{i}" %>
