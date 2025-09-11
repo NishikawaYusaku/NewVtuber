@@ -1,8 +1,14 @@
 class Vtuber < ApplicationRecord
   mount_uploader :image, ImageUploader
 
-  def self.ransackable_attributes(_auth_object = nil)
-    ["name", "affiliation", "gender", "like", "unlike"]
+  ransacker :birthday_month, type: :integer do
+    Arel.sql("EXTRACT(MONTH FROM birthday)::integer")
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    (super + ["birthday_month"])
+  rescue NoMethodError
+    ["name", "affiliation", "gender", "birthday", "like", "unlike", "birthday_month"]
   end
 
   def self.ransackable_associations(_auth_object = nil)
