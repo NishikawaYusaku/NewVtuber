@@ -40,6 +40,11 @@
           </div>
           <hr class="my-4">
           <div>
+            <p><%= f.label "誕生日（月）" %></p>
+            <%= f.select :birthday_month_eq, (1..12).map { |m| [m, m] }, include_blank: "月" %>
+          </div>
+          <hr class="my-4">
+          <div>
             <p><%= f.label "配信ジャンル" %></p>
             <% ["ゲーム","雑談","歌","ASMR","企画","その他"].each_with_index do |content, i| %>
               <% checkbox_id = "content_#{i}" %>
