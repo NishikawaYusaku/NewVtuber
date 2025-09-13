@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
     else
       params[:q].delete(:birthday_month_eq) if params[:q][:birthday_month_eq].blank?
       params[:q].delete(:birthday_day_eq) if params[:q][:birthday_day_eq].blank?
+      params[:q].delete(:debut_date_year_eq) if params[:q][:debut_date_year_eq].blank?
       @results = @q.result(distinct: true)
       @q_name = params[:q].values[0] if params[:q][:filtering_search].blank?
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"
