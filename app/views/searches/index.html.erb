@@ -42,7 +42,13 @@
           <div>
             <p><%= f.label "誕生日" %></p>
             <%= f.select :birthday_month_eq, (1..12).map { |m| ["#{m} 月", m] }, include_blank: "- 月" %>
+            <span class="me-2"></span>
             <%= f.select :birthday_day_eq, (1..31).map { |d| ["#{d} 日", d] }, include_blank: "- 日" %>
+          </div>
+          <hr class="my-4">
+          <div>
+            <p><%= f.label "デビュー日" %></p>
+            <%= f.select :debut_date_year_eq, (2016..Date.today.year).map { |y| ["#{y} 年", y] }, include_blank: "- 年" %>
           </div>
           <hr class="my-4">
           <div>
