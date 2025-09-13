@@ -13,10 +13,18 @@ class Vtuber < ApplicationRecord
     Arel.sql("EXTRACT(YEAR FROM debut_date)::integer")
   end
 
+  ransacker :debut_date_month, type: :integer do
+    Arel.sql("EXTRACT(MONTH FROM debut_date)::integer")
+  end
+
+  ransacker :debut_date_day, type: :integer do
+    Arel.sql("EXTRACT(DAY FROM debut_date)::integer")
+  end
+
   def self.ransackable_attributes(auth_object = nil)
-    (super + ["birthday_month", "birthday_day", "debut_date_year"])
+    (super + ["birthday_month", "birthday_day", "debut_date_year", "debut_date_month", "debut_date_day"])
   rescue NoMethodError
-    ["name", "affiliation", "gender", "birthday", "like", "unlike", "birthday_month", "birthday_day", "debut_date_year"]
+    ["name", "affiliation", "gender", "birthday", "like", "unlike", "birthday_month", "birthday_day", "debut_date_year", "debut_date_month", "debut_date_day"]
   end
 
   def self.ransackable_associations(_auth_object = nil)
