@@ -22,8 +22,10 @@ class ApplicationController < ActionController::Base
       params[:q].delete(:debut_date_year_eq) if params[:q][:debut_date_year_eq].blank?
       params[:q].delete(:debut_date_month_eq) if params[:q][:debut_date_month_eq].blank?
       params[:q].delete(:debut_date_day_eq) if params[:q][:debut_date_day_eq].blank?
+      params[:q].delete(:favorites_count_gteq) if params[:q][:favorites_count_gteq].blank?
+      params[:q].delete(:favorites_count_lteq) if params[:q][:favorites_count_lteq].blank?
       @results = @q.result(distinct: true)
-      @q_name = params[:q].values[0] if params[:q][:filtering_search].blank?
+      @q_name = params[:q].values[0] if params[:q].values[0] != "" && params[:q][:filtering_search].blank?
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"
     end
     @vtubers = @results.order(:id).page(params[:page]).per(20)

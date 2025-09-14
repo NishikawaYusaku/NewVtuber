@@ -63,6 +63,12 @@
             <% end %>
           </div>
           <hr class="my-4">
+          <div>
+            <p><%= f.label "いいね数" %></p>
+            <%= f.number_field :favorites_count_gteq, min: 0, style:"width:7rem;" %> 〜
+            <%= f.number_field :favorites_count_lteq, min: 1, style:"width:7rem;" %>
+          </div>
+          <hr class="my-4">
           <%= f.hidden_field :filtering_search, value: true %>
           <div class="text-center mb-5">
             <%= f.submit "検索", class: "btn btn-comment px-5" %>
