@@ -86,6 +86,12 @@
             <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
           </div>
           <hr class="my-4">
+          <div>
+            <p><%= f.label "動画数" %></p>
+            <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+            <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+          </div>
+          <hr class="my-4">
           <%= f.hidden_field :filtering_search, value: true %>
           <div class="text-center mb-5">
             <%= f.submit "検索", class: "btn btn-comment px-5" %>

@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
       params[:q].delete(:favorites_count_lteq) if params[:q][:favorites_count_lteq].blank?
       params[:q].delete(:vtuber_youtube_subscriber_count_gteq) if params[:q][:vtuber_youtube_subscriber_count_gteq].blank?
       params[:q].delete(:vtuber_youtube_subscriber_count_lteq) if params[:q][:vtuber_youtube_subscriber_count_lteq].blank?
+      params[:q].delete(:vtuber_youtube_video_count_gteq) if params[:q][:vtuber_youtube_subscriber_count_gteq].blank?
+      params[:q].delete(:vtuber_youtube_video_count_lteq) if params[:q][:vtuber_youtube_subscriber_count_lteq].blank?
       @results = @q.result(distinct: true)
       @q_name = params[:q].values[0] if params[:q].values[0] != "" && params[:q][:filtering_search].blank?
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"
