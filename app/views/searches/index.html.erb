@@ -64,9 +64,20 @@
           </div>
           <hr class="my-4">
           <div>
+            <p><%= f.label "タグ" %></p>
+            <% Tag.all.each_with_index do |tag, i| %>
+              <% checkbox_id = "tag_#{i}" %>
+              <span class="me-5">
+                <%= f.check_box :tags_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, tag.name, nil %>
+                <%= label_tag checkbox_id, tag.name, class: "ms-1 filtering_search_hover" %>
+              </span>
+            <% end %>
+          </div>
+          <hr class="my-4">
+          <div>
             <p><%= f.label "いいね数" %></p>
-            <%= f.number_field :favorites_count_gteq, min: 0, style:"width:7rem;" %> 〜
-            <%= f.number_field :favorites_count_lteq, min: 1, style:"width:7rem;" %>
+            <%= f.number_field :favorites_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+            <%= f.number_field :favorites_count_lteq, min: 1, placeholder: '指定なし', style:"width:7rem;" %>
           </div>
           <hr class="my-4">
           <%= f.hidden_field :filtering_search, value: true %>
