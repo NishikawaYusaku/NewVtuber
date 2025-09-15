@@ -8,11 +8,15 @@
           <h3 class="mb-5">詳細検索</h3>
           <div>
             <p><%= f.label "配信サイト" %></p>
+            <span class="me-5">
+              <%= f.radio_button :places_name_eq, "", id: "place_none" %>
+              <%= label_tag "place_none", "指定なし", class: "ms-1 filtering_search_hover" %>
+            </span>
             <% ["YouTube","Twitch"].each_with_index do |place, i| %>
-              <% checkbox_id = "place_#{i}" %>
+              <% radio_id = "place_#{i}" %>
               <span class="me-5">
-                <%= f.check_box :places_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, place, nil %>
-                <%= label_tag checkbox_id, place, class: "ms-1 filtering_search_hover" %>
+                <%= f.radio_button :places_name_eq, place, id: radio_id %>
+                <%= label_tag radio_id, place, class: "ms-1 filtering_search_hover" %>
               </span>
             <% end %>
           </div>
@@ -80,18 +84,20 @@
             <%= f.number_field :favorites_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
           </div>
           <hr class="my-4">
-          <div>
-            <p><%= f.label "チャンネル登録者数" %></p>
-            <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
-            <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+          <div id="filtering_search_youtube">
+            <div>
+              <p><%= f.label "チャンネル登録者数" %></p>
+              <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+              <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+            </div>
+            <hr class="my-4">
+            <div>
+              <p><%= f.label "動画数" %></p>
+              <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+              <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+            </div>
+            <hr class="my-4">
           </div>
-          <hr class="my-4">
-          <div>
-            <p><%= f.label "動画数" %></p>
-            <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
-            <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
-          </div>
-          <hr class="my-4">
           <%= f.hidden_field :filtering_search, value: true %>
           <div class="text-center mb-5">
             <%= f.submit "検索", class: "btn btn-comment px-5" %>
