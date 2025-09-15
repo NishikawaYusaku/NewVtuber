@@ -77,7 +77,13 @@
           <div>
             <p><%= f.label "いいね数" %></p>
             <%= f.number_field :favorites_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
-            <%= f.number_field :favorites_count_lteq, min: 1, placeholder: '指定なし', style:"width:7rem;" %>
+            <%= f.number_field :favorites_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+          </div>
+          <hr class="my-4">
+          <div>
+            <p><%= f.label "チャンネル登録者数" %></p>
+            <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+            <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
           </div>
           <hr class="my-4">
           <%= f.hidden_field :filtering_search, value: true %>
