@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
       @results = Vtuber.joins(:tags).where(tags: { name: params[:tag] })
       @q_name = params[:tag]
     else
+      params[:q].delete(:places_name_eq) if params[:q][:places_name_eq].blank?
       params[:q].delete(:birthday_month_eq) if params[:q][:birthday_month_eq].blank?
       params[:q].delete(:birthday_day_eq) if params[:q][:birthday_day_eq].blank?
       params[:q].delete(:debut_date_year_eq) if params[:q][:debut_date_year_eq].blank?
@@ -26,8 +27,8 @@ class ApplicationController < ActionController::Base
       params[:q].delete(:favorites_count_lteq) if params[:q][:favorites_count_lteq].blank?
       params[:q].delete(:vtuber_youtube_subscriber_count_gteq) if params[:q][:vtuber_youtube_subscriber_count_gteq].blank?
       params[:q].delete(:vtuber_youtube_subscriber_count_lteq) if params[:q][:vtuber_youtube_subscriber_count_lteq].blank?
-      params[:q].delete(:vtuber_youtube_video_count_gteq) if params[:q][:vtuber_youtube_subscriber_count_gteq].blank?
-      params[:q].delete(:vtuber_youtube_video_count_lteq) if params[:q][:vtuber_youtube_subscriber_count_lteq].blank?
+      params[:q].delete(:vtuber_youtube_video_count_gteq) if params[:q][:vtuber_youtube_video_count_gteq].blank?
+      params[:q].delete(:vtuber_youtube_video_count_lteq) if params[:q][:vtuber_youtube_video_count_lteq].blank?
       @results = @q.result(distinct: true)
       @q_name = params[:q].values[0] if params[:q].values[0] != "" && params[:q][:filtering_search].blank?
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"

@@ -21,6 +21,7 @@
 //= require preview
 //= require comment
 //= require affiliation
+//= require filtering_search_youtube
 
 $(document).on("turbolinks:load", function () {
   $("#name-setting").autocomplete({
