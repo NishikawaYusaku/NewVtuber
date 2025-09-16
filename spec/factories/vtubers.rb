@@ -12,5 +12,6 @@ FactoryBot.define do
     affiliation { Faker::Name.name }
     birthday { Faker::Date.in_date_period }
     version { 0 }
+    favorites_count { 0 }
   end
 end
