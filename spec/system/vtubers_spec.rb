@@ -33,6 +33,7 @@ RSpec.describe "Vtubers", type: :system do
         it 'できない' do
           find("a[data-testid='favorite-login-link']").click
           expect(current_path).to eq login_path
+          expect(vtuber1.favorites_count).to eq 0
         end
       end
 
@@ -106,18 +107,22 @@ RSpec.describe "Vtubers", type: :system do
 
       describe 'お気に入り登録' do
         it 'できる' do
+          expect(vtuber1.favorites_count).to eq 0
           expect(page).to have_content '× 0'
           find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
           expect(current_path).to eq vtuber_path(vtuber1)
           expect(page).to have_content '× 1'
+          expect(vtuber1.reload.favorites_count).to eq 1
         end
 
         it '外せる' do
           find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
+          expect(vtuber1.reload.favorites_count).to eq 1
           expect(page).to have_content '× 1'
           find("a[href='/vtubers/#{vtuber1.id}/favorite']").click
           expect(current_path).to eq vtuber_path(vtuber1)
           expect(page).to have_content '× 0'
+          expect(vtuber1.reload.favorites_count).to eq 0
         end
       end
 
@@ -340,6 +345,7 @@ RSpec.describe "Vtubers", type: :system do
         context 'している' do
           before do
             create(:favorite, user: @user, vtuber: vtuber1)
+            expect(vtuber1.reload.favorites_count).to eq 1
             visit user_path
             expect(page).to have_content 'vtuber1'
             expect(page).to have_content '見る'
