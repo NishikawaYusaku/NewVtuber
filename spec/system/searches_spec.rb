@@ -15,7 +15,7 @@ RSpec.describe "Searches", type: :system do
   end
 
   context 'ログイン前' do
-    describe '検索' do
+    describe '通常検索' do
       context '該当プロフィールがある' do
         it 'プロフィールが表示される' do
           find('[data-testid="before-login-normal-search-field"]').set('vtuber1')
@@ -36,12 +36,242 @@ RSpec.describe "Searches", type: :system do
         end
       end
     end
+
+    describe '詳細検索' do
+      describe '単一条件' do
+        describe '配信サイト' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '所属' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '性別' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '誕生日（月）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '誕生日（日）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'デビュー日（年）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'デビュー日（月）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'デビュー日（日）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '配信ジャンル' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'タグ' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'いいね数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'チャンネル登録者数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '動画数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+      end
+
+      describe '複数条件' do
+        describe '配信サイト + 所属' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '性別 + 配信ジャンル' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '誕生日（月）+ タグ + いいね数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+      end
+    end
   end
 
   context 'ログイン後' do
     before { login }
 
-    describe '検索' do
+    describe '通常検索' do
       context '該当プロフィールがある' do
         it 'プロフィールが表示される' do
           find('[data-testid="after-login-normal-search-field"]').set('vtuber1')
@@ -59,6 +289,236 @@ RSpec.describe "Searches", type: :system do
           find('[data-testid="after-login-normal-search-button"]').click
           expect(page).to have_content '登録されていません'
           expect(page).not_to have_content 'vtuber'
+        end
+      end
+    end
+
+    describe '詳細検索' do
+      describe '単一条件' do
+        describe '配信サイト' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '所属' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '性別' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '誕生日（月）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '誕生日（日）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'デビュー日（年）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'デビュー日（月）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'デビュー日（日）' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '配信ジャンル' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'タグ' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'いいね数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe 'チャンネル登録者数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '動画数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+      end
+
+      describe '複数条件' do
+        describe '配信サイト + 所属' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '性別 + 配信ジャンル' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
+        end
+
+        describe '誕生日（月）+ タグ + いいね数' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              
+            end
+          end
         end
       end
     end
