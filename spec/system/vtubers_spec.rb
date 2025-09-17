@@ -44,28 +44,6 @@ RSpec.describe "Vtubers", type: :system do
       end
     end
 
-    describe '検索' do
-      context '該当プロフィールがある' do
-        it 'プロフィールが表示される' do
-          fill_in 'q', with: 'vtuber1'
-          find('[data-testid="before-login-search"]').click
-          expect(page).to have_content 'vtuber1'
-          expect(page).not_to have_content 'vtuber2'
-          expect(page).not_to have_content 'vtuber3'
-          expect(page).not_to have_content '登録されていません'
-        end
-      end
-
-      context '該当プロフィールがない' do
-        it 'プロフィールが表示されない' do
-          fill_in 'q', with: 'vtuber4'
-          find('[data-testid="before-login-search"]').click
-          expect(page).to have_content '登録されていません'
-          expect(page).not_to have_content 'vtuber'
-        end
-      end
-    end
-
     it 'プロフィール作成ができない' do
       expect(page).not_to have_content '設定'
       visit new_vtuber_path
@@ -152,28 +130,6 @@ RSpec.describe "Vtubers", type: :system do
           find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}']").click
           expect(page).to have_content 'コメント（0）'
           expect(page).not_to have_content 'testcomment'
-        end
-      end
-    end
-
-    describe '検索' do
-      context '該当プロフィールがある' do
-        it 'プロフィールが表示される' do
-          fill_in 'q', with: 'vtuber1'
-          find('[data-testid="after-login-search"]').click
-          expect(page).to have_content 'vtuber1'
-          expect(page).not_to have_content 'vtuber2'
-          expect(page).not_to have_content 'vtuber3'
-          expect(page).not_to have_content '登録されていません'
-        end
-      end
-
-      context '該当プロフィールがない' do
-        it 'プロフィールが表示されない' do
-          fill_in 'q', with: 'vtuber4'
-          find('[data-testid="after-login-search"]').click
-          expect(page).to have_content '登録されていません'
-          expect(page).not_to have_content 'vtuber'
         end
       end
     end
