@@ -21,7 +21,7 @@ class Vtuber < ApplicationRecord
     Arel.sql("EXTRACT(DAY FROM debut_date)::integer")
   end
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     [
       "name",
       "affiliation",
