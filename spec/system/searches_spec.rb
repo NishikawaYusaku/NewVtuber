@@ -389,17 +389,26 @@ RSpec.describe "Searches", type: :system do
     end
 
     describe '詳細検索' do
+      before do
+        click_link '詳細検索'
+        expect(current_path).to eq search_path
+      end
+
       describe '単一条件' do
         describe '配信サイト' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              choose 'YouTube'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              choose 'YouTube'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -407,13 +416,17 @@ RSpec.describe "Searches", type: :system do
         describe '所属' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              check 'にじさんじ'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
-            it 'プロフィールが表示されない' do
-              
+            it 'プロフィールが表示される' do
+              check 'にじさんじ'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -421,13 +434,17 @@ RSpec.describe "Searches", type: :system do
         describe '性別' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              check '女性'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              check '女性'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -435,13 +452,17 @@ RSpec.describe "Searches", type: :system do
         describe '誕生日（月）' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find("#q_birthday_month_eq").find("option[value='1']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find("#q_birthday_month_eq").find("option[value='1']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -449,13 +470,17 @@ RSpec.describe "Searches", type: :system do
         describe '誕生日（日）' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find("#q_birthday_day_eq").find("option[value='31']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find("#q_birthday_day_eq").find("option[value='31']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -463,13 +488,17 @@ RSpec.describe "Searches", type: :system do
         describe 'デビュー日（年）' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find("#q_debut_date_year_eq").find("option[value='2018']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find("#q_debut_date_year_eq").find("option[value='2018']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -477,13 +506,17 @@ RSpec.describe "Searches", type: :system do
         describe 'デビュー日（月）' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find("#q_debut_date_month_eq").find("option[value='1']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find("#q_debut_date_month_eq").find("option[value='1']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -491,13 +524,17 @@ RSpec.describe "Searches", type: :system do
         describe 'デビュー日（日）' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find("#q_debut_date_day_eq").find("option[value='31']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find("#q_debut_date_day_eq").find("option[value='31']").select_option
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -505,13 +542,17 @@ RSpec.describe "Searches", type: :system do
         describe '配信ジャンル' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              check 'ゲーム'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              check 'ゲーム'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -519,13 +560,17 @@ RSpec.describe "Searches", type: :system do
         describe 'タグ' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              check 'tag1'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
-            it 'プロフィールが表示されない' do
-              
+            it 'プロフィールが表示される' do
+              check 'tag1'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -533,13 +578,19 @@ RSpec.describe "Searches", type: :system do
         describe 'いいね数' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find('#q_favorites_count_gteq').set(0)
+              find('#q_favorites_count_lteq').set(1)
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find('#q_favorites_count_gteq').set(2)
+              find('#q_favorites_count_lteq').set(3)
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'youtube'
             end
           end
         end
@@ -547,13 +598,19 @@ RSpec.describe "Searches", type: :system do
         describe 'チャンネル登録者数' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find('#q_vtuber_youtube_subscriber_count_gteq').set(0)
+              find('#q_vtuber_youtube_subscriber_count_lteq').set(10000000)
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find('#q_vtuber_youtube_subscriber_count_gteq').set(0)
+              find('#q_vtuber_youtube_subscriber_count_lteq').set(1)
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'youtube'
             end
           end
         end
@@ -561,13 +618,19 @@ RSpec.describe "Searches", type: :system do
         describe '動画数' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find('#q_vtuber_youtube_video_count_gteq').set(0)
+              find('#q_vtuber_youtube_video_count_lteq').set(10000)
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find('#q_vtuber_youtube_video_count_gteq').set(0)
+              find('#q_vtuber_youtube_video_count_lteq').set(1)
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'youtube'
             end
           end
         end
@@ -577,13 +640,19 @@ RSpec.describe "Searches", type: :system do
         describe '配信サイト + 所属' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              choose 'YouTube'
+              check 'にじさんじ'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content '詳細検索の結果：　1'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              choose 'YouTube'
+              check '個人'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content '登録されていません'
             end
           end
         end
@@ -591,13 +660,19 @@ RSpec.describe "Searches", type: :system do
         describe '性別 + 配信ジャンル' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              check '女性'
+              check 'ゲーム'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content '詳細検索の結果：　1'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              check '女性'
+              check '歌'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content '登録されていません'
             end
           end
         end
@@ -605,13 +680,23 @@ RSpec.describe "Searches", type: :system do
         describe '誕生日（月）+ タグ + いいね数' do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
-
+              find("#q_birthday_month_eq").find("option[value='1']").select_option
+              check 'tag1'
+              find('#q_favorites_count_gteq').set(0)
+              find('#q_favorites_count_lteq').set(1)
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content '詳細検索の結果：　1'
             end
           end
 
           context '該当プロフィールがない' do
             it 'プロフィールが表示されない' do
-              
+              find("#q_birthday_month_eq").find("option[value='1']").select_option
+              check 'tag2'
+              find('#q_favorites_count_gteq').set(0)
+              find('#q_favorites_count_lteq').set(1)
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content '登録されていません'
             end
           end
         end
