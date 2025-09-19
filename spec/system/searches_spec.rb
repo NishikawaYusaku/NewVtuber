@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Searches", type: :system do
-  let!(:vtuber1_youtube) { create(:vtuber, name: "vtuber1_youtube", affiliation: "にじさんじ", gender: "女性", birthday: Date.new(0001,1,31), debut_date: Date.new(2018,1,31)) }
-  let!(:vtuber2_twitch) { create(:vtuber, name: "vtuber2_twitch", affiliation: "個人", gender: "男性", birthday: Date.new(0001,6,6), debut_date: Date.new(2025,6,6)) }
+RSpec.describe "Searches", type: :system, focus: true do
+  let!(:vtuber1_youtube) { create(:vtuber, name: "vtuber1_youtube", affiliation: "にじさんじ", gender: "女性", birthday: Date.new(0o001, 1, 31), debut_date: Date.new(2018, 1, 31)) }
+  let!(:vtuber2_twitch) { create(:vtuber, name: "vtuber2_twitch", affiliation: "個人", gender: "男性", birthday: Date.new(0o001, 6, 6), debut_date: Date.new(2025, 6, 6)) }
   let!(:place_youtube) { create(:place, name: "YouTube") }
   let!(:place_twitch) { create(:place, name: "Twitch") }
   let!(:content_game) { create(:content, name: "ゲーム") }
@@ -19,7 +19,7 @@ RSpec.describe "Searches", type: :system do
     create(:vtuber_tag, vtuber: vtuber1_youtube, tag: tag1)
     create(:vtuber_tag, vtuber: vtuber2_twitch, tag: tag2)
     create(:favorite, user: user, vtuber: vtuber1_youtube)
-    create(:vtuber_youtube, vtuber: vtuber1_youtube, subscriber_count: 1830000, video_count: 2737)
+    create(:vtuber_youtube, vtuber: vtuber1_youtube, subscriber_count: 1_830_000, video_count: 2737)
     page.driver.browser.manage.window.resize_to(1400, 900)
     visit root_path
   end
@@ -258,7 +258,7 @@ RSpec.describe "Searches", type: :system do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
               find('#q_vtuber_youtube_subscriber_count_gteq').set(0)
-              find('#q_vtuber_youtube_subscriber_count_lteq').set(10000000)
+              find('#q_vtuber_youtube_subscriber_count_lteq').set(10_000_000)
               find('[data-testid="fs-button"]').click
               expect(page).to have_content 'youtube'
             end
@@ -278,7 +278,7 @@ RSpec.describe "Searches", type: :system do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
               find('#q_vtuber_youtube_video_count_gteq').set(0)
-              find('#q_vtuber_youtube_video_count_lteq').set(10000)
+              find('#q_vtuber_youtube_video_count_lteq').set(10_000)
               find('[data-testid="fs-button"]').click
               expect(page).to have_content 'youtube'
             end
@@ -599,7 +599,7 @@ RSpec.describe "Searches", type: :system do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
               find('#q_vtuber_youtube_subscriber_count_gteq').set(0)
-              find('#q_vtuber_youtube_subscriber_count_lteq').set(10000000)
+              find('#q_vtuber_youtube_subscriber_count_lteq').set(10_000_000)
               find('[data-testid="fs-button"]').click
               expect(page).to have_content 'youtube'
             end
@@ -619,7 +619,7 @@ RSpec.describe "Searches", type: :system do
           context '該当プロフィールがある' do
             it 'プロフィールが表示される' do
               find('#q_vtuber_youtube_video_count_gteq').set(0)
-              find('#q_vtuber_youtube_video_count_lteq').set(10000)
+              find('#q_vtuber_youtube_video_count_lteq').set(10_000)
               find('[data-testid="fs-button"]').click
               expect(page).to have_content 'youtube'
             end
