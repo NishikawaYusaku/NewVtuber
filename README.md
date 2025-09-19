@@ -30,12 +30,13 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 
 ### 主要
 * プロフィール設定（作成、編集）
-* 検索
+* 検索（通常）
+* 検索（詳細）
 * 通知（いいねしたプロフィールの更新時）
 
 #### ・プロフィール設定（作成、編集）
 ログインした状態でヘッダーの設定ボタンを押します。<br>
-<img width="1000" alt="プロフィール設定（作成、編集）の画像1" src="https://i.gyazo.com/b1076b9004ba5e23025f2029e1ff3e6d.png">
+<img width="1000" alt="プロフィール設定（作成、編集）の画像1" src="https://i.gyazo.com/fc14fc2a8645d22dbf2d033699a4828f.png">
 
 設定するVTuberのお名前を入力して設定するボタンを押します。<br>
 編集時はお名前の一部を入力すると自動補完で候補が表示されます。<br>
@@ -49,18 +50,29 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 <img width="800" alt="プロフィール設定（作成、編集）の画像4" src="https://i.gyazo.com/b0d0488e59a102e75ee46c5b0b5983e6.png"><br>
 編集時はプロフィールページから設定ボタンを押すと、そのVTuberのお名前が入った状態でモーダルが表示されます。
 
-#### ・検索
+#### ・検索（通常）
 ヘッダーの検索欄に性別や配信内容など気になるワードを入力して検索ボタンを押します。<br>
-<img width="1000" alt="検索の画像1" src="https://i.gyazo.com/f21ee2c21a2c905c07ee473ca3ff172c.png">
+<img width="1000" alt="検索（通常）の画像1" src="https://i.gyazo.com/53a1a29809d9a091fca72e4d098d1596.png">
 
 検索結果が表示されます。<br>
-<img width="1000" alt="検索の画像2" src="https://i.gyazo.com/37d780ca76b772eabd68cc8848e8f356.png">
+<img width="1000" alt="検索（通常）の画像2" src="https://i.gyazo.com/d5abf7e8bcfd36af34153ac5e86a8b78.png">
 
 タグで検索する際はプロフィールページのタグを押すことでもできます。<br>
-<img width="1000" alt="検索の画像3" src="https://i.gyazo.com/77c993eccb8ad84d837733195dc9b9ad.png">
+<img width="1000" alt="検索（通常）の画像3" src="https://i.gyazo.com/77c993eccb8ad84d837733195dc9b9ad.png">
 
 タグ検索の結果が表示されます。<br>
-<img width="1000" alt="検索の画像4" src="https://i.gyazo.com/0c2dc68ab42ce6d6edbc46eccf66a93a.png">
+<img width="1000" alt="検索（通常）の画像4" src="https://i.gyazo.com/48424d97e2c1a579f99f694c135de6c9.png">
+
+#### ・検索（詳細）
+ヘッダーの詳細検索ボタンを押します。<br>
+<img width="1000" alt="検索（詳細）の画像1" src="https://i.gyazo.com/6631b93a09d4d0979fad12a7e4e866a1.png">
+
+好みに合わせて各項目を指定します。<br>
+（チャンネル登録者数 / 動画数は配信サイトでYouTubeを選択した場合のみ選択可能になります）<br>
+<img width="400" alt="検索（詳細）の画像1" src="https://i.gyazo.com/3cdb5b85570e22a47c172d89ebaa8b90.png">
+
+検索結果が表示されます。<br>
+<img width="1000" alt="検索（詳細）の画像1" src="https://i.gyazo.com/7ba1192283ae1792bc0e9ee8d4571864.png">
 
 #### ・通知（いいねしたプロフィールの更新時）
 ログイン済かつVTuberをいいねした状態でいます。<br>
@@ -68,7 +80,7 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 
 他のユーザーがそのVTuberのプロフィールを更新します。<br>
 その結果、そのVTuberをいいねをした全ユーザーに通知が届き、ヘッダーの通知ボタンに色がつきます。<br>
-<img width="1000" alt="通知（いいねしたプロフィールの更新時）の画像2" src="https://i.gyazo.com/18e53e4c7e893934e7da0a2d12ba61e6.png">
+<img width="1000" alt="通知（いいねしたプロフィールの更新時）の画像2" src="https://i.gyazo.com/131440d255b9078bfcff8124ac50d3f3.png">
 
 通知ボタンを押すと更新されたVTuberの一覧が表示され、通知ボタンの色が消えます。<br>
 通知メッセージを押すとプロフィールページに移動します。<br>
@@ -78,7 +90,7 @@ VTuberの発見と布教が出来るサービスで、下記を目指してい�
 <img width="400" alt="いいねしたプロフィールの更新時）の画像4" src="https://i.gyazo.com/e979c283029f3345a311b090c3863cdd.png">
 
 ### 今後実装予定
-* 複数条件による絞り込み検索
+* 好みに合うVTuberのレコメンド機能
 
 ## 使用技術
 |カテゴリ               |技術   |
