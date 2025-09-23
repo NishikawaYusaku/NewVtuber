@@ -1,1 +1,1 @@
-0 18 * * * bundle exec rake vtuber_youtube:update
+0 18 * * * bundle exec rake vtuber_youtube:update >> /rails/log/cron.log 2>&1

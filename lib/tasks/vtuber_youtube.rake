@@ -33,11 +33,11 @@ namespace :vtuber_youtube do
           latest_video_title: latest_video_title
         )
       rescue Google::Apis::Error, StandardError
-        puts "エラー"
+        puts "#{Time.current.strftime('%Y-%m-%d %H:%M:%S')}：[エラー]#{channel_id}"
         next
       end
     end
 
-    puts "[完了]VTuberのYouTube統計情報を定期的に更新"
+    puts "#{Time.current.strftime('%Y-%m-%d %H:%M:%S')}：[完了]VTuberのYouTube統計情報の定期更新"
   end
 end
