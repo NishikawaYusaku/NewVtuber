@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   def set_search
     params[:q] ||= {}
+    params[:q] = change_variant_word(params[:q].values[0]) if params[:q][:normal_search].present?
     @q = Vtuber.ransack(params[:q])
     if params[:tag]
       @results = Vtuber.joins(:tags).where(tags: { name: params[:tag] })
@@ -23,6 +24,21 @@ class ApplicationController < ActionController::Base
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"
     end
     @vtubers = @results.order(:id).page(params[:page]).per(20)
+  end
+
+  def change_variant_word(word)
+    q_name = [
+      word,
+      Moji.zen_to_han(word),
+      Moji.han_to_zen(word),
+      Moji.kata_to_hira(word),
+      Moji.hira_to_kata(word),
+      Moji.upcase(word),
+      Moji.downcase(word),
+      Moji.kata_to_hira(Moji.han_to_zen(word)),
+      Moji.zen_to_han(Moji.hira_to_kata(word))
+    ].uniq
+    { name_or_affiliation_or_gender_or_like_or_unlike_or_contents_name_or_places_name_or_tags_name_cont_any: q_name }
   end
 
   def delete_blank_params
