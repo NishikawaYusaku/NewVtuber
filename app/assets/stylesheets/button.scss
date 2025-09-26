@@ -1,36 +1,40 @@
 .btn-setting {
-  background-color: #ff00ff;
+  background-color: #ff7fff;
   color: #ffffff;
 }
 .btn-setting:hover {
   background-color: #ff7fff;
   color: #ffffff;
+  opacity: 0.5;
 }
 
 .btn-user {
-  background-color: #0000ff;
+  background-color: #7f7fff;
   color: #ffffff;
 }
 .btn-user:hover {
   background-color: #7f7fff;
   color: #ffffff;
+  opacity: 0.5;
 }
 
 .btn-comment {
-  background-color: #00ff7f;
+  background-color: #7fffbf;
   color: #ffffff;
 }
 .btn-comment:hover {
   background-color: #7fffbf;
   color: #ffffff;
+  opacity: 0.5;
 }
 
 .btn-user_create {
-  background-color: #ff007f;
+  background-color: #ff7fbf;
   color: #ffffff;
 }
 
 .btn-user_create:hover {
   background-color: #ff7fbf;
   color: #ffffff;
+  opacity: 0.5;
 }
