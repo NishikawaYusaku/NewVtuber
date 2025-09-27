@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center my-5 py-5">
-      <div style="width: 26rem;">
+      <div class="px-5 border background-user" style="width: 32rem;">
         <%= form_with url: password_resets_path, local: true, method: :post do |f| %>
           <h3 class="mt-5">パスワードの変更</h3>
           <p>下記のメールアドレス宛に変更のご案内をお送りします。</p>
@@ -17,7 +17,7 @@
               <%= f.email_field :email, class:"form-control" %>
             <% end %>
           </div>
-          <div class="text-center mt-5">
+          <div class="text-center my-5">
             <%= f.submit "送信", class: "btn btn-user px-5 ms-3" %>
           </div>
         <% end %>

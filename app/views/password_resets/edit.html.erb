@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center my-5 py-5">
-      <div style="width: 25rem;">
+      <div class="px-5 border background-user" style="width: 25rem;">
         <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
           <h3 class="mt-5">パスワードの変更</h3>
           <div class="mt-5">
@@ -17,7 +17,7 @@
             <%= f.password_field :password_confirmation, class: 'form-control', id: "userchangepassconfirmation" %>
             <input type="checkbox" class="mt-2" onChange="document.getElementById('userchangepassconfirmation').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
           </div>
-          <div class="text-center mt-5">
+          <div class="text-center my-5">
             <%= f.submit "保存", class: "btn btn-user px-5 ms-3" %>
           </div>
         <% end %>
