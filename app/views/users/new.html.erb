@@ -3,10 +3,10 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center my-5 py-5">
-      <div style="width: 25rem;">
+      <div class="px-5 border background-user" style="width: 30rem;">
         <%= form_with model: @user, url: user_path, local: true do |f| %>
           <%= render 'shared/error_message', object: f.object %>
-          <h3 class="mb-5">ユーザー登録</h3>
+          <h3 class="my-5">ユーザー登録</h3>
           <div class="mb-5">
             <%= f.label :email, "メールアドレス", class: "form-label" %>
             <%= f.email_field :email, class: "form-control" %>
