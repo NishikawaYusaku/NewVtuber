@@ -3,9 +3,9 @@
 <div class="container">
   <div class="row">
     <div class="d-flex justify-content-center my-5 py-5">
-      <div style="width: 43rem;">
+      <div class="px-5 border background-user" style="width: 43rem;">
         <%= search_form_for @q, url: root_path do |f| %>
-          <h3 class="mb-5">詳細検索</h3>
+          <h3 class="my-5">詳細検索</h3>
           <div>
             <p><%= f.label "配信サイト" %></p>
             <span class="me-5">
@@ -99,7 +99,7 @@
             <hr class="my-4">
           </div>
           <%= f.hidden_field :filtering_search, value: true %>
-          <div class="text-center mt-5">
+          <div class="text-center my-5">
             <%= f.submit "検索", class: "btn btn-comment px-5", data: { testid: "fs-button" } %>
           </div>
         <% end %>
