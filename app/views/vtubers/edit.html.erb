@@ -40,6 +40,17 @@
             </div>
           </div>
           <div class="mb-5">
+            <%= f.label :language, "言語", class: "form-label" %>
+            <div>
+              <%= f.radio_button :language, "JP", id: "language_jp" %>
+              <%= f.label :language_jp, "JP", for: "language_jp" %>　　
+              <%= f.radio_button :language, "EN", id: "language_en" %>
+              <%= f.label :language_en, "EN", for: "language_en" %>　　
+              <%= f.radio_button :language, "その他", id: "language_other" %>
+              <%= f.label :language_other, "その他", for: "language_other" %>
+            </div>
+          </div>
+          <div class="mb-5">
             <%= f.label :birthday, "誕生日", class: "form-label" %>
             <div>
               <%= f.date_select :birthday, {:discard_year => true, include_blank: true } %>
