@@ -27,6 +27,7 @@ class Vtuber < ApplicationRecord
       "affiliation",
       "gender",
       "birthday",
+      "language",
       "like",
       "unlike",
       "birthday_month",

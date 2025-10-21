@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
       Moji.kata_to_hira(Moji.han_to_zen(word)),
       Moji.zen_to_han(Moji.hira_to_kata(word))
     ].uniq
-    { name_or_affiliation_or_gender_or_like_or_unlike_or_contents_name_or_places_name_or_tags_name_cont_any: q_name }
+    { name_or_affiliation_or_gender_or_language_or_like_or_unlike_or_contents_name_or_places_name_or_tags_name_cont_any: q_name }
   end
 
   def delete_blank_params
