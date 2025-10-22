@@ -44,6 +44,17 @@
           </div>
           <hr class="my-4">
           <div>
+            <p><%= f.label "言語" %></p>
+            <% ["JP","EN","その他"].each_with_index do |language, i| %>
+              <% checkbox_id = "language_#{i}" %>
+              <span class="me-5 d-inline-block">
+                <%= f.check_box :language_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, language, nil %>
+                <%= label_tag checkbox_id, language, class: "ms-1 filtering_search_hover" %>
+              </span>
+            <% end %>
+          </div>
+          <hr class="my-4">
+          <div>
             <p><%= f.label "誕生日" %></p>
             <%= f.select :birthday_month_eq, (1..12).map { |m| ["#{m} 月", m] }, include_blank: "- 月" %><span class="me-2"></span>
             <%= f.select :birthday_day_eq, (1..31).map { |d| ["#{d} 日", d] }, include_blank: "- 日" %>
