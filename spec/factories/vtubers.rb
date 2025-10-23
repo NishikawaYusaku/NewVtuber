@@ -13,5 +13,6 @@ FactoryBot.define do
     birthday { Faker::Date.in_date_period }
     version { 0 }
     favorites_count { 0 }
+    language { "JP" }
   end
 end
