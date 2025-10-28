@@ -28,6 +28,7 @@ class Vtuber < ApplicationRecord
       "gender",
       "birthday",
       "language",
+      "height",
       "like",
       "unlike",
       "birthday_month",
