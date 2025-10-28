@@ -61,6 +61,12 @@
           </div>
           <hr class="my-4">
           <div>
+            <p><%= f.label "身長" %></p>
+            <%= f.number_field :height_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+            <%= f.number_field :height_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+          </div>
+          <hr class="my-4">
+          <div>
             <p><%= f.label "デビュー日" %></p>
             <%= f.select :debut_date_year_eq, (2016..Date.today.year).map { |y| ["#{y} 年", y] }, include_blank: "- 年" %><span class="me-2"></span>
             <%= f.select :debut_date_month_eq, (1..12).map { |m| ["#{m} 月", m] }, include_blank: "- 月" %><span class="me-2"></span>
