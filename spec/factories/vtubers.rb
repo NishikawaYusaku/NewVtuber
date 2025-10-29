@@ -14,5 +14,6 @@ FactoryBot.define do
     version { 0 }
     favorites_count { 0 }
     language { "JP" }
+    height { 160 }
   end
 end
