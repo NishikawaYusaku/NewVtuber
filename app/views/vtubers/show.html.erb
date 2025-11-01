@@ -73,6 +73,12 @@
         </div>
         <div class="row pt-3 justify-content-start">
           <div class="col-4">
+            <li class="text-end">血液型：</li>
+          </div>
+          <div class="col-8"><%= @vtuber.blood_type %><%= "型" if @vtuber.blood_type %></div>
+        </div>
+        <div class="row pt-3 justify-content-start">
+          <div class="col-4">
             <li class="text-end">デビュー日：</li>
           </div>
           <div class="col-8"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') if @vtuber.debut_date %></div>

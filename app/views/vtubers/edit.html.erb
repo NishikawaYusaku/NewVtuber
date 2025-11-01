@@ -31,23 +31,17 @@
           <div class="mb-5">
             <%= f.label :gender, "性別", class: "form-label" %>
             <div>
-              <%= f.radio_button :gender, "男性", id: "gender_male" %>
-              <%= f.label :gender_male, "男性", for: "gender_male" %>　　
-              <%= f.radio_button :gender, "女性", id: "gender_female" %>
-              <%= f.label :gender_female, "女性", for: "gender_female" %>　　
-              <%= f.radio_button :gender, "その他", id: "gender_other" %>
-              <%= f.label :gender_other, "その他", for: "gender_other" %>
+              <%= f.radio_button :gender, "男性", id: "gender_male" %><%= f.label :gender_male, "男性", for: "gender_male" %>　　
+              <%= f.radio_button :gender, "女性", id: "gender_female" %><%= f.label :gender_female, "女性", for: "gender_female" %>　　
+              <%= f.radio_button :gender, "その他", id: "gender_other" %> <%= f.label :gender_other, "その他", for: "gender_other" %>
             </div>
           </div>
           <div class="mb-5">
             <%= f.label :language, "言語", class: "form-label" %>
             <div>
-              <%= f.radio_button :language, "JP", id: "language_jp" %>
-              <%= f.label :language_jp, "JP", for: "language_jp" %>　　
-              <%= f.radio_button :language, "EN", id: "language_en" %>
-              <%= f.label :language_en, "EN", for: "language_en" %>　　
-              <%= f.radio_button :language, "その他", id: "language_other" %>
-              <%= f.label :language_other, "その他", for: "language_other" %>
+              <%= f.radio_button :language, "JP", id: "language_jp" %><%= f.label :language_jp, "JP", for: "language_jp" %>　　
+              <%= f.radio_button :language, "EN", id: "language_en" %><%= f.label :language_en, "EN", for: "language_en" %>　　
+              <%= f.radio_button :language, "その他", id: "language_other" %><%= f.label :language_other, "その他", for: "language_other" %>
             </div>
           </div>
           <div class="mb-5">
@@ -60,6 +54,16 @@
             <%= f.label :height, "身長", class: "form-label" %>
             <div>
               <%= f.number_field :height, min: 0, step: "0.1", style: "width: 7rem;", class: "me-2" %>cm
+            </div>
+          </div>
+          <div class="mb-5">
+            <%= f.label :blood_type, "血液型", class: "form-label" %>
+            <div>
+              <%= f.radio_button :blood_type, "A", id: "blood_type_a" %><%= f.label :blood_type_a, "A", for: "blood_type_a" %>　　
+              <%= f.radio_button :blood_type, "O", id: "blood_type_o" %><%= f.label :blood_type_o, "O", for: "blood_type_o" %>　　
+              <%= f.radio_button :blood_type, "B", id: "blood_type_b" %><%= f.label :blood_type_b, "B", for: "blood_type_b" %>　　
+              <%= f.radio_button :blood_type, "AB", id: "blood_type_ab" %><%= f.label :blood_type_ab, "AB", for: "blood_type_ab" %>　　
+              <%= f.radio_button :blood_type, "？", id: "blood_type_other" %><%= f.label :blood_type, "？", for: "blood_type_other" %>
             </div>
           </div>
           <div class="mb-5">
