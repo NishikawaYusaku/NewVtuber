@@ -67,6 +67,17 @@
           </div>
           <hr class="my-4">
           <div>
+            <p><%= f.label "血液型" %></p>
+            <% ["A","O","B","AB","？"].each_with_index do |blood_type, i| %>
+              <% checkbox_id = "blood_type_#{i}" %>
+              <span class="me-5 d-inline-block">
+                <%= f.check_box :blood_type_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, blood_type, nil %>
+                <%= label_tag checkbox_id, blood_type, class: "ms-1 filtering_search_hover" %>
+              </span>
+            <% end %>
+          </div>
+          <hr class="my-4">
+          <div>
             <p><%= f.label "デビュー日" %></p>
             <%= f.select :debut_date_year_eq, (2016..Date.today.year).map { |y| ["#{y} 年", y] }, include_blank: "- 年" %><span class="me-2"></span>
             <%= f.select :debut_date_month_eq, (1..12).map { |m| ["#{m} 月", m] }, include_blank: "- 月" %><span class="me-2"></span>
