@@ -29,6 +29,7 @@ class Vtuber < ApplicationRecord
       "birthday",
       "language",
       "height",
+      "blood_type",
       "like",
       "unlike",
       "birthday_month",
