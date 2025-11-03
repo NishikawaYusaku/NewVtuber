@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Searches", type: :system do
-  let!(:vtuber1_youtube) { create(:vtuber, name: "vtuber1_youtube", affiliation: "にじさんじ", gender: "女性", language: "JP", birthday: Date.new(0o001, 1, 31), height: 160, debut_date: Date.new(2018, 1, 31)) }
-  let!(:vtuber2_twitch) { create(:vtuber, name: "vtuber2_twitch", affiliation: "個人", gender: "男性", language: "EN", birthday: Date.new(0o001, 6, 6), height: 170, debut_date: Date.new(2025, 6, 6)) }
+  let!(:vtuber1_youtube) { create(:vtuber, name: "vtuber1_youtube", affiliation: "にじさんじ", gender: "女性", language: "JP", birthday: Date.new(0o001, 1, 31), height: 160, blood_type: "A", debut_date: Date.new(2018, 1, 31)) }
+  let!(:vtuber2_twitch) { create(:vtuber, name: "vtuber2_twitch", affiliation: "個人", gender: "男性", language: "EN", birthday: Date.new(0o001, 6, 6), height: 170, blood_type: "B", debut_date: Date.new(2025, 6, 6)) }
   let!(:place_youtube) { create(:place, name: "YouTube") }
   let!(:place_twitch) { create(:place, name: "Twitch") }
   let!(:content_game) { create(:content, name: "ゲーム") }
@@ -178,6 +178,24 @@ RSpec.describe "Searches", type: :system do
               find('#q_height_lteq').set(1)
               find('[data-testid="fs-button"]').click
               expect(page).not_to have_content 'youtube'
+            end
+          end
+        end
+
+        describe '血液型' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+              check 'A'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              check 'A'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end
@@ -557,6 +575,24 @@ RSpec.describe "Searches", type: :system do
               find('#q_height_lteq').set(1)
               find('[data-testid="fs-button"]').click
               expect(page).not_to have_content 'youtube'
+            end
+          end
+        end
+
+        describe '血液型' do
+          context '該当プロフィールがある' do
+            it 'プロフィールが表示される' do
+              check 'A'
+              find('[data-testid="fs-button"]').click
+              expect(page).to have_content 'youtube'
+            end
+          end
+
+          context '該当プロフィールがない' do
+            it 'プロフィールが表示されない' do
+              check 'A'
+              find('[data-testid="fs-button"]').click
+              expect(page).not_to have_content 'twitch'
             end
           end
         end

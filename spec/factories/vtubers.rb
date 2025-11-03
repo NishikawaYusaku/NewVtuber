@@ -15,5 +15,6 @@ FactoryBot.define do
     favorites_count { 0 }
     language { "JP" }
     height { 160 }
+    blood_type { Faker::Blood.type }
   end
 end
