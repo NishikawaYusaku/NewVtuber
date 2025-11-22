@@ -31,9 +31,12 @@
           <div class="mb-5">
             <%= f.label :gender, "性別", class: "form-label" %>
             <div>
-              <%= f.radio_button :gender, "男性", id: "gender_male" %><%= f.label :gender_male, "男性", for: "gender_male" %>　　
-              <%= f.radio_button :gender, "女性", id: "gender_female" %><%= f.label :gender_female, "女性", for: "gender_female" %>　　
-              <%= f.radio_button :gender, "その他", id: "gender_other" %> <%= f.label :gender_other, "その他", for: "gender_other" %>
+              <% ["男性","女性","その他"].each_with_index do |gender, i| %>
+                <% radio_id = "gender_#{i}" %>
+                <span class="me-5">
+                  <%= f.radio_button :gender, gender, id: radio_id %><%= f.label :radio_id, gender, for: radio_id, class: "ms-1 profile_setting_hover" %>
+                </span>
+              <% end %>
             </div>
           </div>
           <div class="mb-5">
