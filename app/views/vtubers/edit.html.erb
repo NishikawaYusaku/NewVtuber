@@ -65,11 +65,12 @@
           <div class="mb-5">
             <%= f.label :blood_type, "血液型", class: "form-label" %>
             <div>
-              <%= f.radio_button :blood_type, "A", id: "blood_type_a" %><%= f.label :blood_type_a, "A", for: "blood_type_a" %>　　
-              <%= f.radio_button :blood_type, "O", id: "blood_type_o" %><%= f.label :blood_type_o, "O", for: "blood_type_o" %>　　
-              <%= f.radio_button :blood_type, "B", id: "blood_type_b" %><%= f.label :blood_type_b, "B", for: "blood_type_b" %>　　
-              <%= f.radio_button :blood_type, "AB", id: "blood_type_ab" %><%= f.label :blood_type_ab, "AB", for: "blood_type_ab" %>　　
-              <%= f.radio_button :blood_type, "？", id: "blood_type_other" %><%= f.label :blood_type, "？", for: "blood_type_other" %>
+              <% ["A","O","B","AB","？"].each_with_index do |blood_type, i| %>
+                <% radio_id = "blood_type_#{i}" %>
+                <span class="me-5">
+                  <%= f.radio_button :blood_type, blood_type, id: radio_id %><%= f.label :radio_id, blood_type, for: radio_id, class: "ms-1 profile_setting_hover" %>
+                </span>
+              <% end %>
             </div>
           </div>
           <div class="mb-5">
