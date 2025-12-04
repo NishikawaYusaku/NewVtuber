@@ -89,9 +89,11 @@
           <div class="mb-5">
             <%= f.label :content, "配信ジャンル（複数選択可能）", class: "form-label" %>
             <div>
-            <%= f.collection_check_boxes(:content_ids, Content.all, :id, :name) do |c| %>
-              <%= c.label { c.check_box + c.text } %>　　
-            <% end %>
+              <%= f.collection_check_boxes(:content_ids, Content.all, :id, :name) do |c| %>
+                <%= c.label do %>
+                  <%= c.check_box %><span class="ms-1 profile_setting_hover me-5"><%= c.text %></span>
+                <% end %>
+              <% end %>
             </div>
           </div>
           <div class="mb-5">
