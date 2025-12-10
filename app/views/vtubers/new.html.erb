@@ -81,7 +81,7 @@
             <div class="mb-5">
               <%= place_fields.label :place_id, "配信サイト", class: "form-label" %><small class="text-danger fw-semibold">（必須）</small>
               <div class="input-group">
-                <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn btn-outline-secondary", data: {testid: "place-select"}} ) %>
+                <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn profile_setting_place", data: {testid: "place-select"}} ) %>
                 <%= place_fields.text_field :url, class: "form-control", placeholder: "選択した配信サイトのチャンネルURL", data: {testid: "place-url"} %>
               </div>
             </div>
@@ -93,7 +93,7 @@
                 <%= c.label do %>
                   <%= c.check_box %><span class="ms-1 profile_setting_hover me-5"><%= c.text %></span>
                 <% end %>
-っgっg              <% end %>
+              <% end %>
             </div>
           </div>
           <div class="mb-5">
