@@ -67,3 +67,14 @@ ul.ui-autocomplete {
   color: #ff7fff;
   cursor: pointer;
 }
+
+.profile_setting_place.force-refresh {
+  border-color: #dfe2e6;
+  background-color: #ffffff;
+}
+
+.profile_setting_place:hover {
+  color: #ffffff;
+  border-color: #dfe2e6;
+  background-color: #ff7fff;
+}
