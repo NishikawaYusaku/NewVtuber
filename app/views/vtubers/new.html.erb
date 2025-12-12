@@ -25,7 +25,7 @@
             <%= f.label :name_x, "Xのユーザー名", class: "form-label" %>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1">@</span>
-              <%= f.text_field :name_x, class: "form-control " %>
+              <%= f.text_field :name_x, class: "form-control" %>
             </div>
           </div>
           <div class="mb-5">
@@ -53,7 +53,7 @@
           <div class="mb-5">
             <%= f.label :birthday, "誕生日", class: "form-label" %>
             <div>
-              <%= f.date_select :birthday, {:discard_year => true, include_blank: true } %>
+              <%= raw sprintf(f.date_select(:birthday, discard_year: true, use_month_numbers: true, prompt: { month: "-", day: "-" }, date_separator: '%s'),'月 ') + '日' %>
             </div>
           </div>
           <div class="mb-5">
