@@ -75,7 +75,9 @@
           </div>
           <div class="mb-5">
             <%= f.label :debut_date, "デビュー日", class: "form-label" %>
-            <%= f.date_field :debut_date, class: "form-control" %>
+            <div>
+              <%= raw sprintf(f.date_select(:debut_date, start_year: 2016, end_year: Date.today.year, use_month_numbers: true, prompt: { year: "-", month: "-", day: "-" }, date_separator: '%s'),'年 ', '月 ') + '日' %>
+            </div>
           </div>
           <%= f.fields_for :vtuber_places do |place_fields| %>
             <div class="mb-5">
