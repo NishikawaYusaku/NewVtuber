@@ -78,3 +78,7 @@ ul.ui-autocomplete {
   border-color: #dfe2e6;
   background-color: #ff7fff;
 }
+
+.profile_setting_textbox:focus {
+  outline: 3px solid #ff7fff;
+}
