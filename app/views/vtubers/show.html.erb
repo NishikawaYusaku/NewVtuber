@@ -43,6 +43,12 @@
       <ul class="list-unstyled">
         <div class="row justify-content-start">
           <div class="col-4">
+            <li class="text-end">言語：</li>
+          </div>
+          <div class="col-8"><%= @vtuber.language %></div>
+        </div>
+        <div class="row pt-3 justify-content-start">
+          <div class="col-4">
             <li class="text-end">所属：</li>
           </div>
           <div class="col-8"><%= @vtuber.affiliation %></div>
@@ -52,12 +58,6 @@
             <li class="text-end">性別：</li>
           </div>
           <div class="col-8"><%= @vtuber.gender %></div>
-        </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
-            <li class="text-end">言語：</li>
-          </div>
-          <div class="col-8"><%= @vtuber.language %></div>
         </div>
         <div class="row pt-3 justify-content-start">
           <div class="col-4">
