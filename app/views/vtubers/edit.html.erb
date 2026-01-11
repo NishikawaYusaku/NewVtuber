@@ -11,6 +11,22 @@
             <%= f.label :name, "VTuberのお名前", class: "form-label" %><small class="text-danger fw-semibold">（必須）</small>
             <%= f.text_field :name, class: "form-control profile_setting_textbox" %>
           </div>
+          <%= f.fields_for :vtuber_places do |place_fields| %>
+            <div class="mb-5">
+              <%= place_fields.label :place_id, "配信サイト", class: "form-label" %><small class="text-danger fw-semibold">（必須）</small>
+              <div class="input-group">
+                <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn profile_setting_place"} ) %>
+                <%= place_fields.text_field :url, class: "form-control profile_setting_textbox", placeholder: "選択した配信サイトのチャンネルURL", data: {testid: "place-url"} %>
+              </div>
+            </div>
+          <% end %>
+          <div class="mb-5">
+            <%= f.label :name_x, "Xのユーザー名", class: "form-label" %>
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon1">@</span>
+              <%= f.text_field :name_x, class: "form-control profile_setting_textbox" %>
+            </div>
+          </div>
           <div class="mb-5">
             <%= f.label :language, "言語", class: "form-label" %>
             <div>
@@ -33,13 +49,6 @@
             </div>
           </div>
           <div class="mb-5">
-            <%= f.label :name_x, "Xのユーザー名", class: "form-label" %>
-            <div class="input-group">
-              <span class="input-group-text" id="basic-addon1">@</span>
-              <%= f.text_field :name_x, class: "form-control profile_setting_textbox" %>
-            </div>
-          </div>
-          <div class="mb-5">
             <%= f.label :gender, "性別", class: "form-label" %>
             <div>
               <% ["男性","女性","その他"].each_with_index do |gender, i| %>
@@ -48,6 +57,12 @@
                   <%= f.radio_button :gender, gender, id: radio_id %><%= f.label :radio_id, gender, for: radio_id, class: "ms-1 profile_setting_hover" %>
                 </span>
               <% end %>
+            </div>
+          </div>
+          <div class="mb-5">
+            <%= f.label :debut_date, "デビュー日", class: "form-label" %>
+            <div>
+              <%= raw sprintf(f.date_select(:debut_date, start_year: 2016, end_year: Date.today.year, use_month_numbers: true, prompt: { year: "-", month: "-", day: "-" }, date_separator: '%s'),'年 ', '月 ') + '日' %>
             </div>
           </div>
           <div class="mb-5">
@@ -73,21 +88,6 @@
               <% end %>
             </div>
           </div>
-          <div class="mb-5">
-            <%= f.label :debut_date, "デビュー日", class: "form-label" %>
-            <div>
-              <%= raw sprintf(f.date_select(:debut_date, start_year: 2016, end_year: Date.today.year, use_month_numbers: true, prompt: { year: "-", month: "-", day: "-" }, date_separator: '%s'),'年 ', '月 ') + '日' %>
-            </div>
-          </div>
-          <%= f.fields_for :vtuber_places do |place_fields| %>
-            <div class="mb-5">
-              <%= place_fields.label :place_id, "配信サイト", class: "form-label" %><small class="text-danger fw-semibold">（必須）</small>
-              <div class="input-group">
-                <%= place_fields.collection_select(:place_id, Place.where(id:[1,2]), :id, :name, {prompt: "選択"}, {class: "btn profile_setting_place"} ) %>
-                <%= place_fields.text_field :url, class: "form-control profile_setting_textbox", placeholder: "選択した配信サイトのチャンネルURL", data: {testid: "place-url"} %>
-              </div>
-            </div>
-          <% end %>
           <div class="mb-5">
             <%= f.label :content, "配信ジャンル（複数選択可能）", class: "form-label" %>
             <div>
