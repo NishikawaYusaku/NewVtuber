@@ -8,6 +8,11 @@ document.addEventListener("turbolinks:load", function() {
     return;
   }
 
+  // 編集ページを開いた際、元々「個人」が保存されていたなら、次の変更なしでの送信時にも個人が格納されたままにするためののもの
+  if (affiliationIndividual.checked) {
+    affiliationNameField.value = "個人";
+  }
+
   // テキストボックスが空の場合、「企業（グループなど）」が選択されていない状態にする
   if (affiliationNameField.value === "") {
     affiliationCompany.checked = false;
