@@ -12,7 +12,13 @@ class ApplicationController < ActionController::Base
 
   def set_search
     params[:q] ||= {}
-    params[:q] = change_variant_word(params[:q].values[0]) if params[:q][:normal_search].present?
+
+    if params[:q][:normal_search]
+      removed_space = params[:q].values[0].gsub(/\p{Space}/, "")
+      @invalid = true if removed_space.empty?
+      params[:q] = change_variant_word(removed_space)
+    end
+
     @q = Vtuber.ransack(params[:q])
     if params[:tag]
       @results = Vtuber.joins(:tags).where(tags: { name: params[:tag] })
