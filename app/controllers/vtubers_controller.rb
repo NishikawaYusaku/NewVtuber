@@ -86,8 +86,6 @@ class VtubersController < ApplicationController
 
     @youtube_channel_id = is_platform_youtube
 
-    params[:vtuber][:name_x].slice!(0) if params[:vtuber][:name_x][0] == "@"
-
     if @vtuber.update(vtuber_params)
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
 

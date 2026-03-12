@@ -22,6 +22,7 @@
 //= require comment
 //= require affiliation
 //= require filtering_search_youtube
+//= require name_x
 
 $(document).on("turbolinks:load", function () {
   $("#name-setting").autocomplete({
