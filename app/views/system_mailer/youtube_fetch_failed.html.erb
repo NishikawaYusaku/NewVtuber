@@ -1,0 +1,8 @@
+<% @errors.each do |error| %>
+  <div>
+    <p>
+      <%= error[:channel_id] %><br>
+      <%= error[:error] %>
+    </p>
+  </div>
+<% end %>
