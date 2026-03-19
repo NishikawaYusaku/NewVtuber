@@ -42,9 +42,7 @@ namespace :vtuber_youtube do
       end
     end
 
-    if error_channels.any?
-      SystemMailer.youtube_fetch_failed(error_channels).deliver_now
-    end
+    SystemMailer.youtube_fetch_failed(error_channels).deliver_now if error_channels.any?
 
     Rails.logger.info "#{Time.current}：[完了]VTuberのYouTube統計情報の定期更新（エラー件数：#{error_channels.size}）"
   end
