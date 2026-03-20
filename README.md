@@ -183,19 +183,19 @@ $(document).on("turbolinks:load", function () {
 ```
 
 ヘッダーにある設定ボタンを押し、VTuberのお名前を入力します。<br>
-その結果、/vtubers/autocomplete_namesへ入力したお名前が渡されます。<br>
+その結果、入力した瞬間に/vtubers/autocomplete_namesへお名前が渡されます。<br>
 Vtuberコントローラ-のautocomplete_namesアクションが実行されます。<br>
 
 ```
 def autocomplete_names
   normalized_term = params[:term]
-    .then { |t| Moji.zen_to_han(t, Moji::ALNUM) }
+    .then { |t| Moji.han_to_zen(t) }
     .then { |t| Moji.kata_to_hira(t) }
     .then { |t| Moji.upcase(t) }
 
   names = Vtuber.pluck(:name).select do |name|
     normalized_name = name
-      .then { |n| Moji.zen_to_han(n, Moji::ALNUM) }
+      .then { |n| Moji.han_to_zen(n) }
       .then { |n| Moji.kata_to_hira(n) }
       .then { |n| Moji.upcase(n) }
     normalized_name.include?(normalized_term)
@@ -207,15 +207,15 @@ end
 この処理では、半角全角/ひらがなカタカナ/大文字小文字を区別しないで候補が表示されるようにしています。<br>
 処理内容としては、まず入力したお名前を下記のように正規化します。<br>
 正規化はMojiというGemを導入して行なっています。<br>
-　　ＶＴｕｂｅｒ　　 →　VTuber<br>
-　　ブイチューバー　→　ぶいちゅーばー<br>
+　　VTuber　　　　　→　ＶＴｕｂｅｒ<br>
+　　ブイチューバー　 →　ぶいちゅーばー<br>
 　　VTuber　　　　　→　VTUBER<br>
-例えばparams[:term]に「AＢc１23」が入っていた場合、まず「zen_to_han」で"Ｂ"と"１"が半角に変わります。<br>
-次に「kata_to_hira」は英数字では無関係なので処理されません。<br>
-最後に「upcase」で"c"が大文字に変わり、normalized_termには「ABC123」が入ります。<br>
+例えばparams[:term]に「１23あイうABc」が入っていた場合、まず「han_to_zen」で全角である"１"と"あイう"以外の全てが全角に変わります。（１２３あイうＡＢｃ）<br>
+次に「kata_to_hira」で"イ"がひらがなに変わります。（１２３あいうＡＢｃ）<br>
+最後に「upcase」で"ｃ"が大文字に変わり、normalized_termには「１２３あいうＡＢＣ」が入ります。<br>
 次にDBからプロフィール作成済みのnameを全て取得し、1件ずつ同じルールで正規化します。<br>
 そして正規化済みのお名前と正規化済みの1データを確認し、お名前の文字列がデータの文字列に順不同で全部含まれていれば変数（配列）に格納していきます。<br>
-1文字からにしているのは、お名前が1文字のVTuberさんもいるためです。<br>
+minLengthで1文字からにしているのは、お名前が1文字のVTuberさんもいるためです。<br>
 最後にその配列をJSON形式に変換して、autocomplete機能に渡して候補が表示されるようになります。<br>
 以上がプロフィール設定時のモーダルにおけるお名前の自動補完です。
 
