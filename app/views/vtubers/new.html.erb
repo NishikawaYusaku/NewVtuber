@@ -119,7 +119,7 @@
           </div>
           <div class="text-center mb-5 pt-5">
             <%= link_to "戻る", root_path, class: "btn btn-secondary mx-4" %>
-            <%= f.submit "登録", class: "btn btn-setting mx-4", data: {testid: "profile-create"} %>
+            <%= f.button "登録", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4", data: {testid: "profile-create"} %>
           </div>
         <% end %>
       </div>
