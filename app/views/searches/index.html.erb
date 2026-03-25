@@ -128,7 +128,7 @@
           </div>
           <%= f.hidden_field :filtering_search, value: true %>
           <div class="text-center my-5">
-            <%= f.submit "検索", class: "btn btn-comment px-5", data: { testid: "fs-button" } %>
+            <%= f.button "検索", type: 'button', onclick: 'submit();', class: "btn btn-comment px-5", data: { testid: "fs-button" } %>
           </div>
         <% end %>
       </div>
