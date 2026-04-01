@@ -1,17 +1,19 @@
 <div id="comment_<%= comment.id %>" class="mb-3 border-top">
   <p id="comment-info-<%= comment.id %>", class="text-secondary">
-    
+    <span class="me-4">
+      <%= "#{comment.user.name}" %>
+    </span>
     <% if comment.created_at == comment.updated_at %>
-      <%= "#{comment.user.name}　　#{l comment.updated_at}" %>
+      <%= "#{l comment.updated_at}" %>
     <% else %>
-      <%= "#{comment.user.name}　　#{l comment.updated_at}（編集済み）" %>
+      <%= "#{l comment.updated_at}（編集済み）" %>
     <% end %>
 
-    <%= link_to vtuber_comment_path(vtuber, comment), method: :delete, remote: true, class: "text-decoration-none link-dark" do %>
-    　　<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+    <%= link_to vtuber_comment_path(vtuber, comment), method: :delete, remote: true, class: "text-decoration-none link-dark ms-4 comment-icon" do %>
+      <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
     <% end %>
-    <%= link_to edit_vtuber_comment_path(vtuber, comment), remote: true, class: "text-decoration-none link-dark" do %>
-    　<i class="fa-solid fa-pen" style="color: #000000;"></i>
+    <%= link_to edit_vtuber_comment_path(vtuber, comment), remote: true, class: "text-decoration-none link-dark ms-4 comment-icon" do %>
+      <i class="fa-solid fa-pen" style="color: #000000;"></i>
     <% end %>
   </p>
   <p id="comment-body-<%= comment.id %>">
