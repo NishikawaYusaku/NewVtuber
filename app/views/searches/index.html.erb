@@ -56,14 +56,18 @@
           <hr class="my-4">
           <div>
             <p><%= f.label "誕生日" %></p>
-            <%= f.select :birthday_month_eq, (1..12).map { |m| ["#{m} 月", m] }, include_blank: "- 月" %><span class="me-2"></span>
-            <%= f.select :birthday_day_eq, (1..31).map { |d| ["#{d} 日", d] }, include_blank: "- 日" %>
+            <%= f.select :birthday_month_eq, (1..12).map { |m| ["#{m}", m] }, include_blank: "-" %>
+            <span class="mx-1">月</span>
+            <%= f.select :birthday_day_eq, (1..31).map { |d| ["#{d}", d] }, include_blank: "-" %>
+            <span class="ms-1">日</span>
           </div>
           <hr class="my-4">
           <div>
             <p><%= f.label "身長" %></p>
-            <%= f.number_field :height_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %> 〜
+            <%= f.number_field :height_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+            <span class="mx-1">〜</span>
             <%= f.number_field :height_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+            <span class="ms-1">cm</span>
           </div>
           <hr class="my-4">
           <div>
@@ -79,9 +83,12 @@
           <hr class="my-4">
           <div>
             <p><%= f.label "デビュー日" %></p>
-            <%= f.select :debut_date_year_eq, (2016..Date.today.year).map { |y| ["#{y} 年", y] }, include_blank: "- 年" %><span class="me-2"></span>
-            <%= f.select :debut_date_month_eq, (1..12).map { |m| ["#{m} 月", m] }, include_blank: "- 月" %><span class="me-2"></span>
-            <%= f.select :debut_date_day_eq, (1..31).map { |d| ["#{d} 日", d] }, include_blank: "- 日" %>
+            <%= f.select :debut_date_year_eq, (2016..Date.today.year).map { |y| ["#{y}", y] }, include_blank: "-" %>
+            <span class="mx-1">年</span>
+            <%= f.select :debut_date_month_eq, (1..12).map { |m| ["#{m}", m] }, include_blank: "-" %>
+            <span class="mx-1">月</span>
+            <%= f.select :debut_date_day_eq, (1..31).map { |d| ["#{d}", d] }, include_blank: "-" %>
+            <span class="ms-1">日</span>
           </div>
           <hr class="my-4">
           <div>
