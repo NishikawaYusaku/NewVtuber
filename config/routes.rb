@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/vtubers/autocomplete_affiliations', to: 'vtubers#autocomplete_affiliations'
+
   resources :vtubers, only: %i[new create show edit update] do
     post 'favorite', to: 'favorites#create'
     delete 'favorite', to: 'favorites#destroy_vtuber'

@@ -47,6 +47,23 @@ class VtubersController < ApplicationController
     @tag = @vtuber.tags.pluck(:name).join('、')
   end
 
+  def autocomplete_affiliations
+    normalized_term = params[:term]
+      .then { |t| Moji.han_to_zen(t) }
+      .then { |t| Moji.kata_to_hira(t) }
+      .then { |t| Moji.upcase(t) }
+
+    affiliations = Vtuber.distinct.pluck(:affiliation).select do |affiliation|
+      normalized_affiliation = affiliation
+        .then { |a| Moji.han_to_zen(a) }
+        .then { |a| Moji.kata_to_hira(a) }
+        .then { |a| Moji.upcase(a) }
+      normalized_affiliation.include?(normalized_term)
+    end
+
+    render json: affiliations
+  end
+
   def create
     @vtuber = current_user.vtubers.new(vtuber_params)
 
