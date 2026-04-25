@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       @q_name = params[:q].values[0] if params[:q].values[0] != "" && params[:q][:filtering_search].blank?
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"
     end
-    @vtubers = @results.order(:id).page(params[:page]).per(20)
+    @vtubers = @results.order(:display_order).page(params[:page]).per(20)
   end
 
   def change_variant_word(word)
