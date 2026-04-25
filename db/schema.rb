@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_24_074047) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_25_015224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -156,7 +156,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_24_074047) do
     t.string "language"
     t.integer "height"
     t.string "blood_type"
-    t.integer "display_order", null: false
+    t.integer "display_order", default: 0, null: false
     t.index ["display_order"], name: "index_vtubers_on_display_order"
     t.index ["frequency_id"], name: "index_vtubers_on_frequency_id"
     t.index ["name"], name: "index_vtubers_on_name", unique: true

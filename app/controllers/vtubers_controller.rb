@@ -72,6 +72,8 @@ class VtubersController < ApplicationController
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
 
+      @vtuber.update_column(:display_order, @vtuber.id)
+
       tag_list = params[:vtuber][:tag].split(/[、,　 ]/)
       @vtuber.save_tags(tag_list)
 
