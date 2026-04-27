@@ -39,3 +39,7 @@ set :output, "log/cron.log"
 every 1.day, at: rails_env == 'production' ? '6:00 pm' : '3:00 am' do
   rake "vtuber_youtube:update"
 end
+
+every 2.hours do
+  rake "display_order:change"
+end
