@@ -148,7 +148,7 @@ https://www.figma.com/design/C3glur5TElWMfdBr5OtMs3/%E5%90%84%E7%94%BB%E9%9D%A2%
 また、双方で主にヘッダー、ボディ、フッターに分けています。
 
 ## ER図
-![ER図](https://i.gyazo.com/a7dd15e73bb872d8843513c775c7f3da.png)
+![ER図](https://i.gyazo.com/8f6bc4b771f1577b319457b123984071.png)
 
 ユーザーとVTuberに関するテーブルで構成されています。<br>
 
@@ -338,7 +338,7 @@ YouTubeのチャンネルIDは24文字固定のため、抽出した文字列の
 それ以外のURLは扱っていないためreturnです。<br>
 戻り値はチャンネルIDです。<br>
 以上がget_youtube_channel_idメソッドおよびis_platform_youtubeメソッドです。<br><br>
-createアクションに戻り@vtuberの保存に成功した場合、続けてチャンネル情報も保存してく流れです。<br>
+createアクションに戻り@vtuberの保存に成功した場合、続けてチャンネル情報も保存していく流れです。<br>
 次にIDが取得できた場合、作成時ではそのIDがチャネル情報を扱うvtuber_youtubesテーブルにまだ登録されていないことを確認します。<br>
 重複していないことを確認できたら、登録したVTuberのidとチャンネルIDを引数に、同モデルに書いた下記インスタンスメソッドsave_youtube_informationを呼び出します。<br>
 
