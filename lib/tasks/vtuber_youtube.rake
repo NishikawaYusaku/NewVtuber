@@ -36,7 +36,12 @@ namespace :vtuber_youtube do
 
         sleep 1
       rescue Google::Apis::Error, StandardError => e
-        Rails.logger.error "#{Time.current}：[エラー]#{channel_id} #{e.class} #{e.message}"
+        error_message1 = "#{Time.current}：[エラー]VTuberのYouTube統計情報の定期更新"
+        error_message2 = "#{Time.current}：#{channel_id} #{e.class} #{e.message}"
+        Rails.logger.error error_message1
+        Rails.logger.error error_message2
+        puts error_message1
+        puts error_message2
         error_channels << { channel_id: channel_id, error: "#{e.class}：#{e.message}" }
         next
       end
@@ -44,6 +49,8 @@ namespace :vtuber_youtube do
 
     SystemMailer.youtube_fetch_failed(error_channels).deliver_now if error_channels.any?
 
-    Rails.logger.info "#{Time.current}：[完了]VTuberのYouTube統計情報の定期更新（エラー件数：#{error_channels.size}）"
+    completion_message = "#{Time.current}：[完了]VTuberのYouTube統計情報の定期更新（エラー件数：#{error_channels.size}）"
+    Rails.logger.info completion_message
+    puts completion_message
   end
 end

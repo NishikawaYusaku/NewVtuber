@@ -1,2 +1,3 @@
-0 18 * * * bundle exec rake vtuber_youtube:update >> /rails/log/cron.log 2>&1
+CRON_TZ=Asia/Tokyo
+0 3 * * * bundle exec rake vtuber_youtube:update >> /rails/log/cron.log 2>&1
 0 */2 * * * bundle exec rake display_order:change >> /rails/log/cron.log 2>&1
