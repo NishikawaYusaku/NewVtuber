@@ -2,7 +2,7 @@
   <div class="row mt-5 justify-content-start">
     <% if @vtubers.present? %>
       <% if @q_name && @invalid.nil? %>
-        <p class="mb-5">「<%= @q_name[0] %>」の検索結果：　<%= @results.size %></p> 
+        <p class="mb-5">「<%= @q_name.instance_of?(Array) ? @q_name[0] : @q_name %>」の検索結果：　<%= @results.size %></p> 
       <% elsif @filtering_search %>
         <p class="mb-5">詳細検索の結果：　<%= @results.size %></p> 
       <% end %>
