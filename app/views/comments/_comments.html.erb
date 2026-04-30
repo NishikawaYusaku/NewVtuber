@@ -1,5 +1,5 @@
 <% vtuber.comments.includes([:user]).order(updated_at: "DESC").each do |comment| %>
-  <div class="mb-5 border-top", id="comment_<%= comment.id %>" >
+  <div class="pb-4 border-top", id="comment_<%= comment.id %>" >
     <p class="text-secondary">
       <span class="me-4">
         <%= "#{comment.user.name}" %>
