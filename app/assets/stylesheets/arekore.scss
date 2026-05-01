@@ -34,10 +34,9 @@ ul.ui-autocomplete {
   }
 }
 
-// モーダルの背景色
-// .modal-backdrop {
-//   background-color: rgba(0, 0, 0, 0);
-// }
+#affiliation_autocomplete .ui-autocomplete {
+  z-index: 1050;
+}
 
 .checked_notification {
   background-color: #ced4da;
