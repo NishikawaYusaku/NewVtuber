@@ -101,7 +101,15 @@ class VtubersController < ApplicationController
       redirect_to vtuber_path(@vtuber)
     end
 
-    @youtube_channel_id = is_platform_youtube
+    url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
+    if url.include?("youtube.com")
+      @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
+      if @youtube_channel_id.present? && VtuberYoutube.find_by(channel_id: @youtube_channel_id).present?
+        @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
+        flash.now[:danger] = "VTuberを更新できませんでした"
+        render :edit and return
+      end
+    end
 
     if @vtuber.update(vtuber_params)
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
@@ -111,7 +119,6 @@ class VtubersController < ApplicationController
 
       if @youtube_channel_id.present?
         @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
-
         @vtuber.get_profile_icon_from_youtube(@vtuber, @youtube_channel_id) if @vtuber.image.identifier.nil?
       end
 
@@ -130,11 +137,5 @@ class VtubersController < ApplicationController
 
   def vtuber_params
     params.require(:vtuber).permit(:name, :affiliation, :name_x, :gender, :language, :birthday, :height, :blood_type, :debut_date, :like, :unlike, :image, :remove_image, vtuber_places_attributes: [:place_id, :url, :_destroy, :id], content_ids: [])
-  end
-
-  def is_platform_youtube
-    place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
-    url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
-    @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
   end
 end

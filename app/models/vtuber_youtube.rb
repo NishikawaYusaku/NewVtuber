@@ -4,4 +4,6 @@ class VtuberYoutube < ApplicationRecord
   end
 
   belongs_to :vtuber
+
+  validates :channel_id, uniqueness: true
 end
