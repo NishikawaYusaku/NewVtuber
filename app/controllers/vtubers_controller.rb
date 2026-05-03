@@ -67,7 +67,15 @@ class VtubersController < ApplicationController
   def create
     @vtuber = current_user.vtubers.new(vtuber_params)
 
-    @youtube_channel_id = is_platform_youtube
+    url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
+    if url.include?("youtube.com")
+      @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
+      if @youtube_channel_id.present? && VtuberYoutube.find_by(channel_id: @youtube_channel_id).present?
+        @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
+        flash.now[:danger] = "VTuberを更新できませんでした"
+        render :new and return
+      end
+    end
 
     if @vtuber.save
       VtuberUser.new(user_id: current_user.id, vtuber_id: @vtuber.id).save
@@ -78,9 +86,7 @@ class VtubersController < ApplicationController
       @vtuber.save_tags(tag_list)
 
       if @youtube_channel_id.present?
-        youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
-        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check.nil?
-
+        @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
         @vtuber.get_profile_icon_from_youtube(@vtuber, @youtube_channel_id) if @vtuber.image.identifier.nil?
       end
 
@@ -104,7 +110,8 @@ class VtubersController < ApplicationController
     url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
     if url.include?("youtube.com")
       @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
-      if @youtube_channel_id.present? && VtuberYoutube.find_by(channel_id: @youtube_channel_id).present?
+      vtuber_youtube_data = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
+      if vtuber_youtube_data.present? && vtuber_youtube_data.vtuber_id != @vtuber.id
         @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
         flash.now[:danger] = "VTuberを更新できませんでした"
         render :edit and return
@@ -120,6 +127,8 @@ class VtubersController < ApplicationController
       if @youtube_channel_id.present?
         @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
         @vtuber.get_profile_icon_from_youtube(@vtuber, @youtube_channel_id) if @vtuber.image.identifier.nil?
+      else
+        @vtuber.vtuber_youtube&.destroy
       end
 
       @vtuber.notification_update(current_user)
