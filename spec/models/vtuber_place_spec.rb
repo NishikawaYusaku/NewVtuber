@@ -24,6 +24,12 @@ RSpec.describe VtuberPlace, type: :model do
         vtuber_place.valid?
         expect(vtuber_place.errors[:url]).to include "はすでに存在します"
       end
+
+      it 'https://から始まっている' do
+        vtuber_place.url = "www.youtube.com"
+        vtuber_place.valid?
+        expect(vtuber_place.errors[:url]).to include "は「https://」から入力してください"
+      end
     end
   end
 
