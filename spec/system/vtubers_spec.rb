@@ -10,6 +10,8 @@ RSpec.describe "Vtubers", type: :system do
     create(:vtuber_place, vtuber: vtuber1, place: place, url: "https://www.youtube.com/@nijisanji")
     create(:vtuber_place, vtuber: vtuber2, place: place, url: "https://www.youtube.com/@hololive")
     create(:vtuber_place, vtuber: vtuber3, place: place, url: "https://www.youtube.com/@Vspo77")
+    create(:vtuber_youtube, vtuber: vtuber1, channel_id: "UCX7YkU9nEeaoZbkVLVajcMg")
+    create(:vtuber_youtube, vtuber: vtuber2, channel_id: "UCJFZiqLMntJufDCHc6bQixg")
     page.driver.browser.manage.window.resize_to(1400, 900)
     visit root_path
   end
@@ -147,7 +149,7 @@ RSpec.describe "Vtubers", type: :system do
         it 'できる' do
           expect(page).to have_content 'VTuberのお名前（必須）'
           expect(page).to have_field('vtuber_name', with: 'vtuber4')
-          fill_in 'vtuber_name_x', with: 'x4'
+          fill_in 'name_x', with: 'x4'
           find('[data-testid="place-select"]').select('YouTube')
           find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
           click_button '登録'
@@ -160,7 +162,7 @@ RSpec.describe "Vtubers", type: :system do
         describe '名前' do
           it '入力してない' do
             fill_in 'vtuber_name', with: ''
-            fill_in 'vtuber_name_x', with: 'x4'
+            fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
             click_button '登録'
@@ -170,7 +172,7 @@ RSpec.describe "Vtubers", type: :system do
 
           it '重複している' do
             fill_in 'vtuber_name', with: 'vtuber1'
-            fill_in 'vtuber_name_x', with: 'x4'
+            fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
             click_button '登録'
@@ -181,7 +183,7 @@ RSpec.describe "Vtubers", type: :system do
 
         describe 'Xのユーザ名' do
           it '重複している' do
-            fill_in 'vtuber_name_x', with: 'x1'
+            fill_in 'name_x', with: 'x1'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
             click_button '登録'
@@ -192,7 +194,7 @@ RSpec.describe "Vtubers", type: :system do
 
         describe '配信サイト' do
           it 'サイトを選択してない' do
-            fill_in 'vtuber_name_x', with: 'x4'
+            fill_in 'name_x', with: 'x4'
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
             click_button '登録'
             expect(page).to have_content 'VTuberを登録できませんでした'
@@ -200,9 +202,36 @@ RSpec.describe "Vtubers", type: :system do
           end
 
           it 'URLを入力していない' do
-            fill_in 'vtuber_name_x', with: 'x4'
+            fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+
+          it 'URLが重複している' do
+            fill_in 'name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@nijisanji')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+
+          it 'https://〜で入力していない' do
+            fill_in 'name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('www.youtube.com/@VariumOfficial')
+            click_button '登録'
+            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+
+          it 'YouTubeの場合にチャンネルIDが重複している' do
+            fill_in 'name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMg')
             click_button '登録'
             expect(page).to have_content 'VTuberを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
@@ -244,7 +273,7 @@ RSpec.describe "Vtubers", type: :system do
         describe 'Xのユーザ名' do
           it '重複している' do
             visit edit_vtuber_path(vtuber1)
-            fill_in 'vtuber_name_x', with: 'x2'
+            fill_in 'name_x', with: 'x2'
             click_button '更新'
             expect(page).to have_content 'VTuberを更新できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
@@ -256,6 +285,30 @@ RSpec.describe "Vtubers", type: :system do
           it 'URLを入力していない' do
             visit edit_vtuber_path(vtuber1)
             find('[data-testid="place-url"]').set('')
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+
+          it 'URLが重複している' do
+            visit edit_vtuber_path(vtuber1)
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@hololive')
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+
+          it 'https://〜で入力していない' do
+            visit edit_vtuber_path(vtuber1)
+            find('[data-testid="place-url"]').set('www.youtube.com/@VariumOfficial')
+            click_button '更新'
+            expect(page).to have_content 'VTuberを更新できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+
+          it 'YouTubeの場合にチャンネルIDが重複している' do
+            visit edit_vtuber_path(vtuber1)
+            find('[data-testid="place-url"]').set('https://www.youtube.com/channel/UCJFZiqLMntJufDCHc6bQixg')
             click_button '更新'
             expect(page).to have_content 'VTuberを更新できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'

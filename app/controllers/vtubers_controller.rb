@@ -72,7 +72,7 @@ class VtubersController < ApplicationController
       @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
       if @youtube_channel_id.present? && VtuberYoutube.find_by(channel_id: @youtube_channel_id).present?
         @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
-        flash.now[:danger] = "VTuberを更新できませんでした"
+        flash.now[:danger] = "VTuberを登録できませんでした"
         render :new and return
       end
     end
