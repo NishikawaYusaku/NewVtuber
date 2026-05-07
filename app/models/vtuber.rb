@@ -105,8 +105,8 @@ class Vtuber < ApplicationRecord
 
         youtube_channel_id = youtube_handle_to_id[:items][0][:id]
       elsif url.include?("/UC")
-        youtube_channel_id = url[(url.index("/UC") + 1)..]
         youtube_channel_id_digits = 24
+        youtube_channel_id = url.slice(url.index("/UC") + 1, youtube_channel_id_digits)
         return if youtube_channel_id.length != youtube_channel_id_digits
       else
         return
