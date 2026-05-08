@@ -224,25 +224,39 @@ minLengthで1文字からにしているのは、お名前が1文字のVTuberさ
 必要なのはプロフィール設定時に併せて設定する配信チャンネルのURLと、そこから得られるチャンネルIDです。<br>
 <img width="400" alt="YouTubeのチャンネル情報の取得の画像1" src="https://i.gyazo.com/c7476bc9a24a58160355a47f95664653.png">
 
-実際のコード（作成時）は下記の通りです。<br>
-プロフィール設定は作成/編集の2パターンがありますが、処理内容は大差ないです。<br>
-まず、プロフィール項目の設定を終えて登録ボタンを押して、Vtuberコントローラーのcreateアクションが実行されます。<br>
+プロフィール設定は作成/編集の2パターンがありますが、処理内容にあまり大差はなく、以降は編集時の場合です。<br>
+実際のコードは下記の通りです。<br>
+まず、プロフィール項目の設定を終えて更新ボタンを押して、Vtuberコントローラーのupdateアクションが実行されます。<br>
 
 ```
-def create
-  @vtuber = current_user.vtubers.new(vtuber_params)
+def update
+  @vtuber = Vtuber.find(params[:id])
 
-  @youtube_channel_id = is_platform_youtube
+  他処理
 
-  if @vtuber.save
+  url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
+  if url.include?("youtube.com")
+    @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
+    vtuber_youtube_data = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
+    if vtuber_youtube_data.present? && vtuber_youtube_data.vtuber_id != @vtuber.id
+      @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
+      flash.now[:danger] = "VTuberを更新できませんでした"
+      render :edit and return
+    end
+  end
+
+  if @vtuber.update(vtuber_params)
+
     他処理
 
     if @youtube_channel_id.present?
-      youtube_channel_id_check = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
-      @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id) if youtube_channel_id_check.nil?
-
+      @vtuber.save_youtube_information(@vtuber.id, @youtube_channel_id)
       @vtuber.get_profile_icon_from_youtube(@vtuber, @youtube_channel_id) if @vtuber.image.identifier.nil?
+    else
+      @vtuber.vtuber_youtube&.destroy
     end
+
+    他処理
 
     リダイレクト
   else
@@ -251,19 +265,8 @@ def create
 end
 ```
 
-まずis_platform_youtubeという下記プライベートメソッドを実行します。<br>
-処理内容としては、設定時に設定された配信サイトがYouTubeの場合にそのチャンネルURLからチャンネルIDを取得するというものです。
-
-```
-private
-
-def is_platform_youtube
-  place_id = params[:vtuber][:vtuber_places_attributes]["0"][:place_id]
-  url = params[:vtuber][:vtuber_places_attributes]["0"][:url]
-  @vtuber.get_youtube_channel_id(url) if place_id == "1" && url.present?
-end
-```
-実際には処理内でチャンネルURLを引数に、下記インスタンスメソッドget_youtube_channel_idを呼び出しています。<br>
+まずフォームに入力したチャンネルURLに「youtube.com」が含まれているかを確認し、含まれていればYouTubeのURLとして中の処理を始めます。
+初めにそのURLを引数に、下記インスタンスメソッドget_youtube_channel_idを呼び出しています。<br>
 このメソッドはVtuberモデルに書いています。
 
 ```
@@ -283,8 +286,8 @@ def get_youtube_channel_id(url)
 
       youtube_channel_id = youtube_handle_to_id[:items][0][:id]
     elsif url.include?("/UC")
-      youtube_channel_id = url[(url.index("/UC") + 1)..]
       youtube_channel_id_digits = 24
+      youtube_channel_id = url.slice(url.index("/UC") + 1, youtube_channel_id_digits)
       return if youtube_channel_id.length != youtube_channel_id_digits
     else
       return
@@ -296,7 +299,7 @@ def get_youtube_channel_id(url)
   end
 end
 ```
-初めに同モデル内にある下記youtube_data_apiメソッドを呼び出しています。<br>
+まず同モデル内にある下記youtube_data_apiメソッドを呼び出しています。<br>
 ここでYouTube Data APIを使用するためのインスタンスを生成しています。
 
 ```
@@ -313,10 +316,11 @@ end
 次にget_youtube_channel_idメソッドに戻り、受け取ったURLの種類によりID取得のための処理を分岐させています。<br>
 具体的にはURLに@が含まれている場合と文字列UCが含まれている場合とそれ以外の3つです。<br>
 YouTubeのチャンネルURLは種類があることを知りました。<br>
-複数ありますが、その中でも現在よく使われているものは下記3パターンであると定めました。<br>
+複数ありますが、その中でも現在よく使われているものは下記4パターンであると定めました。<br>
 　　https://www.youtube.com/@ハンドル<br>
 　　https://youtube.com/@小文字化したハンドル?si=クエリ<br>
 　　https://www.youtube.com/channel/UCから始まるチャンネルID<br>
+　　https://youtube.com/channel/UCから始まるチャンネルID?si=クエリ<br>
 プロフィール設定時において、URLの種類に制限は設けておらず、それぞれのパターンに対応できるようにしています。<br>
 まず@が含まれているパターンについて、@より後の部分（ハンドル）を抽出します。<br>
 　　https://www.youtube.com/@ハンドル　→　ハンドル<br>
@@ -330,17 +334,25 @@ YouTubeのチャンネルURLは種類があることを知りました。<br>
 　　ハンドル/videos　　　　　　　　→　ハンドル<br>
 取得したハンドルを引数に、APIのlist_channelsメソッドを実行します。<br>
 直後に条件付きでreturnをしていますが、これは取得したハンドルが無効つまり設定されたURLが誤りで情報が取得できなかった場合に通ります。<br>
-その場合、IDは取得されることなくcreateアクションに戻ります。<br>
+その場合、IDは取得されることなくupdateアクションに戻ります。<br>
 正しくメソッドが実行できた場合は、そこからチャンネルIDを取得し、@が含まれていた場合の処理は終了です。<br>
-次に文字列UCが含まれていた場合は、UC以降を抽出します。<br>
+次に文字列UCが含まれていた場合は、UC以降を24文字分抽出します。<br>
 　　https://www.youtube.com/channel/UCから始まるチャンネルID　→　UCから始まるチャンネルID<br>
-YouTubeのチャンネルIDは24文字固定のため、抽出した文字列の桁数が24文字ではない場合は同じくreturnを通ります。<br>
+　　https://youtube.com/channel/UCから始まるチャンネルID?si=クエリ　→　UCから始まるチャンネルID<br>
+YouTubeのチャンネルIDは24文字固定のため、抽出した文字列の桁数が24文字未満の場合は同じくreturnを通ります。<br>
 それ以外のURLは扱っていないためreturnです。<br>
 戻り値はチャンネルIDです。<br>
-以上がget_youtube_channel_idメソッドおよびis_platform_youtubeメソッドです。<br><br>
-createアクションに戻り@vtuberの保存に成功した場合、続けてチャンネル情報も保存していく流れです。<br>
-次にIDが取得できた場合、作成時ではそのIDがチャネル情報を扱うvtuber_youtubesテーブルにまだ登録されていないことを確認します。<br>
-重複していないことを確認できたら、登録したVTuberのidとチャンネルIDを引数に、同モデルに書いた下記インスタンスメソッドsave_youtube_informationを呼び出します。<br>
+以上がget_youtube_channel_idメソッドです。<br>
+
+updateアクションに戻り、取得したチャンネルIDを条件にDBからデータを抽出します。<br>
+VtuberYoutubeは取得したYouTube情報（チャンネルIDやチャンネル登録者数など）を格納するためのものです。<br>
+チャンネルIDは重複して保存できないようにしています。<br>
+そのため、そのIDのデータが保存済みでかつそのVTuberのIDでない場合は、誰か別の人のURL（ID）を登録しようとしているということになりますので編集ページに差し戻します。<br>
+
+@vtuber.updateで更新に成功した場合、続けてチャンネル情報も保存していきます。<br>
+先にチャンネルIDが取得できていなかった場合、VtuberYoutubeのそのVTuberのデータがあれば削除します。<br>
+これは、例えば元々はYouTubeのURLを登録していたが、今回別の配信サイトのURLに変更した場合に、DBにデータが残ったままになることを防ぐためです。<br>
+チャンネルIDが取得できていた場合、そのVTuberのidとチャンネルIDを引数に、同モデルに書いた下記インスタンスメソッドsave_youtube_informationを呼び出します。<br>
 
 ```
 def save_youtube_information(vtuber_id, youtube_channel_id)
@@ -384,8 +396,9 @@ end
 こちらのメソッドで結果がnilの場合はreturnではなくそのままにしています。<br>
 理由は前半のメソッドとこのメソッドとではnilの理由が異なるからです。<br>
 前半のメソッドは存在しないIDによるもので、このメソッドはまだ動画が1つもない場合にnilを返します。<br>
-取得した情報たちを格納してsave_youtube_informationメソッドは終了です。<br><br>
-createアクションに戻りプロフィール画像が設定されているかを確認します。<br>
+取得した情報たちを格納してsave_youtube_informationメソッドは終了です。<br>
+
+updateアクションに戻りプロフィール画像が設定されているかを確認します。<br>
 設定されていない場合、チャンネルのアイコンを使用するようにしています。<br>
 <img width="400" alt="YouTubeのチャンネル情報の取得の画像2" src="https://i.gyazo.com/e19448b8a97aaf10672ea4d4c4afa48f.png">
 
@@ -404,8 +417,9 @@ end
 初めに同様にAPIのインスタンスを生成し、APIのlist_channelsメソッドを実行します。<br>
 取得結果からチャンネルのアイコン画像のURLを取得し、画像ファイルとして保存します。<br>
 IDが無効の場合はNULLが入りますが、その場合はデフォルト画像がアイコンになるようにしています。<br>
-以上がget_profile_icon_from_youtubeメソッドです。<br><br>
-以上がプロフィール設定時のYouTube周りの処理です。<br>
+以上がget_profile_icon_from_youtubeメソッドです。<br>
+
+以上がプロフィール編集時のYouTube周りの処理です。<br>
 さらに、チャンネルの情報は日々変わるため、定期的に情報を取得してデータを更新するようにしています。<br>
 実際のコードは下記の通りです。<br>
 
@@ -448,7 +462,12 @@ namespace :vtuber_youtube do
 
         sleep 1
       rescue Google::Apis::Error, StandardError => e
-        Rails.logger.error "#{Time.current}：[エラー]#{channel_id} #{e.class} #{e.message}"
+        error_message1 = "#{Time.current}：[エラー]VTuberのYouTube統計情報の定期更新"
+        error_message2 = "#{Time.current}：#{channel_id} #{e.class} #{e.message}"
+        Rails.logger.error error_message1
+        Rails.logger.error error_message2
+        puts error_message1
+        puts error_message2
         error_channels << { channel_id: channel_id, error: "#{e.class}：#{e.message}" }
         next
       end
@@ -456,13 +475,15 @@ namespace :vtuber_youtube do
 
     SystemMailer.youtube_fetch_failed(error_channels).deliver_now if error_channels.any?
 
-    Rails.logger.info "#{Time.current}：[完了]VTuberのYouTube統計情報の定期更新（エラー件数：#{error_channels.size}）"
+    completion_message = "#{Time.current}：[完了]VTuberのYouTube統計情報の定期更新（エラー件数：#{error_channels.size}）"
+    Rails.logger.info completion_message
+    puts completion_message
   end
 end
 ```
 
-処理内容はインスタンスメソッドsave_youtube_informationと大差ないです。<br>
+処理内容はインスタンスメソッドsave_youtube_informationと大差はありません。<br>
 vtuber_youtubesテーブルにチャンネルIDも格納しているので、この定期処理ではそれを利用して1件ずつ更新しています。<br>
 処理中にエラーが発生した場合、エラー情報をアプリ用のメールアドレス宛に送信します。<br>
-crontab、Dockerfile、fly.tomlも編集し、毎日午前3:00に実行するようにしています。<br>
+crontab、Dockerfile、fly.tomlも編集し、毎日午前3:00(JST)に実行するようにしています。<br>
 以上がYouTubeのチャンネル情報の取得です。<br>
