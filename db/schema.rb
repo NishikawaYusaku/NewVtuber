@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_25_015224) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_08_094738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -135,6 +135,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_25_015224) do
     t.datetime "updated_at", null: false
     t.string "latest_video_title"
     t.string "channel_id"
+    t.index ["channel_id"], name: "index_vtuber_youtubes_on_channel_id", unique: true
     t.index ["vtuber_id"], name: "index_vtuber_youtubes_on_vtuber_id"
   end
 
