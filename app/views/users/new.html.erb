@@ -28,7 +28,7 @@
           </div>
           <div class="mb-5">
             <%= f.check_box :agreement, as: :boolean, checked: false %>
-            　<%= link_to "利用規約", terms_pages_path, target: :_blank, rel: "noopener noreferrer" %>と<%= link_to "プライバシーポリシー", privacy_policy_pages_path, target: :_blank, rel: "noopener noreferrer" %>に同意します
+            　<%= link_to "利用規約", terms_pages_path, target: :_blank, rel: "noopener" %>と<%= link_to "プライバシーポリシー", privacy_policy_pages_path, target: :_blank, rel: "noopener" %>に同意します
           </div>
           <div class="text-center my-5">
             <%= f.submit "登録", class: "btn btn-user_create px-5" %>
