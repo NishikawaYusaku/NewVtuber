@@ -24,61 +24,6 @@
 //= require filtering_search_youtube
 //= require name_x
 //= require modal_profile
-
-$(document).on("turbolinks:load", function () {
-  $("#name-setting").autocomplete({
-    source: "/vtubers/autocomplete_names",
-    minLength: 1
-  });
-
-  $("#affiliation_name").autocomplete({
-    source: "/vtubers/autocomplete_affiliations",
-    minLength: 1,
-    appendTo: "#affiliation_autocomplete"
-  });
-
-  const modal = document.getElementById("notify-modal");
-
-  if (modal) {
-    modal.addEventListener("hidden.bs.modal", function () {
-      sendReadRequest();
-    });
-
-    modal.addEventListener("click", function (e) {
-      const link = e.target.closest("a");
-      if (link) {
-        sendReadRequest();
-      }
-    });
-  }
-
-  function sendReadRequest() {
-    fetch("/notifications/mark_as_read", {
-      method: "POST",
-      headers: {
-        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({})
-    });
-  }
-
-  document.querySelectorAll(".profile_setting_place").forEach((el) => {
-    const selects = document.querySelectorAll('.profile_setting_place');
-
-    selects.forEach(select => {
-      const refreshStyle = () => {
-        select.classList.remove('force-refresh');
-        void select.offsetWidth;  // 再計算（再描画を強制）
-        select.classList.add('force-refresh');
-      };
-
-      // イベント設定（同じ値を選んでも再発火）
-      select.addEventListener('change', refreshStyle);
-      select.addEventListener('click', refreshStyle);
-
-      // 初回ロード時に強制リフレッシュを実行
-      refreshStyle();
-    });
-  });
-});
+//= require place_option
+//= require notification_read
+//= require autocomplete
