@@ -1,8 +1,8 @@
 <% if notification.action == "update" %>
-  <div class="py-3 text-start <%= "bg-dark-subtle" if notification.checked == true %>">
+  <div class="py-3 text-start <%= "bg-dark-subtle" if notification.read_at.present? %>">
     <span class="ps-3">プロフィールが更新されました。</span>
     <%= link_to vtuber_path(notification.vtuber_id), class: "text-decoration-none", data: { testid: "notification-modal-link" } do %>
-      <div class="py-3 ps-3 d-flex align-items-center link-dark <%= notification.checked ? "checked_notification" : "unchecked_notification" %> hover_notification">
+      <div class="py-3 ps-3 d-flex align-items-center link-dark <%= notification.read_at.present? ? "checked_notification" : "unchecked_notification" %> hover_notification">
         <%= image_tag Vtuber.find(notification.vtuber_id).image.url, class: "rounded-circle me-3", size: "50x50", style: "border: 1px solid #000;" %>
         <%= Vtuber.find(notification.vtuber_id).name %>
       </div>
