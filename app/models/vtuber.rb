@@ -157,13 +157,16 @@ class Vtuber < ApplicationRecord
   end
 
   def notification_update(current_user)
+    time = Time.current
     Favorite.where(vtuber_id: id).pluck(:user_id).each do |user_id|
-      notification = current_user.active_notifications.new(
+      current_user.active_notifications.create(
         visited_id: user_id,
         vtuber_id: id,
-        action: "update"
+        action: "update",
+        created_at: time,
+        updated_at: time,
+        read_at: (time if current_user.id == user_id)
       )
-      notification.save
     end
   end
 
