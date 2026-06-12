@@ -316,13 +316,14 @@ RSpec.describe Vtuber, type: :model do
         expect(notification.visited_id).to eq favorited_user.id
         expect(notification.vtuber_id).to eq vtuber.id
         expect(notification.action).to eq "update"
+        expect(notification.read_at).to be_nil
       end
 
-      it '自分宛の通知は既読になる' do
+      it '自分宛の通知は既読になる', focus: true do
         Favorite.create(user: current_user, vtuber: vtuber)
         vtuber.notification_update(current_user)
         notification = current_user.active_notifications.find_by(visited_id: current_user.id)
-        expect(notification.checked).to be true
+        expect(notification.read_at).not_to be_nil
       end
     end
 

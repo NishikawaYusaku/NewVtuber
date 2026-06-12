@@ -4,6 +4,6 @@ FactoryBot.define do
     association :visited, factory: :user
     association :vtuber
     action { "update" }
-    checked { false }
+    read_at { nil }
   end
 end
