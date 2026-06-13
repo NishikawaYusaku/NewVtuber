@@ -63,6 +63,6 @@ class ApplicationController < ActionController::Base
   end
 
   def check_notification
-    @has_unread_notification = current_user.passive_notifications.where(read_at: nil).exists?
+    @has_unread_notification = current_user.passive_notifications.exists?(read_at: nil)
   end
 end
