@@ -148,7 +148,7 @@ https://www.figma.com/design/C3glur5TElWMfdBr5OtMs3/%E5%90%84%E7%94%BB%E9%9D%A2%
 また、双方で主にヘッダー、ボディ、フッターに分けています。
 
 ## ER図
-![ER図](https://i.gyazo.com/8f6bc4b771f1577b319457b123984071.png)
+![ER図](https://i.gyazo.com/3846f0f3c2a09be982eeaeeb1bc23b95.png)
 
 ユーザーとVTuberに関するテーブルで構成されています。<br>
 
