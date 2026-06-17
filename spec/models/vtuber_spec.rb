@@ -319,7 +319,7 @@ RSpec.describe Vtuber, type: :model do
         expect(notification.read_at).to be_nil
       end
 
-      it '自分宛の通知は既読になる', focus: true do
+      it '自分宛の通知は既読になる' do
         Favorite.create(user: current_user, vtuber: vtuber)
         vtuber.notification_update(current_user)
         notification = current_user.active_notifications.find_by(visited_id: current_user.id)

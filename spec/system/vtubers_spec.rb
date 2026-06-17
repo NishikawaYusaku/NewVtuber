@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Vtubers", type: :system do
+RSpec.describe "Vtubers", type: :system, focus: true do
   let!(:vtuber1) { create(:vtuber, name: "vtuber1", name_x: "x1") }
   let!(:vtuber2) { create(:vtuber, name: "vtuber2", name_x: "x2") }
   let!(:vtuber3) { create(:vtuber, name: "vtuber3", name_x: "x3") }
@@ -10,8 +10,8 @@ RSpec.describe "Vtubers", type: :system do
     create(:vtuber_place, vtuber: vtuber1, place: place, url: "https://www.youtube.com/@nijisanji")
     create(:vtuber_place, vtuber: vtuber2, place: place, url: "https://www.youtube.com/@hololive")
     create(:vtuber_place, vtuber: vtuber3, place: place, url: "https://www.youtube.com/@Vspo77")
-    create(:vtuber_youtube, vtuber: vtuber1, channel_id: "UCX7YkU9nEeaoZbkVLVajcMg")
-    create(:vtuber_youtube, vtuber: vtuber2, channel_id: "UCJFZiqLMntJufDCHc6bQixg")
+    create(:vtuber_youtube, vtuber: vtuber1, channel_id: "UCX7YkU9nEeaoZbkVLVajcMg", subscriber_count: 1, video_count: 1)
+    create(:vtuber_youtube, vtuber: vtuber2, channel_id: "UCJFZiqLMntJufDCHc6bQixg", subscriber_count: 2, video_count: 2)
     page.driver.browser.manage.window.resize_to(1400, 900)
     visit root_path
   end
