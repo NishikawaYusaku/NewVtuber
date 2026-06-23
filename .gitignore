@@ -29,6 +29,7 @@
 /vendor/bundle
 
 /public/uploads
+/public/tmp
 
 .env
 
