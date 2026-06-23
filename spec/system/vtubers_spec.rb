@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Vtubers", type: :system, focus: true do
+RSpec.describe "Vtubers", type: :system do
   let!(:vtuber1) { create(:vtuber, name: "vtuber1", name_x: "x1") }
   let!(:vtuber2) { create(:vtuber, name: "vtuber2", name_x: "x2") }
   let!(:vtuber3) { create(:vtuber, name: "vtuber3", name_x: "x3") }
