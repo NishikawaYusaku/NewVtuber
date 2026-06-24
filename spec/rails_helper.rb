@@ -76,4 +76,11 @@ RSpec.configure do |config|
   config.after(:each, type: :system) do
     Capybara.reset_sessions!
   end
+
+  # テストでアイコン画像がちゃんと作成されたか確認する場合は「KEEP_TEST_UPLOADS=true bundle exec rspec」を実行する（←画像削除しない版）
+  config.after(:suite) do
+    unless ENV['KEEP_TEST_UPLOADS'] == 'true'
+      FileUtils.rm_rf(Rails.root.join('public/tmp/uploads'))
+    end
+  end
 end
