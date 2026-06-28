@@ -53,8 +53,9 @@ ul.ui-autocomplete {
 }
 
 .index-name {
-  margin-inline: auto;
-  max-inline-size: max-content;
+  display: inline-block;
+  text-align: justify;
+  word-break: break-all;
 }
 
 .filtering_search_hover:hover {
