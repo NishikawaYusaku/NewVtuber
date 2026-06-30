@@ -58,6 +58,13 @@ ul.ui-autocomplete {
   word-break: break-all;
 }
 
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+
 .filtering_search_hover:hover {
   color: #00ff7f;
   cursor: pointer;
