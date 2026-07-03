@@ -9,7 +9,7 @@
       <% @vtubers.each do |vtuber| %>
         <div class="col-xl-3 col-lg-4 col-md-5">
           <%= link_to vtuber_path(vtuber.id), class: "text-decoration-none" do %>
-            <div class="pt-3 pb-2 mb-5 profile-hover">
+            <div class="pt-3 pb-3 mb-5 profile-hover">
               <div class="text-center">
                 <% case vtuber.gender %>
                   <% when "男性" then %>
@@ -27,6 +27,21 @@
                   <span class="multiline-ellipsis">
                     <%= vtuber.name %>
                   </span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                  <%= link_to vtuber.vtuber_places.last.url, class: "mx-4 sns-logo" do %>
+                    <% case vtuber.vtuber_places.last.place.name %>
+                    <% when "YouTube" then %>
+                      <%= image_tag "logo-youtube.png", size: "60x52" %>
+                    <% when "Twitch" then %>
+                      <%= image_tag "logo-twitch.png", size: "30x35" %>
+                    <% end %>
+                  <% end %>
+                  <% if vtuber.name_x.present? %>
+                    <%= link_to "https://twitter.com/#{vtuber.name_x}", class: "mx-4 sns-logo" do %>
+                      <%= image_tag "logo-x.png", size: "25x26" %>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </div>
