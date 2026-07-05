@@ -72,7 +72,7 @@ class VtubersController < ApplicationController
       @youtube_channel_id = @vtuber.get_youtube_channel_id(url)
       if @youtube_channel_id.present? && VtuberYoutube.find_by(channel_id: @youtube_channel_id).present?
         @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
-        flash.now[:danger] = "VTuberを登録できませんでした"
+        flash.now[:danger] = "プロフィールを登録できませんでした"
         render :new and return
       end
     end
@@ -91,9 +91,9 @@ class VtubersController < ApplicationController
       end
 
       redirect_to vtuber_path(@vtuber)
-      flash[:success] = "VTuberを登録しました"
+      flash[:success] = "プロフィールを登録しました"
     else
-      flash.now[:danger] = "VTuberを登録できませんでした"
+      flash.now[:danger] = "プロフィールを登録できませんでした"
       render :new
     end
   end
@@ -113,7 +113,7 @@ class VtubersController < ApplicationController
       vtuber_youtube_data = VtuberYoutube.find_by(channel_id: @youtube_channel_id)
       if vtuber_youtube_data.present? && vtuber_youtube_data.vtuber_id != @vtuber.id
         @vtuber.errors.add(:base, "このYouTubeチャンネルIDは既に登録されています")
-        flash.now[:danger] = "VTuberを更新できませんでした"
+        flash.now[:danger] = "プロフィールを更新できませんでした"
         render :edit and return
       end
     end
@@ -134,10 +134,10 @@ class VtubersController < ApplicationController
       @vtuber.notification_update(current_user)
       @vtuber.update(version: @vtuber.version + 1)
 
-      flash[:success] = "VTuberを更新しました"
+      flash[:success] = "プロフィールを更新しました"
       redirect_to vtuber_path(@vtuber)
     else
-      flash.now[:danger] = "VTuberを更新できませんでした"
+      flash.now[:danger] = "プロフィールを更新できませんでした"
       render :edit
     end
   end
