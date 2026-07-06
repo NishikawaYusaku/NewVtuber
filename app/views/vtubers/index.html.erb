@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-5 justify-content-center">
+  <div class="row mt-5">
     <% if @vtubers.present? %>
       <% if @q_name && @invalid.nil? %>
         <p class="mb-5">「<%= @q_name.instance_of?(Array) ? @q_name[0] : @q_name %>」の検索結果：　<%= @results.size %></p> 

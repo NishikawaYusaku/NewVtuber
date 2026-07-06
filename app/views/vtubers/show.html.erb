@@ -11,7 +11,7 @@
         <%= @vtuber.name %>
       </div>
       <div class="mt-4 d-flex align-items-center">
-        <%= link_to @vtuber.vtuber_places.last.url, class: "me-4 sns-logo" do %>
+        <%= link_to @vtuber.vtuber_places.last.url, class: "mx-4 sns-logo" do %>
           <% case @vtuber.vtuber_places.last.place.name %>
           <% when "YouTube" then %>
             <%= image_tag "logo-youtube.png", size: "70x60" %>
@@ -20,7 +20,7 @@
           <% end %>
         <% end %>
         <% if @vtuber.name_x.present? %>
-          <%= link_to "https://twitter.com/#{@vtuber.name_x}", class: "ms-4 sns-logo" do %>
+          <%= link_to "https://twitter.com/#{@vtuber.name_x}", class: "mx-4 sns-logo" do %>
             <%= image_tag "logo-x.png", size: "32x33" %>
           <% end %>
         <% end %>
