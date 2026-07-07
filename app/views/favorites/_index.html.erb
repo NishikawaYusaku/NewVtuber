@@ -1,7 +1,7 @@
 <% favorites_vtuber.each do |v| %>
-  <div class="d-flex border-top">
+  <div class="d-flex align-items-center border-top">
     <div class="col-8">
-      <div class="text-left my-2">
+      <div class="d-flex align-items-center text-left my-2">
         <% case v.gender %>
         <% when "男性" then %>
           <%= image_tag v.image.url, class: "rounded-circle", size: "50x50", style: "border: solid; border-color: #0000ff;" %>
@@ -12,18 +12,15 @@
         <% when nil then %>
           <%= image_tag v.image.url, class: "rounded-circle border border-black", size: "50x50" %>
         <% end %>
-        <span class="mx-4">
+        <span class="ms-4">
           <%= v.name %>
         </span>
       </div>
     </div>
     <div class="col-3">
-      <div class="text-center my-3">
         　　　<%= link_to "見る", vtuber_path(v.id), class: "btn btn-user" %>
-      </div>
-      
     </div>
-    <div class="col-1 mt-4">
+    <div class="col-1">
       <%= link_to favorite_user_path(v), method: :delete, remote: true, class: "text-decoration-none link-dark", data: {testid: "mypage-heart"} do %>
         　<i class="fa-solid fa-heart mypage-favorite-icon" aria-hidden="true" style="color: red;"></i>
       <% end %>
