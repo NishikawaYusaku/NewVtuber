@@ -12,7 +12,7 @@
         <% when nil then %>
           <%= image_tag v.image.url, class: "rounded-circle border border-black", size: "50x50" %>
         <% end %>
-        <span class="ms-4">
+        <span class="ms-4 multiline-ellipsis">
           <%= v.name %>
         </span>
       </div>
