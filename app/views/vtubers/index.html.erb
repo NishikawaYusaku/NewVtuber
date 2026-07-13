@@ -8,44 +8,46 @@
       <% end %>
       <% @vtubers.each do |vtuber| %>
         <div class="col-xl-3 col-lg-4 col-md-5">
-          <%= link_to vtuber_path(vtuber.id), class: "text-decoration-none" do %>
-            <div class="pt-3 pb-3 mb-5 profile-hover">
+          <div class="pb-2 mb-5 profile-hover">
+            <%= link_to vtuber_path(vtuber.id), class: "text-decoration-none" do %>
               <div class="text-center">
-                <% case vtuber.gender %>
-                  <% when "男性" then %>
-                    <%= image_tag vtuber.image.url, class: "rounded-circle", size: "250x250", style: "border: solid; border-color: #0000ff;" %>
-                  <% when "女性" then %>
-                    <%= image_tag vtuber.image.url, class: "rounded-circle", size: "250x250", style: "border: solid; border-color: #ff0000;" %>
-                  <% when "その他" then %>
-                    <%= image_tag vtuber.image.url, class: "rounded-circle", size: "250x250", style: "border: solid; border-color: #ffff00;" %>
-                  <% when nil then %>
-                    <%= image_tag vtuber.image.url, class: "rounded-circle border border-black", size: "250x250" %>
-                <% end %>
-              </div>
-              <div class="text-center">
+                <div class="pt-3">
+                  <% case vtuber.gender %>
+                    <% when "男性" then %>
+                      <%= image_tag vtuber.image.url, class: "rounded-circle", size: "250x250", style: "border: solid; border-color: #0000ff;" %>
+                    <% when "女性" then %>
+                      <%= image_tag vtuber.image.url, class: "rounded-circle", size: "250x250", style: "border: solid; border-color: #ff0000;" %>
+                    <% when "その他" then %>
+                      <%= image_tag vtuber.image.url, class: "rounded-circle", size: "250x250", style: "border: solid; border-color: #ffff00;" %>
+                    <% when nil then %>
+                      <%= image_tag vtuber.image.url, class: "rounded-circle border border-black", size: "250x250" %>
+                  <% end %>
+                </div>        
                 <div class="mt-3 mx-3 fs-2 text-body index-name">
                   <span class="multiline-ellipsis">
                     <%= vtuber.name %>
                   </span>
                 </div>
-                <div class="d-flex justify-content-center align-items-center">
-                  <%= link_to vtuber.vtuber_places.last.url, class: "mx-4 sns-logo" do %>
-                    <% case vtuber.vtuber_places.last.place.name %>
-                    <% when "YouTube" then %>
-                      <%= image_tag "logo-youtube.png", size: "60x52" %>
-                    <% when "Twitch" then %>
-                      <%= image_tag "logo-twitch.png", size: "30x35" %>
-                    <% end %>
+              </div>
+            <% end %>
+            <div class="text-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <%= link_to vtuber.vtuber_places.last.url, class: "mx-4 sns-logo" do %>
+                  <% case vtuber.vtuber_places.last.place.name %>
+                  <% when "YouTube" then %>
+                    <%= image_tag "logo-youtube.png", size: "60x52" %>
+                  <% when "Twitch" then %>
+                    <%= image_tag "logo-twitch.png", size: "30x35", class:"my-2" %>
                   <% end %>
-                  <% if vtuber.name_x.present? %>
-                    <%= link_to "https://twitter.com/#{vtuber.name_x}", class: "mx-4 sns-logo" do %>
-                      <%= image_tag "logo-x.png", size: "25x26" %>
-                    <% end %>
+                <% end %>
+                <% if vtuber.name_x.present? %>
+                  <%= link_to "https://twitter.com/#{vtuber.name_x}", class: "mx-4 sns-logo" do %>
+                    <%= image_tag "logo-x.png", size: "25x26" %>
                   <% end %>
-                </div>
+                <% end %>
               </div>
             </div>
-          <% end %>
+          </div>
         </div>
       <% end %>
     <% else %>
