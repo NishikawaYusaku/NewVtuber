@@ -1,7 +1,7 @@
 <% favorites_vtuber.each do |v| %>
   <div class="d-flex align-items-center border-top hover_mypage-favorite">
-    <div class="col-8">
-      <div class="d-flex align-items-center text-left my-2">
+    <div class="col-sm-9 col-7">
+      <div class="d-flex align-items-center text-left my-2 ps-2">
         <% case v.gender %>
         <% when "男性" then %>
           <%= image_tag v.image.url, class: "rounded-circle", size: "50x50", style: "border: solid; border-color: #0000ff;" %>
@@ -19,9 +19,30 @@
     </div>
     <div class="col d-flex justify-content-end align-items-center">
       <%= link_to "見る", vtuber_path(v.id), class: "btn btn-user" %>
-      <%= link_to favorite_user_path(v), method: :delete, remote: true, class: "ms-4 me-2 text-decoration-none link-dark", data: {testid: "mypage-heart"} do %>
+      <button type="button" class="nav-link active ms-4 me-2" data-bs-toggle="modal" data-bs-target="#mypage-favorite-<%= v.id %>", id="profile-modal" >
         <i class="fa-solid fa-heart fa-lg mypage-favorite-icon" aria-hidden="true", style="color: red;"></i>
-      <% end %>
+      </button>
+      <div class="modal fade" id="mypage-favorite-<%= v.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content text-center py-4">
+            お気に入りを解除しますか？
+            <div>
+              <span class="mx-4 my-4 index-name">
+                <%= v.name %>
+              </span>
+            </div>
+            <div class="d-inline">
+              <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">やめる</button>
+              <!-- <button type="button" class="btn ms-2" data-bs-dismiss="modal">
+                <%= link_to "解除する", favorite_user_path(v), method: :delete, remote: true, class: "btn btn-user", data: {testid: "mypage-heart"} %>
+              </button> -->
+              <span class="ms-3" data-bs-dismiss="modal">
+                <%= link_to "解除する", favorite_user_path(v), method: :delete, remote: true, class: "btn btn-user", data: {testid: "mypage-heart"} %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>
