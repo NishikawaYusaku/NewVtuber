@@ -14,7 +14,7 @@ class FavoritesController < ApplicationController
   def destroy_user
     @destroy_vtuber = Vtuber.find(params[:format])
     @favorite = Favorite.find_by(user_id: current_user.id, vtuber_id: @destroy_vtuber.id)
-    @favorites_vtuber = current_user.favorite_vtubers
+    @favorites_vtuber = current_user.favorite_vtubers.order("favorites.id DESC")
     @favorite.destroy
   end
 
