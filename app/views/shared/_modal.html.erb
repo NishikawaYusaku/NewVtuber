@@ -1,0 +1,25 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">VTuberのプロフィールの設定</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with url: '/vtubers/name_input', local: true do |f| %>
+          <div class="mb-3">
+            <%= f.label :name, "VTuberのお名前", class: "form-label" %>
+            <%= f.text_field :name, class: "form-control profile_setting_textbox", id: "name-setting", value: @vtuber ? @vtuber.name : "" %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">やめる</button>
+            <%= f.submit "設定する", class: "btn btn-setting", data: { testid: "profile-modal-button" } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="notify-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
