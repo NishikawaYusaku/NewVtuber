@@ -1,7 +1,8 @@
 $(document).on("turbolinks:load", function () {
   $("#name-setting").autocomplete({
     source: "/vtubers/autocomplete_names",
-    minLength: 1
+    minLength: 1,
+    appendTo: "#exampleModal"
   });
 
   $("#affiliation_name").autocomplete({

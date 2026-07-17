@@ -20,6 +20,7 @@ ul.ui-autocomplete {
   border: solid 1px #999;
   cursor: pointer;
   z-index: 1052;
+  width: min-content;
   li {
     background-color: #FFF;
     border-top: solid 1px #DDD;
