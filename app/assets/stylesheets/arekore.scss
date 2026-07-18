@@ -21,6 +21,8 @@ ul.ui-autocomplete {
   cursor: pointer;
   z-index: 1052;
   width: min-content;
+  text-align: justify;
+  word-break: break-all;
   li {
     background-color: #FFF;
     border-top: solid 1px #DDD;
@@ -35,7 +37,7 @@ ul.ui-autocomplete {
 }
 
 #affiliation_autocomplete .ui-autocomplete {
-  z-index: 1050;
+  z-index: 1030;
 }
 
 .read_notification {
