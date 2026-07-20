@@ -11,9 +11,9 @@
             <%= f.label :name, "VTuberのお名前", class: "form-label" %>
             <%= f.text_field :name, class: "form-control profile_setting_textbox", id: "name-setting", value: @vtuber ? @vtuber.name : "" %>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">やめる</button>
-            <%= f.submit "設定する", class: "btn btn-setting", data: { testid: "profile-modal-button" } %>
+          <div class="text-center mt-4 mb-2">
+            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">やめる</button>
+            <%= f.submit "設定する", class: "btn btn-setting ms-3", data: { testid: "profile-modal-button" } %>
           </div>
         <% end %>
       </div>
