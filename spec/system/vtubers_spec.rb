@@ -349,7 +349,7 @@ RSpec.describe "Vtubers", type: :system do
       end
     end
 
-    describe 'マイページ' do
+    describe 'マイページ', focus: true do
       describe 'お気に入り登録' do
         context 'している' do
           before do
@@ -368,6 +368,8 @@ RSpec.describe "Vtubers", type: :system do
 
           it 'お気に入りを外せる', :js do
             find('[data-testid="mypage-heart"]').click
+            expect(page).to have_content '？'
+            find('[data-testid="mypage-heart-delete"]').click
             expect(page).not_to have_content 'vtuber1'
           end
         end
