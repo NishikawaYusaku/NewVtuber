@@ -29,7 +29,7 @@
           </div>
           <div class="mb-5">
             <%= f.label :language, "言語", class: "form-label" %>
-            <div class="d-flex flex-sm-row flex-column">
+            <div class="d-flex flex-wrap">
               <% ["JP","EN","その他"].each_with_index do |language, i| %>
                 <% radio_id = "language_#{i}" %>
                 <span class="me-5 mt-1 profile_setting_hover">
@@ -40,7 +40,7 @@
           </div>
           <div class="mb-5">
             <%= f.label :affiliation, "所属", class: "form-label" %>
-            <div class="d-flex flex-sm-row flex-column", id="affiliation_autocomplete">
+            <div class="d-flex flex-wrap", id="affiliation_autocomplete">
               <span class="me-5 mt-1 profile_setting_hover">
                 <%= f.radio_button :affiliation, "個人", id: "affiliation_individual" %>
                 <%= f.label :affiliation_individual, "個人", for: "affiliation_individual", class: "ms-1" %>
@@ -54,7 +54,7 @@
           </div>
           <div class="mb-5">
             <%= f.label :gender, "性別", class: "form-label" %>
-            <div class="d-flex flex-sm-row flex-column">
+            <div class="d-flex flex-wrap">
               <% ["男性","女性","その他"].each_with_index do |gender, i| %>
                 <% radio_id = "gender_#{i}" %>
                 <span class="me-5 mt-1 profile_setting_hover">
@@ -83,7 +83,7 @@
           </div>
           <div class="mb-5">
             <%= f.label :blood_type, "血液型", class: "form-label" %>
-            <div class="d-flex flex-sm-row flex-column">
+            <div class="d-flex flex-wrap">
               <% ["A","O","B","AB","？"].each_with_index do |blood_type, i| %>
                 <% radio_id = "blood_type_#{i}" %>
                 <span class="me-5 mt-1 profile_setting_hover">
@@ -94,7 +94,7 @@
           </div>
           <div class="mb-5">
             <%= f.label :content, "配信ジャンル（複数選択可能）", class: "form-label" %>
-            <div class="d-flex flex-lg-row flex-column">
+            <div class="d-flex flex-wrap">
               <%= f.collection_check_boxes(:content_ids, Content.all, :id, :name) do |c| %>
                 <span class="me-5 mt-1 profile_setting_hover">
                   <%= c.label do %>
