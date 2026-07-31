@@ -8,15 +8,15 @@
           <h3 class="my-5">詳細検索</h3>
           <div>
             <p><%= f.label "配信サイト" %></p>
-            <span class="me-5">
+            <span class="me-5 filtering_search_hover">
               <%= f.radio_button :places_name_eq, "", id: "place_none" %>
-              <%= label_tag "place_none", "指定なし", class: "ms-1 filtering_search_hover" %>
+              <%= label_tag "place_none", "指定なし", class: "ms-1" %>
             </span>
             <% ["YouTube","Twitch"].each_with_index do |place, i| %>
               <% radio_id = "place_#{i}" %>
-              <span class="me-5">
+              <span class="me-5 filtering_search_hover">
                 <%= f.radio_button :places_name_eq, place, id: radio_id %>
-                <%= label_tag radio_id, place, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag radio_id, place, class: "ms-1" %>
               </span>
             <% end %>
           </div>
@@ -25,9 +25,9 @@
             <p><%= f.label "言語" %></p>
             <% ["JP","EN","その他"].each_with_index do |language, i| %>
               <% checkbox_id = "language_#{i}" %>
-              <span class="me-5 d-inline-block">
+              <span class="me-5 d-inline-block filtering_search_hover">
                 <%= f.check_box :language_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, language, nil %>
-                <%= label_tag checkbox_id, language, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag checkbox_id, language, class: "ms-1" %>
               </span>
             <% end %>
           </div>
@@ -36,9 +36,9 @@
             <p><%= f.label "所属" %></p>
             <% Vtuber.distinct.pluck(:affiliation).reject(&:blank?).sort_by(&:length).each_with_index do |affiliation, i| %>
               <% checkbox_id = "affiliation#{i}" %>
-              <span class="me-5 d-inline-block">
+              <span class="me-5 d-inline-block filtering_search_hover">
                 <%= f.check_box :affiliation_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, affiliation, nil %>
-                <%= label_tag checkbox_id, affiliation, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag checkbox_id, affiliation, class: "ms-1" %>
               </span>
             <% end %>
           </div>
@@ -47,9 +47,9 @@
             <p><%= f.label "性別" %></p>
             <% ["男性","女性","その他"].each_with_index do |gender, i| %>
               <% checkbox_id = "gender_#{i}" %>
-              <span class="me-5 d-inline-block">
+              <span class="me-5 d-inline-block filtering_search_hover">
                 <%= f.check_box :gender_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, gender, nil %>
-                <%= label_tag checkbox_id, gender, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag checkbox_id, gender, class: "ms-1" %>
               </span>
             <% end %>
           </div>
@@ -64,9 +64,9 @@
           <hr class="my-4">
           <div>
             <p><%= f.label "身長" %></p>
-            <%= f.number_field :height_gteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+            <%= f.number_field :height_gteq, min: 0, placeholder: '指定なし', style:"width:5.5rem;" %>
             <span class="mx-1">〜</span>
-            <%= f.number_field :height_lteq, min: 0, placeholder: '指定なし', style:"width:7rem;" %>
+            <%= f.number_field :height_lteq, min: 0, placeholder: '指定なし', style:"width:5.5rem;" %>
             <span class="ms-1">cm</span>
           </div>
           <hr class="my-4">
@@ -74,9 +74,9 @@
             <p><%= f.label "血液型" %></p>
             <% ["A","O","B","AB","？"].each_with_index do |blood_type, i| %>
               <% checkbox_id = "blood_type_#{i}" %>
-              <span class="me-5 d-inline-block">
+              <span class="me-5 d-inline-block filtering_search_hover">
                 <%= f.check_box :blood_type_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, blood_type, nil %>
-                <%= label_tag checkbox_id, blood_type, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag checkbox_id, blood_type, class: "ms-1" %>
               </span>
             <% end %>
           </div>
@@ -95,9 +95,9 @@
             <p><%= f.label "配信ジャンル" %></p>
             <% ["ゲーム","雑談","歌","ASMR","企画","その他"].each_with_index do |content, i| %>
               <% checkbox_id = "content_#{i}" %>
-              <span class="me-5 d-inline-block">
+              <span class="me-5 d-inline-block filtering_search_hover">
                 <%= f.check_box :contents_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, content, nil %>
-                <%= label_tag checkbox_id, content, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag checkbox_id, content, class: "ms-1" %>
               </span>
             <% end %>
           </div>
@@ -106,30 +106,30 @@
             <p><%= f.label "タグ" %></p>
             <% Tag.distinct.pluck(:name).sort_by(&:length).each_with_index do |tag, i| %>
               <% checkbox_id = "tag_#{i}" %>
-              <span class="me-5 d-inline-block">
+              <span class="me-5 d-inline-block filtering_search_hover">
                 <%= f.check_box :tags_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, tag, nil %>
-                <%= label_tag checkbox_id, tag, class: "ms-1 filtering_search_hover" %>
+                <%= label_tag checkbox_id, tag, class: "ms-1" %>
               </span>
             <% end %>
           </div>
           <hr class="my-4">
           <div>
             <p><%= f.label "いいね数" %></p>
-            <%= f.number_field :favorites_count_gteq, min: 0, placeholder: '指定なし', style:"width:10rem;" %> 〜
-            <%= f.number_field :favorites_count_lteq, min: 0, placeholder: '指定なし', style:"width:10rem;" %>
+            <%= f.number_field :favorites_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
+            <%= f.number_field :favorites_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
           </div>
           <hr class="my-4">
           <div id="filtering_search_youtube">
             <div>
               <p><%= f.label "チャンネル登録者数" %></p>
-              <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:10rem;" %> 〜
-              <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:10rem;" %>
+              <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
+              <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
             </div>
             <hr class="my-4">
             <div>
               <p><%= f.label "動画数" %></p>
-              <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:10rem;" %> 〜
-              <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:10rem;" %>
+              <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
+              <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
             </div>
             <hr class="my-4">
           </div>
