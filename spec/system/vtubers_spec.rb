@@ -349,7 +349,7 @@ RSpec.describe "Vtubers", type: :system do
       end
     end
 
-    describe 'マイページ', focus: true do
+    describe 'マイページ' do
       describe 'お気に入り登録' do
         context 'している' do
           before do

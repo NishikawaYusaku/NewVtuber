@@ -33,6 +33,12 @@ RSpec.describe Vtuber, type: :model do
         expect(vtuber.errors[:name_x]).to include "はすでに存在します"
       end
 
+      it '上限の文字数以内' do
+        vtuber.name_x = "12345678910111213"
+        vtuber.valid?
+        expect(vtuber.errors[:name_x]).to include "は15文字以内で入力してください"
+      end
+
       it 'nilなら重複は問わない' do
         create(:vtuber, name_x: nil)
         vtuber.name_x = nil
