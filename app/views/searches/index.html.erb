@@ -21,6 +21,20 @@
             <% end %>
           </div>
           <hr class="my-4">
+          <div id="filtering_search_youtube">
+            <div>
+              <p><%= f.label "チャンネル登録者数" %></p>
+              <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
+              <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
+            </div>
+            <hr class="my-4">
+            <div>
+              <p><%= f.label "動画数" %></p>
+              <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
+              <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
+            </div>
+            <hr class="my-4">
+          </div>
           <div>
             <p><%= f.label "言語" %></p>
             <% ["JP","EN","その他"].each_with_index do |language, i| %>
@@ -119,20 +133,6 @@
             <%= f.number_field :favorites_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
           </div>
           <hr class="my-4">
-          <div id="filtering_search_youtube">
-            <div>
-              <p><%= f.label "チャンネル登録者数" %></p>
-              <%= f.number_field :vtuber_youtube_subscriber_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
-              <%= f.number_field :vtuber_youtube_subscriber_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
-            </div>
-            <hr class="my-4">
-            <div>
-              <p><%= f.label "動画数" %></p>
-              <%= f.number_field :vtuber_youtube_video_count_gteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %> 〜
-              <%= f.number_field :vtuber_youtube_video_count_lteq, min: 0, placeholder: '指定なし', style:"width:8rem;" %>
-            </div>
-            <hr class="my-4">
-          </div>
           <%= f.hidden_field :filtering_search, value: true %>
           <div class="text-center my-5">
             <%= f.button "検索", type: 'button', onclick: 'submit();', class: "btn btn-comment px-5", data: { testid: "fs-button" } %>
