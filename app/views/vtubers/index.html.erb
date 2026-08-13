@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row mt-5">
     <% if @vtubers.present? %>
+    <p class="mb-5">
       <% if @q_name && @invalid.nil? %>
-        <p class="mb-5">「<%= @q_name.instance_of?(Array) ? @q_name[0] : @q_name %>」の検索結果：　<%= @results.size %>件</p> 
+        <%= "「#{@q_name.instance_of?(Array) ? @q_name[0] : @q_name}」の検索結果：#{@results.size}件" %>
       <% elsif @filtering_search %>
-        <p class="mb-5">詳細検索の結果：　<%= @results.size %>件</p> 
+        <%= "詳細検索の結果：#{@results.size}件" %>
       <% else %>
-        <p class="mb-5">プロフィール数：　<%= @results.size %>件</p> 
+        <%= "#{@results.size}件" %>
       <% end %>
+      <%= "（#{@range_start}〜#{@range_end}件目）" %>
+    </p>
       <% @vtubers.each do |vtuber| %>
         <div class="col-xl-3 col-lg-4 col-md-5">
           <div class="pb-2 mb-5 profile-hover">
