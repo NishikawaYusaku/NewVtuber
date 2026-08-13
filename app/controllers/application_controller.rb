@@ -32,9 +32,8 @@ class ApplicationController < ActionController::Base
 
     per_display = 20
     @vtubers = @results.order(:display_order).page(params[:page]).per(per_display)
-    prev_page = @vtubers.prev_page
-    @range_start = (prev_page ||= 0) * per_display + 1
-    @range_end = (prev_page ||= 0) * per_display + @vtubers.size
+    @range_start = ((@vtubers.prev_page || 0) * per_display) + 1
+    @range_end = ((@vtubers.prev_page || 0) * per_display) + @vtubers.size
   end
 
   def change_variant_word(word)
