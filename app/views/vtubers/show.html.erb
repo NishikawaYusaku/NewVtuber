@@ -1,7 +1,7 @@
 <% content_for(:title, @vtuber.name) %>
 <% assign_meta_tags title: @vtuber.name, image: @vtuber.image.url %>
 
-<div class="container" style="background-color: #b7ffdb;">
+<div class="container" style="background-color: #b7ffdb;" id="vtuber_profile">
   <div class="row my-5">
     <div class="col-xl-6 mt-5 text-center">
       <%= image_tag @vtuber.image.url, class: "rounded-circle border border-black", size: "300x300" %>
