@@ -126,6 +126,12 @@
             <%= f.label :tag, "タグ", class: "form-label" %>
             <%= f.text_field :tag, class: "form-control profile_setting_textbox mt-1", placeholder: "「、」で区切って入力してください" %>
           </div>
+          <div class="mb-5">
+            <span class="profile_setting_hover">
+              <%= f.check_box :agreement_vtuber, as: :boolean, checked: false, id: "agreement_vtuber_id", class: "me-3" %>
+              <%= label_tag "agreement_vtuber_id", "設定するプロフィールはVTuberです" %>
+            </span>
+          </div>
           <div class="text-center mb-5 pt-5">
             <%= link_to "戻る", root_path, class: "btn btn-secondary mx-4" %>
             <%= f.button "登録", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4", data: {testid: "profile-create"} %>

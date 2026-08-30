@@ -69,6 +69,7 @@ class Vtuber < ApplicationRecord
 
   validates :name, uniqueness: true, presence: true
   validates :name_x, uniqueness: true, length: { maximum: 15 }, if: -> { new_record? || changes[:name_x] }, allow_blank: true
+  validates :agreement_vtuber, acceptance: { allow_nil: false, on: :create }
 
   accepts_nested_attributes_for :vtuber_places, allow_destroy: true
 

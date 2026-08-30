@@ -10,6 +10,7 @@ ja:
       vtuber:
         name: VTuberのお名前
         name_x: Xのユーザー
+        agreement_vtuber: 設定中のプロフィールはVTuberであること
       vtuber_places: 
         place: 配信サイト
         url: 選択した配信サイトのURL
@@ -18,6 +19,11 @@ ja:
         user:
           attributes:
             agreement:
+              format: '%{attribute}%{message}'
+              accepted: に同意してください
+        vtuber:
+          attributes:
+            agreement_vtuber:
               format: '%{attribute}%{message}'
               accepted: に同意してください
         vtuber_place:
