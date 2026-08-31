@@ -16,5 +16,6 @@ FactoryBot.define do
     language { "JP" }
     height { 160 }
     blood_type { Faker::Blood.type }
+    agreement_vtuber { "1" }
   end
 end
