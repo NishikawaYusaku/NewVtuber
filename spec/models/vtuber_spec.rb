@@ -26,17 +26,19 @@ RSpec.describe Vtuber, type: :model do
     end
 
     context 'Xのユーザ名' do
+      subject { vtuber.errors[:name_x] }
+
       it '重複していない' do
         create(:vtuber, name_x: "test")
         vtuber.name_x = "test"
         vtuber.valid?
-        expect(vtuber.errors[:name_x]).to include "はすでに存在します"
+        expect(subject).to include "はすでに存在します"
       end
 
       it '上限の文字数以内' do
         vtuber.name_x = "12345678910111213"
         vtuber.valid?
-        expect(vtuber.errors[:name_x]).to include "は15文字以内で入力してください"
+        expect(subject).to include "は15文字以内で入力してください"
       end
 
       it 'nilなら重複は問わない' do
@@ -49,6 +51,16 @@ RSpec.describe Vtuber, type: :model do
         create(:vtuber, name_x: "")
         vtuber.name_x = ""
         expect(vtuber).to be_valid
+      end
+    end
+
+    context '設定中のプロフィールはVTuberであること' do
+      subject { vtuber.errors[:agreement_vtuber] }
+
+      it '同意している' do
+        vtuber.agreement_vtuber = "0"
+        vtuber.valid?
+        expect(subject).to include "に同意してください"
       end
     end
   end
