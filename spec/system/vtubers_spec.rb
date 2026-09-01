@@ -152,6 +152,7 @@ RSpec.describe "Vtubers", type: :system do
           fill_in 'name_x', with: 'x4'
           find('[data-testid="place-select"]').select('YouTube')
           find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+          check 'agreement_vtuber_id'
           click_button '登録'
           expect(page).to have_content '× 0'
           expect(page).to have_content '最新動画'
@@ -165,8 +166,9 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
 
@@ -175,8 +177,9 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
@@ -186,8 +189,9 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x1'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
@@ -196,8 +200,9 @@ RSpec.describe "Vtubers", type: :system do
           it 'サイトを選択してない' do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
 
@@ -205,8 +210,9 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
 
@@ -214,8 +220,9 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/@nijisanji')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
 
@@ -223,8 +230,9 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('www.youtube.com/@VariumOfficial')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
 
@@ -232,8 +240,23 @@ RSpec.describe "Vtubers", type: :system do
             fill_in 'name_x', with: 'x4'
             find('[data-testid="place-select"]').select('YouTube')
             find('[data-testid="place-url"]').set('https://www.youtube.com/channel/UCX7YkU9nEeaoZbkVLVajcMg')
+            check 'agreement_vtuber_id'
             click_button '登録'
-            expect(page).to have_content 'VTuberを登録できませんでした'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
+            expect(page).to have_content 'VTuberのお名前（必須）'
+          end
+        end
+
+        describe '設定中のプロフィールはVTuberであること' do
+          it '同意していない' do
+            expect(page).to have_content 'VTuberのお名前（必須）'
+            expect(page).to have_field('vtuber_name', with: 'vtuber4')
+            fill_in 'name_x', with: 'x4'
+            find('[data-testid="place-select"]').select('YouTube')
+            find('[data-testid="place-url"]').set('https://www.youtube.com/@VariumOfficial')
+            uncheck 'agreement_vtuber_id'
+            click_button '登録'
+            expect(page).to have_content 'プロフィールを登録できませんでした'
             expect(page).to have_content 'VTuberのお名前（必須）'
           end
         end
