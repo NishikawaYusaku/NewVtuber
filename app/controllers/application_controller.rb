@@ -13,9 +13,10 @@ class ApplicationController < ActionController::Base
   def set_search
     params[:q] ||= {}
 
+    @invalid = false
     if params[:q][:normal_search]
       removed_space = params[:q].values[0].gsub(/\p{Space}/, "")
-      @invalid = true if removed_space.empty?
+      @invalid = nil unless removed_space.empty?
       params[:q] = change_variant_word(removed_space)
     end
 
