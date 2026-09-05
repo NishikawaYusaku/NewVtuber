@@ -65,6 +65,7 @@ ul.ui-autocomplete {
   -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .filtering_search_hover:hover {
@@ -74,6 +75,12 @@ ul.ui-autocomplete {
 
 .profile_setting_hover:hover {
   color: #ff7fff;
+  cursor: pointer;
+}
+
+.profile_setting_hover input[type="radio"],
+.profile_setting_hover input[type="checkbox"],
+.profile_setting_hover label {
   cursor: pointer;
 }
 
