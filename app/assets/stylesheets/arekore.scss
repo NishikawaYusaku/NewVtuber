@@ -73,6 +73,12 @@ ul.ui-autocomplete {
   cursor: pointer;
 }
 
+.filtering_search_hover input[type="radio"],
+.filtering_search_hover input[type="checkbox"],
+.filtering_search_hover label {
+  cursor: pointer;
+}
+
 .profile_setting_hover:hover {
   color: #ff7fff;
   cursor: pointer;
