@@ -9,14 +9,12 @@
           <div>
             <p><%= f.label "配信サイト" %></p>
             <span class="me-5 filtering_search_hover">
-              <%= f.radio_button :places_name_eq, "", id: "place_none" %>
-              <%= label_tag "place_none", "指定なし", class: "ms-1" %>
+              <%= f.radio_button :places_name_eq, "", id: "place_none" %><%= label_tag "place_none", "指定なし", class: "ps-2" %>
             </span>
             <% ["YouTube","Twitch"].each_with_index do |place, i| %>
               <% radio_id = "place_#{i}" %>
               <span class="me-5 filtering_search_hover">
-                <%= f.radio_button :places_name_eq, place, id: radio_id %>
-                <%= label_tag radio_id, place, class: "ms-1" %>
+                <%= f.radio_button :places_name_eq, place, id: radio_id %><%= label_tag radio_id, place, class: "ps-2" %>
               </span>
             <% end %>
           </div>
@@ -40,8 +38,7 @@
             <% ["JP","EN","その他"].each_with_index do |language, i| %>
               <% checkbox_id = "language_#{i}" %>
               <span class="me-5 d-inline-block filtering_search_hover">
-                <%= f.check_box :language_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, language, nil %>
-                <%= label_tag checkbox_id, language, class: "ms-1" %>
+                <%= f.check_box :language_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, language, nil %><%= label_tag checkbox_id, language, class: "ps-2" %>
               </span>
             <% end %>
           </div>
@@ -51,8 +48,7 @@
             <% Vtuber.distinct.pluck(:affiliation).reject(&:blank?).sort_by(&:length).each_with_index do |affiliation, i| %>
               <% checkbox_id = "affiliation#{i}" %>
               <span class="me-5 d-inline-block filtering_search_hover">
-                <%= f.check_box :affiliation_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, affiliation, nil %>
-                <%= label_tag checkbox_id, affiliation, class: "ms-1" %>
+                <%= f.check_box :affiliation_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, affiliation, nil %><%= label_tag checkbox_id, affiliation, class: "ps-2" %>
               </span>
             <% end %>
           </div>
@@ -62,8 +58,7 @@
             <% ["男性","女性","その他"].each_with_index do |gender, i| %>
               <% checkbox_id = "gender_#{i}" %>
               <span class="me-5 d-inline-block filtering_search_hover">
-                <%= f.check_box :gender_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, gender, nil %>
-                <%= label_tag checkbox_id, gender, class: "ms-1" %>
+                <%= f.check_box :gender_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, gender, nil %><%= label_tag checkbox_id, gender, class: "ps-2" %>
               </span>
             <% end %>
           </div>
@@ -89,8 +84,7 @@
             <% ["A","O","B","AB","？"].each_with_index do |blood_type, i| %>
               <% checkbox_id = "blood_type_#{i}" %>
               <span class="me-5 d-inline-block filtering_search_hover">
-                <%= f.check_box :blood_type_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, blood_type, nil %>
-                <%= label_tag checkbox_id, blood_type, class: "ms-1" %>
+                <%= f.check_box :blood_type_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, blood_type, nil %><%= label_tag checkbox_id, blood_type, class: "ps-2" %>
               </span>
             <% end %>
           </div>
@@ -110,8 +104,7 @@
             <% ["ゲーム","雑談","歌","ASMR","企画","その他"].each_with_index do |content, i| %>
               <% checkbox_id = "content_#{i}" %>
               <span class="me-5 d-inline-block filtering_search_hover">
-                <%= f.check_box :contents_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, content, nil %>
-                <%= label_tag checkbox_id, content, class: "ms-1" %>
+                <%= f.check_box :contents_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, content, nil %><%= label_tag checkbox_id, content, class: "ps-2" %>
               </span>
             <% end %>
           </div>
@@ -121,8 +114,7 @@
             <% Tag.distinct.pluck(:name).sort_by(&:length).each_with_index do |tag, i| %>
               <% checkbox_id = "tag_#{i}" %>
               <span class="me-5 d-inline-block filtering_search_hover">
-                <%= f.check_box :tags_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, tag, nil %>
-                <%= label_tag checkbox_id, tag, class: "ms-1" %>
+                <%= f.check_box :tags_name_eq_any, { multiple: true, include_hidden: false, id: checkbox_id }, tag, nil %><%= label_tag checkbox_id, tag, class: "ps-2" %>
               </span>
             <% end %>
           </div>
