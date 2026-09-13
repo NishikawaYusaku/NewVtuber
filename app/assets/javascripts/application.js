@@ -27,3 +27,4 @@
 //= require place_option
 //= require notification_read
 //= require autocomplete
+//= require radio_button
