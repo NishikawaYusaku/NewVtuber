@@ -93,6 +93,7 @@ class VtubersController < ApplicationController
       redirect_to vtuber_path(@vtuber)
       flash[:success] = "プロフィールを登録しました"
     else
+      @replace_url = new_vtuber_path
       flash.now[:danger] = "プロフィールを登録できませんでした"
       render :new
     end
