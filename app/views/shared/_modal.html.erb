@@ -21,5 +21,19 @@
   </div>
 </div>
 
+<div class="modal fade px-3" id="cancel_set_vprofile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mx-auto">
+    <div class="modal-content text-center py-5">
+      <div><span class="px-5 index-name">内容は保存されませんが、設定を終了しますか？</span></div>
+      <div class="d-flex flex-wrap-reverse justify-content-center row-gap-4 mt-5">
+        <button type="button" class="btn btn-setting mx-4" data-bs-dismiss="modal">設定を続ける</button>
+        <span class="mx-4" data-bs-dismiss="modal">
+          <%= link_to "設定を終了する", root_path, class: "btn btn-secondary" %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="notify-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>

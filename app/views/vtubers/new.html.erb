@@ -131,11 +131,17 @@
             </span>
           </div>
           <div class="text-center mb-5 pt-5">
-            <%= link_to "戻る", root_path, class: "btn btn-secondary mx-4" %>
-            <%= f.button "登録", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4", data: {testid: "profile-create"} %>
+            <button type="button" class="btn btn-secondary mx-4" data-bs-toggle="modal" data-bs-target="#cancel_set_vprofile">やめる</button>
+            <%= f.button "設定する", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4", data: {testid: "profile-create"} %>
           </div>
         <% end %>
       </div>
     </div>
   </div>
 </div>
+
+<% if @replace_url %>
+  <script>
+    history.replaceState('', '', '<%= @replace_url %>')
+  </script>
+<% end %>
