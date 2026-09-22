@@ -137,8 +137,8 @@
           </div>
           <%= f.hidden_field :version, value: @vtuber.version %>
           <div class="text-center mb-5 pt-5">
-            <%= link_to "戻る", root_path, class: "btn btn-secondary mx-4" %>
-            <%= f.button "更新", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4" %>
+            <button type="button" class="btn btn-secondary mx-4" data-bs-toggle="modal" data-bs-target="#cancel_set_vprofile">やめる</button>
+            <%= f.button "設定する", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4" %>
           </div>
         <% end %>
       </div>
