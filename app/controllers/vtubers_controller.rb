@@ -40,6 +40,7 @@ class VtubersController < ApplicationController
   def new
     @vtuber = Vtuber.new(name: params[:name])
     @vtuber_place = @vtuber.vtuber_places.new
+    @replace_url = new_vtuber_path
   end
 
   def edit
@@ -138,6 +139,7 @@ class VtubersController < ApplicationController
       flash[:success] = "プロフィールを更新しました"
       redirect_to vtuber_path(@vtuber)
     else
+      @replace_url = edit_vtuber_path(@vtuber)
       flash.now[:danger] = "プロフィールを更新できませんでした"
       render :edit
     end
