@@ -16,6 +16,7 @@ class UsersController < ApplicationController
       redirect_to login_path
       flash[:success] = "ユーザーを登録しました"
     else
+      @replace_url = new_user_path
       flash.now[:danger] = "ユーザーを登録できませんでした"
       render :new
     end
