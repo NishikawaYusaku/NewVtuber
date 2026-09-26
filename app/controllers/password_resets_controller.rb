@@ -46,6 +46,7 @@ class PasswordResetsController < ApplicationController
         redirect_to login_path
       end
     else
+      @replace_url = edit_password_reset_path(@token)
       flash.now[:danger] = 'パスワードを変更できませんでした'
       render :edit
     end
