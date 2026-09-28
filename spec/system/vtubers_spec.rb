@@ -159,6 +159,16 @@ RSpec.describe "Vtubers", type: :system do
         end
       end
 
+      context 'やめる' do
+        it 'やめる' do
+          expect(page).to have_button 'やめる'
+          click_button 'やめる'
+          expect(page).to have_content '設定を終了する'
+          find("a[data-testid='profile-cancel']").click
+          expect(page).to have_current_path(root_path)
+        end
+      end
+
       context 'できない' do
         describe '名前' do
           it '入力してない' do
@@ -271,6 +281,16 @@ RSpec.describe "Vtubers", type: :system do
           click_button '更新'
           expect(page).to have_content 'vtuber10'
           expect(page).to have_content '最新動画'
+        end
+      end
+
+      context 'やめる' do
+        it 'やめる' do
+          expect(page).to have_button 'やめる'
+          click_button 'やめる'
+          expect(page).to have_content '設定を終了する'
+          find("a[data-testid='profile-cancel']").click
+          expect(page).to have_current_path(root_path)
         end
       end
 
