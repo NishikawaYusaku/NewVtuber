@@ -28,3 +28,4 @@
 //= require notification_read
 //= require autocomplete
 //= require radio_button
+//= require password_show
