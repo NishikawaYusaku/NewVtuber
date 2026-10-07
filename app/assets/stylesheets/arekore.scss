@@ -68,9 +68,13 @@ ul.ui-autocomplete {
   line-clamp: 2;
 }
 
+.user_checkbox input[type="checkbox"],
+.user_checkbox label {
+  cursor: pointer;
+}
+
 .filtering_search_hover:hover {
   color: #00ff7f;
-  cursor: pointer;
 }
 
 .filtering_search_hover input[type="radio"],
@@ -81,7 +85,6 @@ ul.ui-autocomplete {
 
 .profile_setting_hover:hover {
   color: #ff7fff;
-  cursor: pointer;
 }
 
 .profile_setting_hover input[type="radio"],
