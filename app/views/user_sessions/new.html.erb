@@ -10,10 +10,15 @@
             <%= f.label :email, "メールアドレス", class: "form-label" %>
             <%= f.email_field :email, class: "form-control" %>
           </div>
-          <div class="mb-5">
+          <div class="mb-5 password-container">
             <%= f.label :password, "パスワード", class: "form-label" %>
-            <%= f.password_field :password, class: "form-control", id: "userloginpass" %>
-            <input type="checkbox" class="mt-2" onChange="document.getElementById('userloginpass').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
+            <%= f.password_field :password, class: "form-control mb-2 password-field" %>
+            <div class="d-flex user_checkbox">
+              <div>
+                <%= check_box_tag "show_password", class: "password-show", id: "password-login" %>
+              </div>
+              <%= label_tag "password-login", "パスワードを表示する", class: "ps-3" %>
+            </div>
           </div>
           <div class="text-center mb-5">
             <%= f.submit "ログインする", class: "btn btn-user_create px-5" %>
