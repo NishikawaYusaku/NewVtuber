@@ -5,20 +5,32 @@
     <div class="d-flex justify-content-center my-5 py-5">
       <div class="px-5 border background-user" style="width: 25rem;">
         <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
-          <h3 class="mt-5">パスワードの変更</h3>
-          <div class="mt-5">
-            <%= f.label :password, "新しいパスワード" %>
-            <div class="mb-1"><small>8文字以上で設定してください</small></div>
-            <%= f.password_field :password, class: 'form-control', id: "userchangepass" %>
-            <input type="checkbox" class="mt-2" onChange="document.getElementById('userchangepass').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
+          <h3 class="my-5">パスワードの変更</h3>
+          <div class="mb-5 password-container">
+            <%= f.label :password, "パスワード" %>
+            <div class="mb-2">
+              <small>8文字以上で設定してください</small>
+            </div>
+            <%= f.password_field :password, class: "form-control mb-2 password-field" %>
+            <div class="d-flex user_checkbox">
+              <div>
+                <%= check_box_tag "show_password", class: "password-show", id: "password-edit" %>
+              </div>
+              <%= label_tag "password-edit", "パスワードを表示する", class: "ps-3" %>
+            </div>
           </div>
-          <div class="mt-5">
-            <%= f.label :password_confirmation, "新しいパスワード（確認用）" %>
-            <%= f.password_field :password_confirmation, class: 'form-control', id: "userchangepassconfirmation" %>
-            <input type="checkbox" class="mt-2" onChange="document.getElementById('userchangepassconfirmation').type = (this.checked) ? 'text' : 'password';">　パスワードを表示する
+          <div class="mb-5 password-container">
+            <%= f.label :password_confirmation, "パスワード（確認用）", class: "form-label" %>
+            <%= f.password_field :password_confirmation, class: "form-control mb-2 password-field" %>
+            <div class="d-flex user_checkbox">
+              <div>
+                <%= check_box_tag "show_password", class: "password-show", id: "password-edit-confirmation" %>
+              </div>
+              <%= label_tag "password-edit-confirmation", "パスワードを表示する", class: "ps-3" %>
+            </div>
           </div>
-          <div class="text-center my-5">
-            <%= f.submit "保存", class: "btn btn-user px-5 ms-3" %>
+          <div class="text-center mb-5">
+            <%= f.submit "保存する", class: "btn btn-user px-5" %>
           </div>
         <% end %>
       </div>
