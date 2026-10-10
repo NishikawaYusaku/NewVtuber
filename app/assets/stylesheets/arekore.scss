@@ -127,3 +127,9 @@ ul.ui-autocomplete {
 .hover_mypage-favorite:hover {
   background-color: #bcbcff;
 }
+
+.comment_textarea:focus {
+  outline: 3px solid #7fffbf;
+  box-shadow: none;
+  border-color: #7fffbf;
+}
