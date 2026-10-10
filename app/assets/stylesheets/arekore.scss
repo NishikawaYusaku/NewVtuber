@@ -106,6 +106,15 @@ ul.ui-autocomplete {
 
 .profile_setting_textbox:focus {
   outline: 3px solid #ff7fff;
+  box-shadow: none;
+  border-color: #ff7fff;
+}
+
+.profile_setting_number:focus {
+  outline: 3px solid #ff7fff;
+  box-shadow: none;
+  border-color: transparent;
+  border-radius: 5px;
 }
 
 .comment-icon:hover {
