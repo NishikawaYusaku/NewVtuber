@@ -11,7 +11,7 @@
             <div class="mb-2">
               <small>8文字以上で設定してください</small>
             </div>
-            <%= f.password_field :password, class: "form-control mb-2 password-field" %>
+            <%= f.password_field :password, class: "form-control mb-2 password-field mypage_textbox" %>
             <div class="d-flex user_checkbox">
               <div>
                 <%= check_box_tag "show_password", class: "password-show", id: "password-edit" %>
@@ -21,7 +21,7 @@
           </div>
           <div class="mb-5 password-container">
             <%= f.label :password_confirmation, "パスワード（確認用）", class: "form-label" %>
-            <%= f.password_field :password_confirmation, class: "form-control mb-2 password-field" %>
+            <%= f.password_field :password_confirmation, class: "form-control mb-2 password-field mypage_textbox" %>
             <div class="d-flex user_checkbox">
               <div>
                 <%= check_box_tag "show_password", class: "password-show", id: "password-edit-confirmation" %>
