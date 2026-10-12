@@ -148,3 +148,9 @@ ul.ui-autocomplete {
   box-shadow: none;
   border-color: #7f7fff;
 }
+
+.before_login_textbox:focus {
+  outline: 3px solid #ff7fbf;
+  box-shadow: none;
+  border-color: #ff7fbf;
+}

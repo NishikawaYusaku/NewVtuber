@@ -8,11 +8,11 @@
           <h3 class="my-5">ログイン</h3>
           <div class="mb-5">
             <%= f.label :email, "メールアドレス", class: "form-label" %>
-            <%= f.email_field :email, class: "form-control" %>
+            <%= f.email_field :email, class: "form-control before_login_textbox" %>
           </div>
           <div class="mb-5 password-container">
             <%= f.label :password, "パスワード", class: "form-label" %>
-            <%= f.password_field :password, class: "form-control mb-2 password-field" %>
+            <%= f.password_field :password, class: "form-control mb-2 password-field before_login_textbox" %>
             <div class="d-flex user_checkbox">
               <div>
                 <%= check_box_tag "show_password", class: "password-show", id: "password-login" %>
