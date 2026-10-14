@@ -4,3 +4,4 @@ html = "<%= j(render 'comments/edit-form', vtuber: @vtuber, comment: @comment) %
 target.innerHTML = html;
 commentBodyElement = target.querySelector(`#comment-body-${id}`);
 commentBodyElement.style.display = 'none';
+target.querySelector(`#textarea-comment-${id}`).focus();
