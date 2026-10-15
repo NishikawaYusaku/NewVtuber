@@ -121,7 +121,7 @@ RSpec.describe "Vtubers", type: :system do
           comment = create(:comment, user: @user, vtuber: vtuber1, body: "testcomment")
           find("a[href='/vtubers/#{vtuber1.id}/comments/#{comment.id}/edit']").click
           expect(page).to have_button '更新する'
-          fill_in "textarea-comment-#{comment.id}", with: "testcomment_edit"
+          fill_in "comment-textarea-#{comment.id}", with: "testcomment_edit"
           click_button '更新する'
           expect(page).to have_content 'コメント（1）'
           expect(page).to have_content 'testcomment_edit'
