@@ -19,7 +19,7 @@
     </div>
     <div class="col d-flex justify-content-end align-items-center">
       <%= link_to "見る", vtuber_path(v.id), class: "btn btn-user" %>
-      <button type="button" class="nav-link ms-4 me-2" data-bs-toggle="modal" data-bs-target="#mypage-favorite-<%= v.id %>", id="profile-modal", data-testid="mypage-heart" >
+      <button type="button" class="nav-link ms-4 me-2" data-bs-toggle="modal" data-bs-target="#mypage-favorite-<%= v.id %>" data-testid="mypage-heart" >
         <i class="fa-solid fa-heart fa-lg mypage-favorite-icon" aria-hidden="true", style="color: red;"></i>
       </button>
       <div class="modal fade" id="mypage-favorite-<%= v.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
