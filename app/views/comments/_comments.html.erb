@@ -1,6 +1,6 @@
 <% vtuber.comments.includes([:user]).order(updated_at: "DESC").each do |comment| %>
   <div class="pb-4 border-top", id="comment_<%= comment.id %>" >
-    <p class="text-secondary">
+    <p class="d-flex text-secondary">
       <span class="me-4">
         <%= "#{comment.user.name}" %>
       </span>
@@ -11,14 +11,32 @@
       <% end %>
     
       <% if logged_in? && (comment.user.id == current_user.id) %>
-        <%= link_to vtuber_comment_path(vtuber, comment), method: :delete, remote: true, class: "text-decoration-none link-dark ms-4 comment-icon" do %>
-          <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-        <% end %>
+        <button type="button" class="nav-link ms-4 comment-icon" data-bs-toggle="modal" data-bs-target="#comment-modal-<%= comment.id %>" >
+          <i class="fa-solid fa-trash" style="color: red;"></i>
+        </button>
         <%= link_to edit_vtuber_comment_path(vtuber, comment), remote: true, class: "text-decoration-none link-dark ms-4 comment-icon" do %>
           <i class="fa-solid fa-pen" style="color: #000000;"></i>
         <% end %>
       <% end %>
     </p>
+    <div class="modal fade" id="comment-modal-<%= comment.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered mx-auto", style="width: 300px;">
+        <div class="modal-content text-center py-4">
+          コメントを削除しますか？
+          <div>
+            <span class="mx-4 my-5 index-name">
+              <%= comment.body %>
+            </span>
+          </div>
+          <div class="d-inline">
+            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">やめる</button>
+            <span class="ms-3" data-bs-dismiss="modal">
+              <%= link_to "削除する", vtuber_comment_path(vtuber, comment), method: :delete, remote: true, class: "btn btn-user", data: {testid: "mypage-heart-delete"} %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
     <p><%= comment.body %></p>
   </div>
 <% end %>
