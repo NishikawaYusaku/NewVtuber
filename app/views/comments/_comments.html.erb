@@ -1,42 +1,41 @@
 <% vtuber.comments.includes([:user]).order(updated_at: "DESC").each do |comment| %>
-  <div class="pb-4 border-top", id="comment_<%= comment.id %>" >
-    <p class="d-flex text-secondary">
-      <span class="me-4">
-        <%= "#{comment.user.name}" %>
+  <div class="border-top", id="comment_<%= comment.id %>" >
+    <div class="mt-2 text-secondary">
+      <span class="index-name">
+        <%= comment.user.name %>
       </span>
-      <% if comment.created_at == comment.updated_at %>
-        <%= "#{l comment.updated_at}" %>
-      <% else %>
-        <%= "#{l comment.updated_at}（編集済み）" %>
-      <% end %>
-    
-      <% if logged_in? && (comment.user.id == current_user.id) %>
-        <button type="button" class="nav-link ms-4 comment-icon" data-bs-toggle="modal" data-bs-target="#comment-modal-<%= comment.id %>" >
-          <i class="fa-solid fa-trash" style="color: red;"></i>
-        </button>
-        <%= link_to edit_vtuber_comment_path(vtuber, comment), remote: true, class: "text-decoration-none link-dark ms-4 comment-icon" do %>
-          <i class="fa-solid fa-pen" style="color: #000000;"></i>
+      <div class="d-flex">
+        <%= l comment.updated_at %><%= "（編集済み）" if comment.created_at != comment.updated_at %>
+        <% if logged_in? && (comment.user.id == current_user.id) %>
+          <button type="button" class="nav-link ms-4 comment-icon" data-bs-toggle="modal" data-bs-target="#comment-modal-<%= comment.id %>" >
+            <i class="fa-solid fa-trash" style="color: red;"></i>
+          </button>
+          <%= link_to edit_vtuber_comment_path(vtuber, comment), remote: true, class: "text-decoration-none link-dark ms-4 comment-icon" do %>
+            <i class="fa-solid fa-pen" style="color: #000000;"></i>
+          <% end %>
         <% end %>
-      <% end %>
-    </p>
+      </div>
+    </div>
     <div class="modal fade" id="comment-modal-<%= comment.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered mx-auto", style="width: 300px;">
+      <div class="modal-dialog modal-dialog-centered mx-auto", style="width: 90%;">
         <div class="modal-content text-center py-4">
           コメントを削除しますか？
           <div>
-            <span class="mx-4 my-5 index-name">
-              <%= comment.body %>
+            <span class="mx-4 my-4 index-name">
+              <%= safe_join(comment.body.split("\n"),tag(:br)) %>
             </span>
           </div>
           <div class="d-inline">
             <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">やめる</button>
             <span class="ms-3" data-bs-dismiss="modal">
-              <%= link_to "削除する", vtuber_comment_path(vtuber, comment), method: :delete, remote: true, class: "btn btn-user", data: {testid: "mypage-heart-delete"} %>
+              <%= link_to "削除する", vtuber_comment_path(vtuber, comment), method: :delete, remote: true, class: "btn btn-cancel", data: {testid: "mypage-heart-delete"} %>
             </span>
           </div>
         </div>
       </div>
     </div>
-    <p><%= comment.body %></p>
+    <p class="my-4 index-name">
+      <%= safe_join(comment.body.split("\n"),tag(:br)) %>
+    </p>
   </div>
 <% end %>
