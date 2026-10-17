@@ -165,7 +165,7 @@
             <%= f.text_area :body, class: "form-control comment_textarea", placeholder: "コメントを入力", id: "comment-clear" %>
           </div>
           <div class="mb-4">
-            <button type="button" class="btn btn-secondary" onclick="clearTextarea()">やめる</button>
+            <button type="button" class="btn btn-cancel me-3" onclick="clearTextarea()">やめる</button>
             <%= f.submit "投稿する", class: "btn btn-comment" %>
           </div>
         <% end %>

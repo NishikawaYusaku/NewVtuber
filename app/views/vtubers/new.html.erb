@@ -131,7 +131,7 @@
             <%= label_tag "agreement_vtuber_id", "設定するプロフィールはVTuberです", class: "ps-3" %>
           </div>
           <div class="d-flex flex-wrap-reverse justify-content-center row-gap-4 my-5 pt-5">
-            <button type="button" class="btn btn-secondary mx-4" data-bs-toggle="modal" data-bs-target="#cancel_set_vprofile">やめる</button>
+            <button type="button" class="btn btn-cancel mx-4" data-bs-toggle="modal" data-bs-target="#cancel_set_vprofile">やめる</button>
             <%= f.button "設定する", type: 'button', onclick: 'submit();', class: "btn btn-setting mx-4", data: {testid: "profile-create"} %>
           </div>
         <% end %>

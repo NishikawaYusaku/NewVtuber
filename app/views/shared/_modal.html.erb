@@ -12,8 +12,8 @@
             <%= f.text_field :name, class: "form-control profile_setting_textbox", id: "name-setting", value: @vtuber ? @vtuber.name : "" %>
           </div>
           <div class="text-center mt-4 mb-2">
-            <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">やめる</button>
-            <%= f.submit "設定する", class: "btn btn-setting ms-3", data: { testid: "profile-modal-button" } %>
+            <button type="button" class="btn btn-cancel mx-4" data-bs-dismiss="modal">やめる</button>
+            <%= f.submit "設定を始める", class: "btn btn-setting mx-4", data: { testid: "profile-modal-button" } %>
           </div>
         <% end %>
       </div>
@@ -26,9 +26,9 @@
     <div class="modal-content text-center py-5">
       <div><span class="px-5 index-name">内容は保存されませんが、設定を終了しますか？</span></div>
       <div class="d-flex flex-wrap-reverse justify-content-center row-gap-4 mt-5">
-        <button type="button" class="btn btn-setting mx-4" data-bs-dismiss="modal">設定を続ける</button>
+        <button type="button" class="btn btn-cancel mx-4" data-bs-dismiss="modal">設定を続ける</button>
         <span class="mx-4" data-bs-dismiss="modal">
-          <%= link_to "設定を終了する", root_path, class: "btn btn-secondary", data: {testid: "profile-cancel"} %>
+          <%= link_to "設定を終了する", root_path, class: "btn btn-delete", data: {testid: "profile-cancel"} %>
         </span>
       </div>
     </div>
