@@ -40,12 +40,23 @@
 }
 
 .btn-cancel {
-  background-color: red;
+  background-color: #cfcfc4;
   color: #ffffff;
 }
 
 .btn-cancel:hover {
-  background-color: red;
+  background-color: #cfcfc4;
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+.btn-delete {
+  background-color: #ff7f7f;
+  color: #ffffff;
+}
+
+.btn-delete:hover {
+  background-color: #ff7f7f;
   color: #ffffff;
   opacity: 0.5;
 }
