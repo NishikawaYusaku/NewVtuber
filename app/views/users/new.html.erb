@@ -43,14 +43,14 @@
               <%= f.check_box :agreement, id: "user-create-agreement" %>
             </div>
             <%= label_tag "agreement", class: "ps-3", for: "user-create-agreement" do %>
-              <%= link_to "利用規約", terms_pages_path, target: :_blank, rel: "noopener" %>と<%= link_to "プライバシーポリシー", privacy_policy_pages_path, target: :_blank, rel: "noopener" %>に同意します
+              <%= link_to "利用規約", terms_pages_path, target: :_blank, rel: "noopener", class: "blue-link" %>と<%= link_to "プライバシーポリシー", privacy_policy_pages_path, target: :_blank, rel: "noopener", class: "blue-link" %>に同意します
             <% end %>
           </div>
           <div class="text-center my-5">
             <%= f.submit "登録する", class: "btn btn-user_create px-5" %>
           </div>
           <div class="text-center my-5">
-            <div class="index-name"><%= link_to "アカウントがある方はこちらへ", login_path %></div>
+            <div class="index-name"><%= link_to "アカウントがある方はこちらへ", login_path, class:"blue-link" %></div>
           </div>
         <% end %>
       </div>
