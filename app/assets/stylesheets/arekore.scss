@@ -154,3 +154,25 @@ ul.ui-autocomplete {
   box-shadow: none;
   border-color: #ff7fbf;
 }
+
+.blue-link {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.blue-link:hover {
+  color: #0d6efd;
+  text-decoration: underline #0d6efd;
+  text-underline-offset: 7px;
+}
+
+.black-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.black-link:hover {
+  color: #000000;
+  text-decoration: underline #000000;
+  text-underline-offset: 7px;
+}

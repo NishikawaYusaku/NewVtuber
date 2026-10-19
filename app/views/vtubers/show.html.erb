@@ -124,7 +124,7 @@
           </div>
           <div class="col-8">
             <% (@vtuber.tags).each_with_index do |tag, index| %>
-              <%= link_to tag.name, root_path(tag: tag.name) %>
+              <%= link_to tag.name, root_path(tag: tag.name), class: "blue-link" %>
               <%= "、" if index < @vtuber.tags.size - 1 %>
             <% end %>
           </div>
