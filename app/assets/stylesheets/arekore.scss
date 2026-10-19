@@ -155,6 +155,12 @@ ul.ui-autocomplete {
   border-color: #ff7fbf;
 }
 
+.normal_search_textbox:focus {
+  outline: 3px solid #7fffbf;
+  box-shadow: none;
+  border-color: #7fffbf;
+}
+
 .blue-link {
   color: #0d6efd;
   text-decoration: none;
