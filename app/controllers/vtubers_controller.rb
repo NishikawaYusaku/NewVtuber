@@ -6,7 +6,6 @@ class VtubersController < ApplicationController
   def show
     @vtuber = Vtuber.find(params[:id])
     @comment = Comment.new
-    @comments = @vtuber.comments
     @youtube = VtuberYoutube.find_by(vtuber_id: @vtuber.id)
   end
 
@@ -45,7 +44,7 @@ class VtubersController < ApplicationController
 
   def edit
     @vtuber = Vtuber.find_by(id: params[:id])
-    @tag = @vtuber.tags.pluck(:name).join('、')
+    @vtuber.tag = @vtuber.tags.order('vtuber_tags.created_at asc').pluck(:name).join('、')
   end
 
   def autocomplete_affiliations
@@ -148,6 +147,6 @@ class VtubersController < ApplicationController
   private
 
   def vtuber_params
-    params.require(:vtuber).permit(:name, :affiliation, :name_x, :gender, :language, :birthday, :height, :blood_type, :debut_date, :like, :unlike, :image, :remove_image, :agreement_vtuber, vtuber_places_attributes: [:place_id, :url, :_destroy, :id], content_ids: [])
+    params.require(:vtuber).permit(:name, :affiliation, :name_x, :gender, :language, :birthday, :height, :blood_type, :debut_date, :like, :unlike, :image, :remove_image, :tag, :agreement_vtuber, vtuber_places_attributes: [:place_id, :url, :_destroy, :id], content_ids: [])
   end
 end
