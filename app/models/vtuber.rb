@@ -73,6 +73,8 @@ class Vtuber < ApplicationRecord
 
   accepts_nested_attributes_for :vtuber_places, allow_destroy: true
 
+  attr_accessor :tag
+
   def save_tags(tags)
     tags.delete("")
 

@@ -133,7 +133,7 @@
           </div>
           <div class="mb-5">
             <%= f.label :tag, "タグ（「、」で区切って入力してください）", class: "form-label" %>
-            <%= f.text_field :tag, class: "form-control profile_setting_textbox mt-1", value: @tag %>
+            <%= f.text_field :tag, class: "form-control profile_setting_textbox mt-1" %>
           </div>
           <%= f.hidden_field :version, value: @vtuber.version %>
           <div class="d-flex flex-wrap-reverse justify-content-center row-gap-4 my-5 pt-5">
