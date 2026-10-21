@@ -10,7 +10,7 @@
           <div class="mt-5">
             <%= f.label :email, "ご登録のメールアドレス", class: "form-label" %>
             <% if logged_in? %>
-              <div class="text-left">
+              <div class="index-name">
                 <%= current_user.email %>
               </div>
             <% else %>
