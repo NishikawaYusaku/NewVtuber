@@ -4,7 +4,9 @@
     <%= link_to vtuber_path(notification.vtuber_id), class: "text-decoration-none", data: { testid: "notification-modal-link" } do %>
       <div class="py-3 px-3 d-flex align-items-center link-dark <%= notification.read_at.present? ? "read_notification" : "unread_notification" %> hover_notification">
         <%= image_tag Vtuber.find(notification.vtuber_id).image.url, class: "rounded-circle me-3", size: "50x50", style: "border: 1px solid #000;" %>
-        <%= Vtuber.find(notification.vtuber_id).name %>
+        <span class="index-name">
+          <%= Vtuber.find(notification.vtuber_id).name %>
+        </span>
       </div>
     <% end %>
     <div class="pe-3 text-end">
