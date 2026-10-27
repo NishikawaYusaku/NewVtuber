@@ -37,92 +37,92 @@
   </div>
 
   <div class="row mt-5 justify-content-center">
-    <div class="col-xl-6 mb-4">
+    <div class="col mb-4">
       <ul class="list-unstyled">
-        <div class="row justify-content-start">
-          <div class="col-4">
+        <div class="row">
+          <div class="col-4 col-md-6">
             <li class="text-end">言語：</li>
           </div>
-          <div class="col-8"><%= @vtuber.language %></div>
+          <div class="col-8 col-md-6"><%= @vtuber.language %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">所属：</li>
           </div>
-          <div class="col-8 index-name"><%= @vtuber.affiliation %></div>
+          <div class="col-8 col-md-6 index-name"><%= @vtuber.affiliation %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">性別：</li>
           </div>
-          <div class="col-8"><%= @vtuber.gender %></div>
+          <div class="col-8 col-md-6"><%= @vtuber.gender %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">誕生日：</li>
           </div>
-          <div class="col-8"><%= @vtuber.birthday.strftime('%-m / %-d') if @vtuber.birthday %></div>
+          <div class="col-8 col-md-6"><%= @vtuber.birthday.strftime('%-m / %-d') if @vtuber.birthday %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">身長：</li>
           </div>
-          <div class="col-8"><%= @vtuber.height %><%= "cm" if @vtuber.height %></div>
+          <div class="col-8 col-md-6"><%= @vtuber.height %><%= "cm" if @vtuber.height %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">血液型：</li>
           </div>
-          <div class="col-8"><%= @vtuber.blood_type %><%= "型" if @vtuber.blood_type %></div>
+          <div class="col-8 col-md-6"><%= @vtuber.blood_type %><%= "型" if @vtuber.blood_type %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">デビュー日：</li>
           </div>
-          <div class="col-8"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') if @vtuber.debut_date %></div>
+          <div class="col-8 col-md-6"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') if @vtuber.debut_date %></div>
         </div>
         <% if @youtube %>
-          <div class="row pt-3 justify-content-start">
-            <div class="col-4">
+          <div class="row pt-3">
+            <div class="col-4 col-md-6">
               <li class="text-end">ch登録者数：</li>
             </div>
-            <div class="col-8"><%= @youtube.subscriber_count.to_formatted_s(:delimited) %>人</div>
+            <div class="col-8 col-md-6"><%= @youtube.subscriber_count.to_formatted_s(:delimited) %>人</div>
           </div>
-          <div class="row pt-3 justify-content-start">
-            <div class="col-4">
+          <div class="row pt-3">
+            <div class="col-4 col-md-6">
               <li class="text-end">動画数：</li>
             </div>
-            <div class="col-8"><%= @youtube.video_count.to_formatted_s(:delimited) %></div>
+            <div class="col-8 col-md-6"><%= @youtube.video_count.to_formatted_s(:delimited) %></div>
           </div>
         <% end %>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">配信内容：</li>
           </div>
-          <div class="col-8">
+          <div class="col-8 col-md-6">
             <% (@vtuber.contents).each_with_index do |content, index| %>
               <%= content.name %>
               <%= "、" if index < @vtuber.contents.size - 1 %>
             <% end %>
           </div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">好きなこと：</li>
           </div>
-          <div class="col-8 index-name"><%= @vtuber.like %></div>
+          <div class="col-8 col-md-6 index-name"><%= @vtuber.like %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">嫌いなこと：</li>
           </div>
-          <div class="col-8 index-name"><%= @vtuber.unlike %></div>
+          <div class="col-8 col-md-6 index-name"><%= @vtuber.unlike %></div>
         </div>
-        <div class="row pt-3 justify-content-start">
-          <div class="col-4">
+        <div class="row pt-3">
+          <div class="col-4 col-md-6">
             <li class="text-end">タグ：</li>
           </div>
-          <div class="col-8">
+          <div class="col-8 col-md-6">
             <% (@vtuber.tags.order('vtuber_tags.created_at asc')).each_with_index do |tag, index| %>
               <%= link_to tag.name, root_path(tag: tag.name), class: "blue-link index-name" %><%= "、" if index < @vtuber.tags.size - 1 %>
             <% end %>
