@@ -3,11 +3,11 @@
 
 <div class="container" style="background-color: #b7ffdb;" id="vtuber_profile">
   <div class="row my-5">
-    <div class="col-xl-6 mt-5 text-center">
+    <div class="col-lg-5 mt-5 text-center">
       <%= image_tag @vtuber.image.url, class: "rounded-circle border border-black", size: "300x300" %>
     </div>
-    <div class="col-xl-6 d-flex justify-content-center align-items-center flex-column">
-      <div class="display-4 mt-5 text-break">
+    <div class="col-lg-7 d-flex justify-content-center align-items-center flex-column px-5">
+      <div class="display-4 mt-5 text-break index-name">
         <%= @vtuber.name %>
       </div>
       <div class="mt-4 d-flex align-items-center">
@@ -30,14 +30,14 @@
   
   <div class="row my-5">
     <div class="col">
-      <div class="text-center my-5", id="favorite_<%= @vtuber.id %>">
+      <div class="ms-5 text-center my-5", id="favorite_<%= @vtuber.id %>">
         <%= render 'favorites/favorite', vtuber: @vtuber %>
       </div>
     </div>
   </div>
 
   <div class="row mt-5 justify-content-center">
-    <div class="col mb-4">
+    <div class="col mb-4 px-4">
       <ul class="list-unstyled">
         <div class="row">
           <div class="col-4 col-md-6">
@@ -132,9 +132,9 @@
     </div>
   </div>
 
-  <div class="row pt-5">
+  <div class="row mt-5 justify-content-center">
     <% if @youtube %>
-      <div class="mb-5">
+      <div class="col-md-9 col-lg-7 mb-5">
         <p>最新動画</p>
         <div class="ratio ratio-16x9">
           <iframe src="https://www.youtube.com/embed/<%= @youtube.latest_video_id %>?rel=0" title="YouTube video player" allowfullscreen></iframe>
@@ -144,7 +144,7 @@
     <% end %>
 
     <% if @vtuber.name_x.present? %>
-      <div class="col-xl mb-5 order-xl-1">
+      <div class="mb-5 order-xl-1">
         <a class="twitter-timeline" data-lang="ja" data-height="700", data-width="500" href="https://twitter.com/<%= @vtuber.name_x %>?ref_src=twsrc%5Etfw">Tweets by <%= @vtuber.name_x %>></a> 
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
