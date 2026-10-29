@@ -1,104 +1,84 @@
 <% content_for(:title, @vtuber.name) %>
 <% assign_meta_tags title: @vtuber.name, image: @vtuber.image.url %>
 
-<div class="container" style="background-color: #b7ffdb;" id="vtuber_profile">
-  <div class="row my-5">
-    <div class="col-lg-5 mt-5 text-center">
-      <%= image_tag @vtuber.image.url, class: "rounded-circle border border-black", size: "300x300" %>
-    </div>
-    <div class="col-lg-7 d-flex justify-content-center align-items-center flex-column px-5">
-      <div class="display-4 mt-5 text-break index-name">
-        <%= @vtuber.name %>
+<div class="mx-2">
+  <div class="container" style="background-color: #b7ffdb;" id="vtuber_profile">
+    <div class="row my-5">
+      <div class="col-lg-5 mt-5 text-center">
+        <%= image_tag @vtuber.image.url, class: "rounded-circle border border-black", size: "300x300" %>
       </div>
-      <div class="mt-4 d-flex align-items-center">
-        <%= link_to @vtuber.vtuber_places.last.url, class: "mx-4 sns-logo" do %>
-          <% case @vtuber.vtuber_places.last.place.name %>
-          <% when "YouTube" then %>
-            <%= image_tag "logo-youtube.png", size: "70x60" %>
-          <% when "Twitch" then %>
-            <%= image_tag "logo-twitch.png", size: "36x42" %>
+      <div class="col-lg-7 d-flex justify-content-center align-items-center flex-column px-5">
+        <div class="display-4 mt-5 text-break index-name">
+          <%= @vtuber.name %>
+        </div>
+        <div class="mt-4 d-flex align-items-center">
+          <%= link_to @vtuber.vtuber_places.last.url, class: "mx-4 sns-logo" do %>
+            <% case @vtuber.vtuber_places.last.place.name %>
+            <% when "YouTube" then %>
+              <%= image_tag "logo-youtube.png", size: "70x60" %>
+            <% when "Twitch" then %>
+              <%= image_tag "logo-twitch.png", size: "36x42" %>
+            <% end %>
           <% end %>
-        <% end %>
-        <% if @vtuber.name_x.present? %>
-          <%= link_to "https://twitter.com/#{@vtuber.name_x}", class: "mx-4 sns-logo" do %>
-            <%= image_tag "logo-x.png", size: "32x33" %>
+          <% if @vtuber.name_x.present? %>
+            <%= link_to "https://twitter.com/#{@vtuber.name_x}", class: "mx-4 sns-logo" do %>
+              <%= image_tag "logo-x.png", size: "32x33" %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="row my-5">
-    <div class="col">
-      <div class="ms-5 text-center my-5", id="favorite_<%= @vtuber.id %>">
-        <%= render 'favorites/favorite', vtuber: @vtuber %>
-      </div>
-    </div>
-  </div>
 
-  <div class="row mt-5 justify-content-center">
-    <div class="col mb-4 px-4">
-      <ul class="list-unstyled">
+    <div class="row my-5">
+      <div class="col">
+        <div class="ms-5 text-center my-5", id="favorite_<%= @vtuber.id %>">
+          <%= render 'favorites/favorite', vtuber: @vtuber %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+      <div class="col mb-4 px-4">
         <div class="row">
-          <div class="col-4 col-md-6">
-            <li class="text-end">言語：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">言語：</div>
           <div class="col-8 col-md-6"><%= @vtuber.language %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">所属：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">所属：</div>
           <div class="col-8 col-md-6 index-name"><%= @vtuber.affiliation %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">性別：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">性別：</div>
           <div class="col-8 col-md-6"><%= @vtuber.gender %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">誕生日：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">誕生日：</div>
           <div class="col-8 col-md-6"><%= @vtuber.birthday.strftime('%-m / %-d') if @vtuber.birthday %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">身長：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">身長：</div>
           <div class="col-8 col-md-6"><%= @vtuber.height %><%= "cm" if @vtuber.height %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">血液型：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">血液型：</div>
           <div class="col-8 col-md-6"><%= @vtuber.blood_type %><%= "型" if @vtuber.blood_type %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">デビュー日：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">デビュー日：</div>
           <div class="col-8 col-md-6"><%= @vtuber.debut_date.strftime('%Y / %-m / %-d') if @vtuber.debut_date %></div>
         </div>
         <% if @youtube %>
           <div class="row pt-3">
-            <div class="col-4 col-md-6">
-              <li class="text-end">ch登録者数：</li>
-            </div>
+            <div class="col-4 col-md-6 text-end">ch登録者数：</div>
             <div class="col-8 col-md-6"><%= @youtube.subscriber_count.to_formatted_s(:delimited) %>人</div>
           </div>
           <div class="row pt-3">
-            <div class="col-4 col-md-6">
-              <li class="text-end">動画数：</li>
-            </div>
+            <div class="col-4 col-md-6 text-end">動画数：</div>
             <div class="col-8 col-md-6"><%= @youtube.video_count.to_formatted_s(:delimited) %></div>
           </div>
         <% end %>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">配信内容：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">配信内容：</div>
           <div class="col-8 col-md-6">
             <% (@vtuber.contents).each_with_index do |content, index| %>
               <%= content.name %>
@@ -107,49 +87,42 @@
           </div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">好きなこと：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">好きなこと：</div>
           <div class="col-8 col-md-6 index-name"><%= @vtuber.like %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">嫌いなこと：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">嫌いなこと：</div>
           <div class="col-8 col-md-6 index-name"><%= @vtuber.unlike %></div>
         </div>
         <div class="row pt-3">
-          <div class="col-4 col-md-6">
-            <li class="text-end">タグ：</li>
-          </div>
+          <div class="col-4 col-md-6 text-end">タグ：</div>
           <div class="col-8 col-md-6">
             <% (@vtuber.tags.order('vtuber_tags.created_at asc')).each_with_index do |tag, index| %>
               <%= link_to tag.name, root_path(tag: tag.name), class: "blue-link index-name" %><%= "、" if index < @vtuber.tags.size - 1 %>
             <% end %>
           </div>
         </div>
-      </ul>
+      </div>
     </div>
-  </div>
 
-  <div class="row mt-5 justify-content-center">
-    <% if @youtube %>
-      <div class="col-md-9 col-lg-7 mb-5">
-        <p>最新動画</p>
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/<%= @youtube.latest_video_id %>?rel=0" title="YouTube video player" allowfullscreen></iframe>
+    <div class="row mt-5 justify-content-center">
+      <% if @youtube %>
+        <div class="col-md-9 col-lg-7 mb-5">
+          <p>最新動画</p>
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.youtube.com/embed/<%= @youtube.latest_video_id %>?rel=0" title="YouTube video player" allowfullscreen></iframe>
+          </div>
+          <p class="mt-3"><%= @youtube.latest_video_title %></p>
         </div>
-        <p class="mt-3"><%= @youtube.latest_video_title %></p>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% if @vtuber.name_x.present? %>
-      <div class="mb-5 order-xl-1">
-        <a class="twitter-timeline" data-lang="ja" data-height="700", data-width="500" href="https://twitter.com/<%= @vtuber.name_x %>?ref_src=twsrc%5Etfw">Tweets by <%= @vtuber.name_x %>></a> 
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      </div>
-    <% end %>
-
+      <% if @vtuber.name_x.present? %>
+        <div class="mb-5 order-xl-1">
+          <a class="twitter-timeline" data-lang="ja" data-height="700", data-width="500" href="https://twitter.com/<%= @vtuber.name_x %>?ref_src=twsrc%5Etfw">Tweets by <%= @vtuber.name_x %>></a> 
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
