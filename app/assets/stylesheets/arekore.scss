@@ -182,3 +182,23 @@ ul.ui-autocomplete {
   text-decoration: underline #000000;
   text-underline-offset: 7px;
 }
+
+.top-vtuber-container {
+  width: 95%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.top-vtuber-icon {
+  width: clamp(144px, 12vw, 180px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.top-vtuber-name {
+  font-size: clamp(12px, 12vw, 20.4px);
+}
+
+.top-vtuber-logo {
+  
+}
