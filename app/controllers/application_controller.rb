@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       @filtering_search = params[:q][:filtering_search] if params[:q].keys[0] != "filtering_search"
     end
 
-    per_display = 20
+    per_display = 60
     @vtubers = @results.order(:display_order).page(params[:page]).per(per_display)
     @range_start = ((@vtubers.prev_page || 0) * per_display) + 1
     @range_end = ((@vtubers.prev_page || 0) * per_display) + @vtubers.size
