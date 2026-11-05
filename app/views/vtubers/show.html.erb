@@ -110,7 +110,7 @@
         <div class="col-md-9 col-lg-7 mb-5">
           <p>最新動画</p>
           <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/<%= @youtube.latest_video_id %>?rel=0" title="YouTube video player" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/<%= @youtube.latest_video_id %>?rel=0" title="YouTube video player" loading="lazy" allowfullscreen></iframe>
           </div>
           <p class="mt-3"><%= @youtube.latest_video_title %></p>
         </div>
