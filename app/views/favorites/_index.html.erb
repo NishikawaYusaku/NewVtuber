@@ -4,13 +4,13 @@
       <div class="d-flex align-items-center text-left my-2 ps-2">
         <% case v.gender %>
         <% when "男性" then %>
-          <%= image_tag v.image.url, class: "rounded-circle", size: "50x50", style: "border: solid; border-color: #0000ff;" %>
+          <%= image_tag v.image.url, class: "mypage-vtuber-icon", style: "border-color: #0000ff;" %>
         <% when "女性" then %>
-          <%= image_tag v.image.url, class: "rounded-circle", size: "50x50", style: "border: solid; border-color: #ff0000;" %>
+          <%= image_tag v.image.url, class: "mypage-vtuber-icon", style: "border-color: #ff0000;" %>
         <% when "その他" then %>
-          <%= image_tag v.image.url, class: "rounded-circle", size: "50x50", style: "border: solid; border-color: #ffff00;" %>
+          <%= image_tag v.image.url, class: "mypage-vtuber-icon", style: "border-color: #ffff00;" %>
         <% when nil then %>
-          <%= image_tag v.image.url, class: "rounded-circle border border-black", size: "50x50" %>
+          <%= image_tag v.image.url, class: "mypage-vtuber-icon", style: "border: 1px solid black" %>
         <% end %>
         <span class="ms-3 index-name multiline-ellipsis">
           <%= v.name %>

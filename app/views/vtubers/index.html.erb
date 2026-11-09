@@ -18,13 +18,13 @@
               <div class="pt-3">
                 <% case vtuber.gender %>
                   <% when "男性" then %>
-                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon rounded-circle", style: "border: solid; border-color: #0000ff;" %>
+                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon", style: "border-color: #0000ff;" %>
                   <% when "女性" then %>
-                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon rounded-circle", style: "border: solid; border-color: #ff0000;" %>
+                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon", style: "border-color: #ff0000;" %>
                   <% when "その他" then %>
-                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon rounded-circle", style: "border: solid; border-color: #ffff00;" %>
+                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon", style: "border-color: #ffff00;" %>
                   <% when nil then %>
-                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon rounded-circle border border-black" %>
+                    <%= image_tag vtuber.image.url, class: "top-vtuber-icon", style: "border: 1px solid black" %>
                 <% end %>
               </div>
               <div class="mt-3 text-body index-name top-vtuber-name">
