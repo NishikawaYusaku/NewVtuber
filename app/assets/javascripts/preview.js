@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function(){
     if (previewImage) {
       previewImage.innerHTML = '';
       previewImage.insertAdjacentHTML("beforeend", `
-        <img src="${src}" class="preview mt-3 rounded-circle border border-dark" width="250" height="250">
-        <div class="ms-3 mt-2">
-          <button type="button" class="btn btn-setting ms-5 remove_image_btn">アイコン削除</button>
+        <img src="${src}" class="preview mt-3 setting-vtuber-icon">
+        <div class="mt-3">
+          <button type="button" class="btn btn-setting remove_image_btn">アイコン削除</button>
         </div>
       `);
     }

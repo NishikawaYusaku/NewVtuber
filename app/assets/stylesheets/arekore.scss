@@ -191,10 +191,42 @@ ul.ui-autocomplete {
 
 .top-vtuber-icon {
   width: clamp(144px, 12vw, 180px);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  border: solid;
 }
 
 .top-vtuber-name {
   font-size: clamp(12px, 12vw, 20.4px);
+}
+
+.top-vtuber-icon,
+.setting-vtuber-icon,
+.profile-vtuber-icon,
+.mypage-vtuber-icon,
+.noti-vtuber-icon {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.setting-vtuber-icon,
+.profile-vtuber-icon,
+.noti-vtuber-icon {
+  border: 1px solid black;
+}
+
+.setting-vtuber-icon {
+  width: 220px;
+}
+
+.profile-vtuber-icon {
+  width: 300px;
+}
+
+.mypage-vtuber-icon {
+  width: 50px;
+  border: 3px solid;
+}
+
+.noti-vtuber-icon {
+  width: 50px;
 }
