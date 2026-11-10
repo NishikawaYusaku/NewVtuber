@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function(){
     if (previewImage) {
       previewImage.innerHTML = '';
       previewImage.insertAdjacentHTML("beforeend", `
-        <img src="${src}" class="preview mt-3 setting-vtuber-icon">
+        <img src="${src}" class="mt-3 setting-vtuber-icon">
         <div class="mt-3">
-          <button type="button" class="btn btn-setting remove_image_btn">アイコン削除</button>
+          <button type="button" class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#delete_vicon">アイコン削除</button>
         </div>
       `);
     }
